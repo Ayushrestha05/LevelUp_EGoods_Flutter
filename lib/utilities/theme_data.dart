@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:levelup_egoods/utilities/size_config.dart';
 
 ThemeData light = ThemeData(
     colorScheme: const ColorScheme.light(
