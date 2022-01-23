@@ -12,75 +12,89 @@ class LoginScreen extends StatelessWidget {
     SizeConfig().init(context);
     return SafeArea(
       child: Scaffold(
-        body: Form(
-          child: Column(
-            children: [
-              Expanded(
-                child: Container(
-                  color: Colors.blue,
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.symmetric(
-                    horizontal: rWidth(20), vertical: rWidth(30)),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Login",
-                      style: TextStyle(
-                          fontFamily: "Outfit",
-                          fontSize: rWidth(32),
-                          fontWeight: FontWeight.w300),
-                    ),
-                    SizedBox(
-                      height: rWidth(30),
-                    ),
-                    const EmailFormField(),
-                    SizedBox(
-                      height: rWidth(20),
-                    ),
-                    PasswordFormField(),
-                    SizedBox(
-                      height: rWidth(20),
-                    ),
-                    DefaultButton(),
-                    SizedBox(
-                      height: rWidth(10),
-                    ),
-                    const Text(
-                      "Forgot Password",
-                      style: TextStyle(fontFamily: "Outfit"),
-                    ),
-                    SizedBox(
-                      height: rWidth(15),
-                    ),
-                    Container(
-                      alignment: Alignment.center,
-                      child: RichText(
-                        text: TextSpan(children: [
-                          TextSpan(
-                              text: "Don't have an account? ",
-                              style: TextStyle(
-                                  fontFamily: "Outfit",
-                                  color: Theme.of(context)
-                                      .textTheme
-                                      .bodyText1!
-                                      .color)),
-                          const TextSpan(
-                              text: "Sign Up",
-                              style: TextStyle(
-                                  fontFamily: "Outfit",
-                                  color: Colors.lightBlueAccent)),
-                        ]),
-                      ),
-                    )
-                  ],
-                ),
-              )
-            ],
+        body: SingleChildScrollView(
+          child: Container(
+            height: MediaQuery.of(context).size.height,
+            child: _buildLoginScreen(context),
           ),
         ),
+      ),
+    );
+  }
+
+  _buildLoginScreen(BuildContext context) {
+    return Form(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Expanded(
+            child: Container(
+              color: Colors.blue,
+              child: Image.asset(
+                'assets/images/login_header.jpg',
+                fit: BoxFit.fill,
+              ),
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.symmetric(
+                horizontal: rWidth(20), vertical: rWidth(30)),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Login",
+                  style: TextStyle(
+                      fontFamily: "Outfit",
+                      fontSize: rWidth(32),
+                      fontWeight: FontWeight.w300),
+                ),
+                SizedBox(
+                  height: rWidth(30),
+                ),
+                const EmailFormField(),
+                SizedBox(
+                  height: rWidth(20),
+                ),
+                PasswordFormField(),
+                SizedBox(
+                  height: rWidth(20),
+                ),
+                DefaultButton(),
+                SizedBox(
+                  height: rWidth(10),
+                ),
+                const Text(
+                  "Forgot Password",
+                  style: TextStyle(fontFamily: "Outfit"),
+                ),
+                SizedBox(
+                  height: rWidth(15),
+                ),
+                Container(
+                  alignment: Alignment.center,
+                  child: RichText(
+                    text: TextSpan(children: [
+                      TextSpan(
+                          text: "Don't have an account? ",
+                          style: TextStyle(
+                              fontFamily: "Outfit",
+                              color: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1!
+                                  .color)),
+                      const TextSpan(
+                          text: "Sign Up",
+                          style: TextStyle(
+                              fontFamily: "Outfit",
+                              color: Colors.lightBlueAccent)),
+                    ]),
+                  ),
+                )
+              ],
+            ),
+          )
+        ],
       ),
     );
   }
