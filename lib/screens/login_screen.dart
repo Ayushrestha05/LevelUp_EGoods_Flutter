@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:levelup_egoods/screens/register_screen.dart';
 import 'package:levelup_egoods/utilities/size_config.dart';
 import 'package:levelup_egoods/widgets/buttons.dart';
 import 'package:levelup_egoods/widgets/form_fields.dart';
@@ -13,8 +14,8 @@ class LoginScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
-          child: Container(
-            height: MediaQuery.of(context).size.height,
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height - 45,
             child: _buildLoginScreen(context),
           ),
         ),
@@ -28,17 +29,14 @@ class LoginScreen extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Expanded(
-            child: Container(
-              color: Colors.blue,
-              child: Image.asset(
-                'assets/images/login_header.jpg',
-                fit: BoxFit.fill,
-              ),
+            child: Image.asset(
+              'assets/images/login_header.jpg',
+              fit: BoxFit.fill,
             ),
           ),
           Container(
-            margin: EdgeInsets.symmetric(
-                horizontal: rWidth(20), vertical: rWidth(30)),
+            margin: EdgeInsets.only(
+                left: rWidth(20), right: rWidth(20), top: rWidth(24)),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -52,15 +50,15 @@ class LoginScreen extends StatelessWidget {
                 SizedBox(
                   height: rWidth(30),
                 ),
-                const EmailFormField(),
+                const CustomTextFormField(hintText: "Email"),
                 SizedBox(
                   height: rWidth(20),
                 ),
-                PasswordFormField(),
+                CustomPasswordFormField(),
                 SizedBox(
                   height: rWidth(20),
                 ),
-                DefaultButton(),
+                DefaultButton("Sign In"),
                 SizedBox(
                   height: rWidth(10),
                 ),
@@ -71,24 +69,30 @@ class LoginScreen extends StatelessWidget {
                 SizedBox(
                   height: rWidth(15),
                 ),
-                Container(
-                  alignment: Alignment.center,
-                  child: RichText(
-                    text: TextSpan(children: [
-                      TextSpan(
-                          text: "Don't have an account? ",
-                          style: TextStyle(
-                              fontFamily: "Outfit",
-                              color: Theme.of(context)
-                                  .textTheme
-                                  .bodyText1!
-                                  .color)),
-                      const TextSpan(
-                          text: "Sign Up",
-                          style: TextStyle(
-                              fontFamily: "Outfit",
-                              color: Colors.lightBlueAccent)),
-                    ]),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (_) => RegisterScreen()));
+                  },
+                  child: Container(
+                    alignment: Alignment.center,
+                    child: RichText(
+                      text: TextSpan(children: [
+                        TextSpan(
+                            text: "Don't have an account? ",
+                            style: TextStyle(
+                                fontFamily: "Outfit",
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1!
+                                    .color)),
+                        const TextSpan(
+                            text: "Sign Up",
+                            style: TextStyle(
+                                fontFamily: "Outfit",
+                                color: Colors.lightBlueAccent)),
+                      ]),
+                    ),
                   ),
                 )
               ],
