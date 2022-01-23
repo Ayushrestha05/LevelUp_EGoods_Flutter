@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:levelup_egoods/utilities/size_config.dart';
 
-Container DefaultButton() {
-  return Container(
+//TODO Add a OnPressed Parameter
+SizedBox DefaultButton(String buttonText) {
+  return SizedBox(
     width: double.infinity,
     child: ElevatedButton(
       onPressed: () {},
       child: Padding(
         padding: EdgeInsets.symmetric(vertical: rWidth(10)),
         child: Text(
-          "Sign In",
+          buttonText,
           style: TextStyle(fontFamily: "Outfit", fontSize: rWidth(16)),
         ),
       ),
