@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:levelup_egoods/utilities/size_config.dart';
 
-class EmailFormField extends StatelessWidget {
-  const EmailFormField({
+class CustomTextFormField extends StatelessWidget {
+  final String hintText;
+  const CustomTextFormField({
     Key? key,
+    required this.hintText,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       decoration: InputDecoration(
-        hintText: "Email",
+        hintText: hintText,
         hintStyle: const TextStyle(fontFamily: 'Outfit'),
         contentPadding: EdgeInsets.only(
             top: rWidth(10), left: rWidth(16), bottom: rWidth(10)),
@@ -23,16 +25,17 @@ class EmailFormField extends StatelessWidget {
   }
 }
 
-class PasswordFormField extends StatefulWidget {
-  PasswordFormField({
+class CustomPasswordFormField extends StatefulWidget {
+  CustomPasswordFormField({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<PasswordFormField> createState() => _PasswordFormFieldState();
+  State<CustomPasswordFormField> createState() =>
+      _CustomPasswordFormFieldState();
 }
 
-class _PasswordFormFieldState extends State<PasswordFormField> {
+class _CustomPasswordFormFieldState extends State<CustomPasswordFormField> {
   bool obscure = true;
 
   @override
@@ -47,6 +50,31 @@ class _PasswordFormFieldState extends State<PasswordFormField> {
             },
             icon: Icon(obscure ? Icons.visibility : Icons.visibility_off)),
         hintText: "Password",
+        hintStyle: const TextStyle(fontFamily: 'Outfit'),
+        contentPadding: EdgeInsets.only(
+            top: rWidth(10), left: rWidth(16), bottom: rWidth(10)),
+        border: OutlineInputBorder(
+          borderSide: const BorderSide(),
+          borderRadius: BorderRadius.all(Radius.circular(rWidth(10))),
+        ),
+      ),
+    );
+  }
+}
+
+class CustomRePasswordFormField extends StatelessWidget {
+  final String hintText;
+  const CustomRePasswordFormField({
+    Key? key,
+    required this.hintText,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      obscureText: true,
+      decoration: InputDecoration(
+        hintText: hintText,
         hintStyle: const TextStyle(fontFamily: 'Outfit'),
         contentPadding: EdgeInsets.only(
             top: rWidth(10), left: rWidth(16), bottom: rWidth(10)),
