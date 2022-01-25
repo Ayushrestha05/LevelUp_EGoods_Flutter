@@ -69,7 +69,9 @@ class RegisterScreen extends StatelessWidget {
                 SizedBox(
                   height: rWidth(20),
                 ),
-                DefaultButton("Sign Up"),
+                DefaultButton("Sign Up", () {
+                  print("Sign Up Clicked");
+                }),
                 SizedBox(
                   height: rWidth(20),
                 ),

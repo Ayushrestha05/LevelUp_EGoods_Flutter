@@ -58,7 +58,9 @@ class LoginScreen extends StatelessWidget {
                 SizedBox(
                   height: rWidth(20),
                 ),
-                DefaultButton("Sign In"),
+                DefaultButton("Sign In", () {
+                  print("Sign In Clicked");
+                }),
                 SizedBox(
                   height: rWidth(10),
                 ),

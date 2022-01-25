@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:levelup_egoods/utilities/size_config.dart';
 
 //TODO Add a OnPressed Parameter
-SizedBox DefaultButton(String buttonText) {
+SizedBox DefaultButton(String buttonText, Function() onPressed) {
   return SizedBox(
     width: double.infinity,
     child: ElevatedButton(
-      onPressed: () {},
+      onPressed: onPressed,
       child: Padding(
         padding: EdgeInsets.symmetric(vertical: rWidth(10)),
         child: Text(
