@@ -6,7 +6,10 @@ ThemeData light = ThemeData(
 ));
 
 ThemeData dark = ThemeData(
-    colorScheme: const ColorScheme.dark(
-  primary: Color(0xFF6FFFE9),
-  surface: Color(0xFF0B132B), //For Headers
-));
+  buttonTheme: const ButtonThemeData(
+      buttonColor: Color(0xFF103388), textTheme: ButtonTextTheme.primary),
+  colorScheme: const ColorScheme.dark(
+    primary: Color(0xFF6FFFE9),
+    surface: Color(0xFF0B132B),
+  ),
+);
