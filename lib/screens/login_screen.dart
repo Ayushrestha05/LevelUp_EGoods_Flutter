@@ -1,16 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 import 'package:levelup_egoods/screens/register_screen.dart';
+import 'package:levelup_egoods/utilities/auth.dart';
 import 'package:levelup_egoods/utilities/size_config.dart';
 import 'package:levelup_egoods/widgets/buttons.dart';
 import 'package:levelup_egoods/widgets/form_fields.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  LoginScreen({Key? key}) : super(key: key);
+  final _loginFormKey = GlobalKey<FormState>();
+  String? _email, _password;
 
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
+
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -25,6 +30,7 @@ class LoginScreen extends StatelessWidget {
 
   _buildLoginScreen(BuildContext context) {
     return Form(
+      key: _loginFormKey,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -50,16 +56,31 @@ class LoginScreen extends StatelessWidget {
                 SizedBox(
                   height: rWidth(30),
                 ),
-                const CustomTextFormField(hintText: "Email"),
+                CustomTextFormField(
+                  hintText: "Email",
+                  onSaved: (String? value) {
+                    _email = value;
+                  },
+                  validator: MultiValidator([
+                    RequiredValidator(errorText: "Please Enter a Value"),
+                    EmailValidator(errorText: "Please Enter a valid Email"),
+                  ]),
+                ),
                 SizedBox(
                   height: rWidth(20),
                 ),
-                CustomPasswordFormField(),
+                CustomPasswordFormField(
+                  validator:
+                      RequiredValidator(errorText: "Please Enter a Value"),
+                  onSaved: (String? value) {
+                    _password = value;
+                  },
+                ),
                 SizedBox(
                   height: rWidth(20),
                 ),
                 DefaultButton("Sign In", () {
-                  print("Sign In Clicked");
+                  loginValidation();
                 }),
                 SizedBox(
                   height: rWidth(10),
@@ -103,5 +124,14 @@ class LoginScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void loginValidation() {
+    if (_loginFormKey.currentState?.validate() ?? false) {
+      _loginFormKey.currentState?.save();
+      Auth().login(_email, _password);
+    } else {
+      print("not validated");
+    }
   }
 }

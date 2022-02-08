@@ -4,16 +4,19 @@ import 'package:levelup_egoods/utilities/size_config.dart';
 class CustomTextFormField extends StatelessWidget {
   final String hintText;
   final String? Function(String?)? validator;
+  final Function(String?)? onSaved;
   const CustomTextFormField({
     Key? key,
     required this.hintText,
     this.validator,
+    this.onSaved,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       validator: validator,
+      onSaved: onSaved,
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: const TextStyle(fontFamily: 'Outfit'),
@@ -29,8 +32,12 @@ class CustomTextFormField extends StatelessWidget {
 }
 
 class CustomPasswordFormField extends StatefulWidget {
-  CustomPasswordFormField({
+  final String? Function(String?)? validator;
+  final Function(String?)? onSaved;
+  const CustomPasswordFormField({
     Key? key,
+    required this.validator,
+    this.onSaved,
   }) : super(key: key);
 
   @override
@@ -44,6 +51,8 @@ class _CustomPasswordFormFieldState extends State<CustomPasswordFormField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      validator: widget.validator,
+      onSaved: widget.onSaved,
       obscureText: obscure,
       decoration: InputDecoration(
         suffixIcon: IconButton(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:levelup_egoods/screens/login_screen.dart';
+import 'package:levelup_egoods/utilities/auth.dart';
 import 'package:levelup_egoods/utilities/size_config.dart';
 import 'package:levelup_egoods/widgets/buttons.dart';
 import 'package:levelup_egoods/widgets/form_fields.dart';
@@ -10,6 +11,7 @@ class RegisterScreen extends StatelessWidget {
   final _registerFormKey = GlobalKey<FormState>();
   final _initialPWD = TextEditingController();
   final _finalPWD = TextEditingController();
+  String? _name, _email;
 
   @override
   Widget build(BuildContext context) {
@@ -52,12 +54,18 @@ class RegisterScreen extends StatelessWidget {
                             hintText: "Full Name",
                             validator: RequiredValidator(
                                 errorText: "Please enter a value"),
+                            onSaved: (String? value) {
+                              _name = value;
+                            },
                           ),
                           SizedBox(
                             height: rWidth(20),
                           ),
                           CustomTextFormField(
                             hintText: "Email",
+                            onSaved: (String? value) {
+                              _email = value;
+                            },
                             validator: MultiValidator([
                               RequiredValidator(
                                   errorText: "Please Enter a Value"),
@@ -102,7 +110,7 @@ class RegisterScreen extends StatelessWidget {
                             height: rWidth(20),
                           ),
                           DefaultButton("Sign Up", () {
-                            _registerFormKey.currentState?.validate();
+                            registerValidation();
                           }),
                           SizedBox(
                             height: rWidth(20),
@@ -148,5 +156,12 @@ class RegisterScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void registerValidation() {
+    if (_registerFormKey.currentState?.validate() ?? false) {
+      _registerFormKey.currentState?.save();
+      Auth().register(_name, _email, _initialPWD.text);
+    }
   }
 }
