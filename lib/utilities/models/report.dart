@@ -18,7 +18,7 @@ class Report with ChangeNotifier {
 
     decode.forEach((element) {
       decodeReportCategoryList.add(DropdownMenuItem(
-        child: Text(element['question_category']),
+        child: Text(element['question_type']),
         value: element['id'],
       ));
     });
