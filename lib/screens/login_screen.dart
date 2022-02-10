@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:levelup_egoods/screens/register_screen.dart';
+import 'package:levelup_egoods/screens/report_screen.dart';
 import 'package:levelup_egoods/utilities/auth.dart';
 import 'package:levelup_egoods/utilities/size_config.dart';
 import 'package:levelup_egoods/widgets/buttons.dart';
@@ -34,7 +35,8 @@ class LoginScreen extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Expanded(
+          Container(
+            height: rWidth(241),
             child: Image.asset(
               'assets/images/login_header.jpg',
               fit: BoxFit.fill,
@@ -61,6 +63,7 @@ class LoginScreen extends StatelessWidget {
                   onSaved: (String? value) {
                     _email = value;
                   },
+                  maxLines: 1,
                   validator: MultiValidator([
                     RequiredValidator(errorText: "Please Enter a Value"),
                     EmailValidator(errorText: "Please Enter a valid Email"),

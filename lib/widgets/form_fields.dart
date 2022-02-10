@@ -5,11 +5,13 @@ class CustomTextFormField extends StatelessWidget {
   final String hintText;
   final String? Function(String?)? validator;
   final Function(String?)? onSaved;
+  final int? maxLines;
   const CustomTextFormField({
     Key? key,
     required this.hintText,
     this.validator,
     this.onSaved,
+    this.maxLines,
   }) : super(key: key);
 
   @override
@@ -17,6 +19,7 @@ class CustomTextFormField extends StatelessWidget {
     return TextFormField(
       validator: validator,
       onSaved: onSaved,
+      maxLines: maxLines,
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: const TextStyle(fontFamily: 'Outfit'),
@@ -101,6 +104,50 @@ class CustomRePasswordFormField extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(rWidth(10))),
         ),
       ),
+    );
+  }
+}
+
+class CustomDropDown extends StatefulWidget {
+  final List<DropdownMenuItem>? dropDownItemList;
+  final String? labelText;
+  final Function(dynamic)? onSaved;
+  final Function(dynamic)? onChanged;
+  final String? Function(dynamic)? validator;
+  const CustomDropDown(
+      {Key? key,
+      this.labelText,
+      this.onChanged,
+      this.onSaved,
+      this.dropDownItemList,
+      this.validator})
+      : super(key: key);
+
+  @override
+  _CustomDropDownState createState() => _CustomDropDownState();
+}
+
+class _CustomDropDownState extends State<CustomDropDown> {
+  @override
+  Widget build(BuildContext context) {
+    return DropdownButtonFormField(
+      items: widget.dropDownItemList,
+      isExpanded: true,
+      onChanged: widget.onChanged,
+      onSaved: widget.onSaved,
+      validator: widget.validator,
+      decoration: InputDecoration(
+        labelText: widget.labelText,
+        labelStyle: const TextStyle(fontFamily: 'Outfit'),
+        contentPadding: EdgeInsets.only(left: rWidth(16), bottom: rWidth(10)),
+        border: OutlineInputBorder(
+          borderSide: const BorderSide(),
+          borderRadius: BorderRadius.all(Radius.circular(rWidth(10))),
+        ),
+      ),
+      icon: Padding(
+          padding: EdgeInsets.only(right: rWidth(10)),
+          child: const Icon(Icons.arrow_drop_down)),
     );
   }
 }
