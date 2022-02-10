@@ -54,6 +54,7 @@ class RegisterScreen extends StatelessWidget {
                             hintText: "Full Name",
                             validator: RequiredValidator(
                                 errorText: "Please enter a value"),
+                            maxLines: 1,
                             onSaved: (String? value) {
                               _name = value;
                             },
@@ -66,6 +67,7 @@ class RegisterScreen extends StatelessWidget {
                             onSaved: (String? value) {
                               _email = value;
                             },
+                            maxLines: 1,
                             validator: MultiValidator([
                               RequiredValidator(
                                   errorText: "Please Enter a Value"),
