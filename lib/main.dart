@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:levelup_egoods/screens/login_screen.dart';
+import 'package:levelup_egoods/screens/base_screen.dart';
 import 'package:levelup_egoods/utilities/theme_data.dart';
 
 void main() {
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: dark,
-      home: LoginScreen(),
+      home: BaseScreen(),
     );
   }
 }
