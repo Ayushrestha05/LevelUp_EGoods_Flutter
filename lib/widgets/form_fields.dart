@@ -111,13 +111,14 @@ class CustomRePasswordFormField extends StatelessWidget {
 class CustomDropDown extends StatefulWidget {
   final List<DropdownMenuItem>? dropDownItemList;
   final String? labelText;
-  // final Function(dynamic)? onSaved;
+  final Function(dynamic)? onSaved;
   final Function(dynamic)? onChanged;
   final String? Function(dynamic)? validator;
   const CustomDropDown(
       {Key? key,
       this.labelText,
       this.onChanged,
+      this.onSaved,
       this.dropDownItemList,
       this.validator})
       : super(key: key);
@@ -133,7 +134,7 @@ class _CustomDropDownState extends State<CustomDropDown> {
       items: widget.dropDownItemList,
       isExpanded: true,
       onChanged: widget.onChanged,
-      // onSaved: widget.onSaved,
+      onSaved: widget.onSaved,
       validator: widget.validator,
       decoration: InputDecoration(
         labelText: widget.labelText,
