@@ -9,7 +9,7 @@ class CategoryScreen extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          _buildTitle(),
+          _buildTitle(context),
           buildCategoryCards(
             onTap: () {
               print('Hello World');
@@ -23,7 +23,7 @@ class CategoryScreen extends StatelessWidget {
     );
   }
 
-  Container _buildTitle() {
+  Container _buildTitle(BuildContext context) {
     return Container(
       margin:
           EdgeInsets.symmetric(horizontal: rWidth(20), vertical: rWidth(20)),
@@ -32,8 +32,10 @@ class CategoryScreen extends StatelessWidget {
         children: [
           Expanded(
             child: Container(
-              color: Colors.white,
-              height: 1,
+              color: Theme.of(context).primaryColor.value == 4280361249
+                  ? Colors.white
+                  : Colors.black,
+              height: 2,
             ),
           ),
           Container(
@@ -43,8 +45,10 @@ class CategoryScreen extends StatelessWidget {
                       TextStyle(fontFamily: "Outfit", fontSize: rWidth(24)))),
           Expanded(
             child: Container(
-              color: Colors.white,
-              height: 1,
+              color: Theme.of(context).primaryColor.value == 4280361249
+                  ? Colors.white
+                  : Colors.black,
+              height: 2,
             ),
           ),
         ],
@@ -93,6 +97,7 @@ class buildCategoryCards extends StatelessWidget {
             child: Text(
               categoryTitle,
               style: TextStyle(
+                  color: Colors.white,
                   fontFamily: 'Outfit',
                   fontSize: rWidth(20),
                   fontWeight: FontWeight.bold),
