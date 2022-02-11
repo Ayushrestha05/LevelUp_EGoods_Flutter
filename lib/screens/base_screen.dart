@@ -4,6 +4,7 @@ import 'package:levelup_egoods/screens/home/cart_screen.dart';
 import 'package:levelup_egoods/screens/home/category_screen.dart';
 import 'package:levelup_egoods/screens/home/home_screen.dart';
 import 'package:levelup_egoods/screens/home/profile_screen.dart';
+import 'package:levelup_egoods/utilities/size_config.dart';
 
 class BaseScreen extends StatefulWidget {
   final PageController pageController = PageController(initialPage: 0);
@@ -25,6 +26,7 @@ class _BaseScreenState extends State<BaseScreen> {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return SafeArea(
       child: Scaffold(
         body: PageView(
