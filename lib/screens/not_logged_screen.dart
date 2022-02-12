@@ -19,29 +19,29 @@ class NotLoggedScreen extends StatelessWidget {
               height: 150,
               width: 150,
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
-            Text(
+            const Text(
               'Hold Up!',
               style: TextStyle(fontFamily: 'Gotham', fontSize: 30),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Container(
-              margin: EdgeInsets.symmetric(horizontal: 50),
-              child: Text(
+              margin: const EdgeInsets.symmetric(horizontal: 50),
+              child: const Text(
                 'Sign up or Login to access your Personal Cart and have your personal profile.',
                 textAlign: TextAlign.center,
                 style: TextStyle(fontFamily: 'Gotham', fontSize: 15),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Container(
-              margin: EdgeInsets.symmetric(horizontal: 40),
+              margin: const EdgeInsets.symmetric(horizontal: 40),
               child: DefaultButton("Login", () {
                 Navigator.push(
                     context, MaterialPageRoute(builder: (_) => LoginScreen()));
