@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:levelup_egoods/screens/base_screen.dart';
+import 'package:levelup_egoods/utilities/auth.dart';
 import 'package:levelup_egoods/utilities/theme_data.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider(
+      create: (BuildContext context) => Auth(), child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -20,7 +23,7 @@ class MyApp extends StatelessWidget {
     ]);
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: dark,
+      theme: light,
       home: BaseScreen(),
     );
   }
