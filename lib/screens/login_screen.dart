@@ -2,16 +2,25 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:levelup_egoods/screens/register_screen.dart';
-import 'package:levelup_egoods/screens/report_screen.dart';
 import 'package:levelup_egoods/utilities/auth.dart';
 import 'package:levelup_egoods/utilities/size_config.dart';
 import 'package:levelup_egoods/widgets/buttons.dart';
 import 'package:levelup_egoods/widgets/form_fields.dart';
+import 'package:provider/provider.dart';
 
-class LoginScreen extends StatelessWidget {
-  LoginScreen({Key? key}) : super(key: key);
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({Key? key}) : super(key: key);
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   final _loginFormKey = GlobalKey<FormState>();
+
   String? _email, _password;
+
+  bool _isProcessing = false;
 
   @override
   Widget build(BuildContext context) {
@@ -19,11 +28,27 @@ class LoginScreen extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
-        body: SingleChildScrollView(
-          child: SizedBox(
-            height: MediaQuery.of(context).size.height - 45,
-            child: _buildLoginScreen(context),
-          ),
+        body: Stack(
+          children: [
+            SingleChildScrollView(
+              child: SizedBox(
+                height: MediaQuery.of(context).size.height - 45,
+                child: _buildLoginScreen(context),
+              ),
+            ),
+            _isProcessing
+                ? Container(
+                    height: MediaQuery.of(context).size.height,
+                    decoration:
+                        BoxDecoration(color: Colors.black.withOpacity(0.5)),
+                    child: const Center(
+                      child: CircularProgressIndicator(
+                        color: Color(0xFF6FFFE9),
+                      ),
+                    ),
+                  )
+                : Container()
+          ],
         ),
       ),
     );
@@ -83,7 +108,7 @@ class LoginScreen extends StatelessWidget {
                   height: rWidth(20),
                 ),
                 DefaultButton("Sign In", () {
-                  loginValidation();
+                  loginValidation(context);
                 }),
                 SizedBox(
                   height: rWidth(10),
@@ -129,10 +154,82 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  void loginValidation() {
+  void loginValidation(BuildContext context) async {
     if (_loginFormKey.currentState?.validate() ?? false) {
+      //Show the Circular Progress Indicator
+      setState(() {
+        _isProcessing = true;
+      });
       _loginFormKey.currentState?.save();
-      Auth().login(_email, _password);
+      int status = await Provider.of<Auth>(context, listen: false)
+          .login(_email, _password);
+      //Remove the Circular Progress Indicator
+      if (status != null) {
+        setState(() {
+          _isProcessing = false;
+        });
+        //Alert Dialogs for carious status codes.
+        switch (status) {
+          case 200:
+            showDialog(
+                barrierDismissible: false,
+                context: context,
+                builder: (_) {
+                  return AlertDialog(
+                    title: const Text('Login Successful'),
+                    content: const Text('You will now be redirected to home'),
+                    actions: [
+                      TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                            Navigator.pop(context);
+                          },
+                          child: const Text('OK'))
+                    ],
+                  );
+                });
+            break;
+
+          case 401:
+            showDialog(
+                barrierDismissible: false,
+                context: context,
+                builder: (_) {
+                  return AlertDialog(
+                    title: const Text('Invalid Credentials'),
+                    content: const Text('Enter correct credentials to login.'),
+                    actions: [
+                      TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: const Text('OK'))
+                    ],
+                  );
+                });
+            break;
+
+          default:
+            showDialog(
+                barrierDismissible: false,
+                context: context,
+                builder: (_) {
+                  return AlertDialog(
+                    title: const Text('Error!'),
+                    content: const Text(
+                        'Some Error Occured. Please try again later.'),
+                    actions: [
+                      TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: const Text('OK'))
+                    ],
+                  );
+                });
+            break;
+        }
+      }
     } else {
       print("not validated");
     }
