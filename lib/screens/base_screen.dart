@@ -4,7 +4,10 @@ import 'package:levelup_egoods/screens/home/cart_screen.dart';
 import 'package:levelup_egoods/screens/home/category_screen.dart';
 import 'package:levelup_egoods/screens/home/home_screen.dart';
 import 'package:levelup_egoods/screens/home/profile_screen.dart';
+import 'package:levelup_egoods/screens/not_logged_screen.dart';
+import 'package:levelup_egoods/utilities/auth.dart';
 import 'package:levelup_egoods/utilities/size_config.dart';
+import 'package:provider/provider.dart';
 
 class BaseScreen extends StatefulWidget {
   final PageController pageController = PageController(initialPage: 0);
@@ -20,8 +23,24 @@ class _BaseScreenState extends State<BaseScreen> {
   final List<Widget> screenList = <Widget>[
     HomeScreen(),
     CategoryScreen(),
-    CartScreen(),
-    ProfileScreen(),
+    Consumer<Auth>(builder: (context, auth, child) {
+      print('is Authenticated = ${auth.isAuthenticated}');
+      if (auth.isAuthenticated) {
+        return Container(
+          child: Text('Cart Screen'),
+        );
+      } else {
+        return NotLoggedScreen();
+      }
+    }),
+    Consumer<Auth>(builder: (context, auth, child) {
+      print('is Authenticated = ${auth.isAuthenticated}');
+      if (auth.isAuthenticated) {
+        return ProfileScreen();
+      } else {
+        return NotLoggedScreen();
+      }
+    }),
   ];
 
   @override
