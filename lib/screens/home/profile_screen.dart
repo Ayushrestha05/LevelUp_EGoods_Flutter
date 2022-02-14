@@ -20,14 +20,15 @@ class ProfileScreen extends StatelessWidget {
               height: 90,
             ),
             Container(
+              clipBehavior: Clip.antiAlias,
               margin: const EdgeInsets.only(bottom: 12),
               height: 100,
-              decoration: const BoxDecoration(
-                  image: DecorationImage(
-                      image: NetworkImage(
-                          "https://c.tenor.com/33OG_SodkeIAAAAd/cat-nodding.gif")),
-                  shape: BoxShape.circle,
-                  color: Colors.red),
+              decoration: const BoxDecoration(shape: BoxShape.circle),
+              child: FadeInImage.assetNetwork(
+                  placeholder:
+                      'assets/images/placeholder/Portrait_Placeholder.png',
+                  image:
+                      "https://c.tenor.com/33OG_SodkeIAAAAd/cat-nodding.gif"),
             ),
             Container(
               margin: const EdgeInsets.only(bottom: 12),

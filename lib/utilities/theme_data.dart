@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 ThemeData light = ThemeData(
-  scaffoldBackgroundColor: const Color(0xFFF6F6F6),
+  scaffoldBackgroundColor: Colors.white,
   bottomNavigationBarTheme: const BottomNavigationBarThemeData(
     selectedItemColor: Color(0xFF6FFFE9),
     unselectedItemColor: Color(0xFFB8BDC9),
