@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:levelup_egoods/utilities/constants.dart';
 import 'package:levelup_egoods/utilities/size_config.dart';
@@ -124,47 +125,62 @@ class _buildCategoryCardsState extends State<buildCategoryCards> {
           borderRadius: BorderRadius.circular(rWidth(10)),
         ),
         onTap: widget.onTap,
-        child: Container(
-          height: rWidth(150),
-          width: rWidth(411),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(rWidth(10)),
-            color:
-                Color(int.parse(widget.categoryColor.replaceAll('#', '0xff')))
+        child: CachedNetworkImage(
+          imageUrl: widget.categoryImage,
+          placeholder: (context, url) => Container(
+              height: rWidth(150),
+              width: rWidth(411),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(rWidth(10)),
+                color: Color(
+                        int.parse(widget.categoryColor.replaceAll('#', '0xff')))
                     .withOpacity(0.6),
-            boxShadow: const [
-              BoxShadow(
-                color: Colors.grey,
-                blurRadius: 4.0, // soften the shadow
-                spreadRadius: 1.0, //extend the shadow
-                offset: Offset(
-                  3.0, // Move to right 10  horizontally
-                  4.0, // Move to bottom 10 Vertically
-                ),
-              )
-            ],
-            image: DecorationImage(
-              opacity: 0.4,
-              onError: (object, error) {
-                print('Decoration Image Error!');
-                setState(() {});
-              },
-              fit: BoxFit.cover,
-              image: NetworkImage(
-                widget.categoryImage,
+              ),
+              child: Container(
+                  height: rWidth(150),
+                  width: rWidth(411),
+                  child: const Center(child: CircularProgressIndicator()))),
+          errorWidget: (context, url, error) => const Icon(Icons.error),
+          imageBuilder: (context, imageProvider) => Container(
+            height: rWidth(150),
+            width: rWidth(411),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(rWidth(10)),
+              color:
+                  Color(int.parse(widget.categoryColor.replaceAll('#', '0xff')))
+                      .withOpacity(0.6),
+              boxShadow: const [
+                BoxShadow(
+                  color: Colors.grey,
+                  blurRadius: 4.0, // soften the shadow
+                  spreadRadius: 1.0, //extend the shadow
+                  offset: Offset(
+                    3.0, // Move to right 10  horizontally
+                    4.0, // Move to bottom 10 Vertically
+                  ),
+                )
+              ],
+              image: DecorationImage(
+                opacity: 0.4,
+                onError: (object, error) {
+                  print('Decoration Image Error!');
+                  setState(() {});
+                },
+                fit: BoxFit.cover,
+                image: imageProvider,
               ),
             ),
-          ),
-          child: Container(
-            margin: EdgeInsets.only(left: rWidth(16), bottom: rWidth(18)),
-            alignment: AlignmentDirectional.bottomStart,
-            child: Text(
-              widget.categoryTitle,
-              style: TextStyle(
-                  color: Colors.white,
-                  fontFamily: 'Outfit',
-                  fontSize: rWidth(20),
-                  fontWeight: FontWeight.bold),
+            child: Container(
+              margin: EdgeInsets.only(left: rWidth(16), bottom: rWidth(18)),
+              alignment: AlignmentDirectional.bottomStart,
+              child: Text(
+                widget.categoryTitle,
+                style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: 'Outfit',
+                    fontSize: rWidth(20),
+                    fontWeight: FontWeight.bold),
+              ),
             ),
           ),
         ),
