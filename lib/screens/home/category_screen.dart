@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:levelup_egoods/screens/items/item_grid.dart';
 import 'package:levelup_egoods/utilities/constants.dart';
 import 'package:levelup_egoods/utilities/size_config.dart';
 import 'package:http/http.dart' as http;
@@ -42,7 +43,11 @@ class CategoryScreen extends StatelessWidget {
                     categoryList.add(
                       buildCategoryCards(
                         onTap: () {
-                          print(element['category_image']);
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) =>
+                                      ItemGrid(categoryID: element['id'])));
                         },
                         categoryTitle: element['category_name'],
                         categoryImage: element['category_image'],
@@ -140,7 +145,12 @@ class _buildCategoryCardsState extends State<buildCategoryCards> {
                   height: rWidth(150),
                   width: rWidth(411),
                   child: const Center(child: CircularProgressIndicator()))),
-          errorWidget: (context, url, error) => const Icon(Icons.error),
+          errorWidget: (context, url, error) {
+            if (error != null) {
+              print(error);
+            }
+            return const Icon(Icons.error);
+          },
           imageBuilder: (context, imageProvider) => Container(
             height: rWidth(150),
             width: rWidth(411),
