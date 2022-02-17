@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:levelup_egoods/screens/items/music/music_player.dart';
 import 'package:levelup_egoods/utilities/constants.dart';
+import 'package:levelup_egoods/utilities/size_config.dart';
 import 'package:levelup_egoods/widgets/buttons.dart';
 import 'package:http/http.dart' as http;
 
@@ -18,6 +19,8 @@ class MusicViewScreen extends StatefulWidget {
 }
 
 class _MusicViewScreenState extends State<MusicViewScreen> {
+  List<bool> isSelected = [true, false];
+
   Future<String>? getTrackList(int itemID) async {
     var response = await http.get(Uri.parse('$apiUrl/items/music/$itemID'),
         headers: {'Accept': 'application/json'});
@@ -99,7 +102,8 @@ class _MusicViewScreenState extends State<MusicViewScreen> {
                 children: [
                   Text(
                     'Tracks',
-                    style: TextStyle(fontFamily: 'Gotham', fontSize: 16),
+                    style:
+                        TextStyle(fontFamily: 'Gotham', fontSize: rWidth(14)),
                   ),
                   Spacer(),
                   Icon(AntIcons.clockCircleOutlined),
@@ -161,13 +165,16 @@ class _MusicViewScreenState extends State<MusicViewScreen> {
                                       Text(
                                         decode[index]['track_name'],
                                         style: TextStyle(
-                                            fontFamily: 'Gotham', fontSize: 14),
+                                            fontFamily: 'Gotham',
+                                            fontSize: rWidth(14)),
                                       ),
                                       Spacer(),
                                       Text(
                                         decode[index]['track_time'],
                                         style: TextStyle(
-                                            fontFamily: 'Gotham', fontSize: 14),
+                                          fontFamily: 'Gotham',
+                                          fontSize: rWidth(14),
+                                        ),
                                       ),
                                     ],
                                   ),
