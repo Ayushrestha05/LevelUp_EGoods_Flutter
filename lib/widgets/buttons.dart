@@ -25,3 +25,19 @@ SizedBox DefaultButton(String buttonText, Function() onPressed) {
     ),
   );
 }
+
+GestureDetector buildBackButton(BuildContext context) {
+  return GestureDetector(
+    onTap: () {
+      Navigator.pop(context);
+    },
+    child: Container(
+      padding: EdgeInsets.all(rWidth(7)),
+      decoration: const BoxDecoration(
+        color: Color(0xFFC4C4C4),
+        shape: BoxShape.circle,
+      ),
+      child: const Icon(Icons.chevron_left),
+    ),
+  );
+}
