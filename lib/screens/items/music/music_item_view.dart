@@ -4,6 +4,7 @@ import 'package:antdesign_icons/antdesign_icons.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:levelup_egoods/screens/items/music/music_player.dart';
 import 'package:levelup_egoods/utilities/constants.dart';
 import 'package:levelup_egoods/widgets/buttons.dart';
 import 'package:http/http.dart' as http;
@@ -141,6 +142,17 @@ class _MusicViewScreenState extends State<MusicViewScreen> {
                                         ),
                                         onPressed: () {
                                           print(decode[index]['track_file']);
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (_) => MusicPlayer(
+                                                        trackName: decode[index]
+                                                            ['track_name'],
+                                                        itemData:
+                                                            widget.itemData,
+                                                        url: decode[index]
+                                                            ['track_file'],
+                                                      )));
                                         },
                                       ),
                                       SizedBox(
