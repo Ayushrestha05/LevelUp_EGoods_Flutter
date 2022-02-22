@@ -30,34 +30,39 @@ class CategoryScreen extends StatelessWidget {
                   return const Center(child: CircularProgressIndicator());
 
                 case ConnectionState.done:
-                  var decode = jsonDecode(snapshot.data ?? '');
-                  List<Widget> categoryList = [];
+                  if (snapshot.hasError) {
+                    return Text('Error!');
+                  } else {
+                    var decode = jsonDecode(snapshot.data ?? '');
+                    List<Widget> categoryList = [];
 
-                  decode.forEach((element) {
-                    String color = '';
-                    if (element['category_color'].toString() != '') {
-                      color = element['category_color'];
-                    } else {
-                      color = '#5e5e5e';
-                    }
-                    categoryList.add(
-                      buildCategoryCards(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (_) =>
-                                      ItemGrid(categoryID: element['id'])));
-                        },
-                        categoryTitle: element['category_name'],
-                        categoryImage: element['category_image'],
-                        categoryColor: color,
-                      ),
+                    decode.forEach((element) {
+                      String color = '';
+                      if (element['category_color'].toString() != '' &&
+                          element['category_color'] != null) {
+                        color = element['category_color'];
+                      } else {
+                        color = '#5e5e5e';
+                      }
+                      categoryList.add(
+                        buildCategoryCards(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) =>
+                                        ItemGrid(categoryID: element['id'])));
+                          },
+                          categoryTitle: element['category_name'],
+                          categoryImage: element['category_image'],
+                          categoryColor: color,
+                        ),
+                      );
+                    });
+                    return Column(
+                      children: categoryList,
                     );
-                  });
-                  return Column(
-                    children: categoryList,
-                  );
+                  }
                 default:
                   return Text('default');
               }
@@ -131,6 +136,7 @@ class _buildCategoryCardsState extends State<buildCategoryCards> {
         ),
         onTap: widget.onTap,
         child: CachedNetworkImage(
+          httpHeaders: const {'Keep-Alive': 'timeout=5,max=1000'},
           imageUrl: widget.categoryImage,
           placeholder: (context, url) => Container(
               height: rWidth(150),
@@ -149,7 +155,25 @@ class _buildCategoryCardsState extends State<buildCategoryCards> {
             if (error != null) {
               print(error);
             }
-            return const Icon(Icons.error);
+            return Container(
+                height: rWidth(150),
+                width: rWidth(411),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(rWidth(10)),
+                    color: Color(int.parse(
+                        widget.categoryColor.replaceAll('#', '0xff'))),
+                    boxShadow: const [
+                      BoxShadow(
+                        color: Colors.grey,
+                        blurRadius: 4.0, // soften the shadow
+                        spreadRadius: 1.0, //extend the shadow
+                        offset: Offset(
+                          3.0, // Move to right 10  horizontally
+                          4.0, // Move to bottom 10 Vertically
+                        ),
+                      )
+                    ]),
+                child: const Icon(Icons.error));
           },
           imageBuilder: (context, imageProvider) => Container(
             height: rWidth(150),
@@ -174,7 +198,6 @@ class _buildCategoryCardsState extends State<buildCategoryCards> {
                 opacity: 0.4,
                 onError: (object, error) {
                   print('Decoration Image Error!');
-                  setState(() {});
                 },
                 fit: BoxFit.cover,
                 image: imageProvider,

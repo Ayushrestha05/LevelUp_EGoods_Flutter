@@ -3,7 +3,8 @@ import 'dart:convert';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:levelup_egoods/screens/items/music/music_item_view.dart';
+import 'package:levelup_egoods/screens/items/gift_card/giftcard_provider.dart';
+import 'package:levelup_egoods/screens/items/music/music_provider.dart';
 import 'package:levelup_egoods/utilities/constants.dart';
 import 'package:levelup_egoods/utilities/size_config.dart';
 
@@ -25,13 +26,25 @@ class _ItemGridState extends State<ItemGrid> {
 
   void itemScreen(int categoryID, var decode) {
     switch (categoryID) {
+      case 1:
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (_) => GiftCardProvider(
+                      itemID: decode['id'],
+                      imageURL: decode['item_image'],
+                    )));
+        break;
+
       case 7:
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (_) => MusicViewScreen(
-                      itemData: decode,
+                builder: (_) => MusicProvider(
+                      itemID: decode['id'],
+                      imageURL: decode['item_image'],
                     )));
+        break;
     }
   }
 
@@ -95,8 +108,12 @@ class _ItemGridState extends State<ItemGrid> {
                                       Container(
                                         margin: EdgeInsets.all(5),
                                         child: Hero(
-                                          tag: 'itemImage${index + 1}',
+                                          tag:
+                                              'itemImage${decode[index]['id']}',
                                           child: CachedNetworkImage(
+                                            httpHeaders: {
+                                              'Keep-Alive': 'timeout=5,max=1000'
+                                            },
                                             imageUrl: decode[index]
                                                 ['item_image'],
                                             placeholder: (context, url) =>
