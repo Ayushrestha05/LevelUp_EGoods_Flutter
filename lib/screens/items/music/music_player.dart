@@ -2,17 +2,22 @@ import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:levelup_egoods/screens/items/music/page_manager.dart';
+import 'package:levelup_egoods/utilities/size_config.dart';
 import 'package:levelup_egoods/widgets/buttons.dart';
 
 class MusicPlayer extends StatefulWidget {
-  dynamic itemData;
+  final int id;
   final String url;
   final String trackName;
+  final String albumName;
+  final String image;
   MusicPlayer(
       {Key? key,
+      required this.id,
       required this.url,
-      required this.itemData,
-      required this.trackName})
+      required this.albumName,
+      required this.trackName,
+      required this.image})
       : super(key: key);
 
   @override
@@ -53,9 +58,9 @@ class _MusicPlayerState extends State<MusicPlayer> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Hero(
-                        tag: 'itemImage${widget.itemData['id']}',
+                        tag: 'itemImage${widget.id}',
                         child: CachedNetworkImage(
-                          imageUrl: widget.itemData['item_image'],
+                          imageUrl: widget.image,
                           placeholder: (context, url) => Container(
                             // height: 100,
                             // width: 100,
@@ -70,8 +75,8 @@ class _MusicPlayerState extends State<MusicPlayer> {
                             return const Icon(Icons.error);
                           },
                           imageBuilder: (context, imageProvider) => Container(
-                            height: 300,
-                            width: 300,
+                            height: rWidth(270),
+                            width: rWidth(270),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
                                 image: DecorationImage(
@@ -79,25 +84,25 @@ class _MusicPlayerState extends State<MusicPlayer> {
                           ),
                         ),
                       ),
-                      const SizedBox(
-                        height: 20,
+                      SizedBox(
+                        height: rWidth(20),
                       ),
                       Text(
                         widget.trackName,
                         style: TextStyle(
                             fontFamily: 'Gotham',
-                            fontSize: 18,
+                            fontSize: rWidth(18),
                             color:
                                 Theme.of(context).textTheme.bodyText1!.color),
                       ),
-                      const SizedBox(
-                        height: 10,
+                      SizedBox(
+                        height: rWidth(10),
                       ),
                       Text(
-                        widget.itemData['item_name'],
+                        widget.albumName,
                         style: TextStyle(
                             fontFamily: 'Gotham',
-                            fontSize: 14,
+                            fontSize: rWidth(12),
                             color:
                                 Theme.of(context).textTheme.bodyText1!.color),
                       ),
@@ -135,7 +140,7 @@ class _MusicPlayerState extends State<MusicPlayer> {
                           icon: Icon(Icons.play_arrow,
                               color:
                                   Theme.of(context).textTheme.bodyText1!.color),
-                          iconSize: 32.0,
+                          iconSize: rWidth(32.0),
                           onPressed: _pageManager.play,
                         );
                       case ButtonState.playing:
@@ -143,7 +148,7 @@ class _MusicPlayerState extends State<MusicPlayer> {
                           icon: Icon(Icons.pause,
                               color:
                                   Theme.of(context).textTheme.bodyText1!.color),
-                          iconSize: 32.0,
+                          iconSize: rWidth(32.0),
                           onPressed: _pageManager.pause,
                         );
                     }
