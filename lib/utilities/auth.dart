@@ -1,7 +1,9 @@
 import 'dart:convert';
-
+import 'package:alert/alert.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:levelup_egoods/screens/login_screen.dart';
 import 'package:levelup_egoods/utilities/constants.dart';
 import 'package:levelup_egoods/utilities/user_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -12,7 +14,9 @@ class Auth extends ChangeNotifier {
   String _userEmail = 'User Email';
 
   bool get isAuthenticated => _isAuthenticated;
+
   get userName => _userName;
+
   get userEmail => _userEmail;
 
   Auth() {
@@ -82,5 +86,45 @@ class Auth extends ChangeNotifier {
     _isAuthenticated = false;
     UserHandler().loggedOut();
     notifyListeners();
+  }
+
+  void addToCart(BuildContext context, itemID, option) async {
+    if (!isAuthenticated) {
+      showDialog(
+          context: context,
+          builder: (_) {
+            return AlertDialog(
+              title: Text('Auth Error'),
+              content: Text('You must be logged in to add items to your cart.'),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (_) => LoginScreen()));
+                    },
+                    child: Text('Login')),
+                TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text('OK')),
+              ],
+            );
+          });
+    } else {
+      final userToken = await UserHandler().getUserToken();
+      var response = await http.post(
+        Uri.parse('$apiUrl/cart/add'),
+        headers: {
+          'Accept': 'application/json',
+          "Content-Type": "application/json",
+          'Authorization': 'Bearer $userToken'
+        },
+        body: jsonEncode({'item_id': itemID.toString(), 'option': option}),
+      );
+      var decode = jsonDecode(response.body);
+      Alert(message: decode['message']).show();
+    }
   }
 }
