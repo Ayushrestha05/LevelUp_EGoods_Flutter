@@ -177,7 +177,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 builder: (_) {
                   return AlertDialog(
                     title: const Text('Login Successful'),
-                    content: const Text('You will now be redirected to home'),
+                    content: const Text('You have Successfully Logged in.'),
                     actions: [
                       TextButton(
                           onPressed: () {
