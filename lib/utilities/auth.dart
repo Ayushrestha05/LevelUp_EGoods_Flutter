@@ -35,6 +35,7 @@ class Auth extends ChangeNotifier {
       _userEmail = await prefs.getString('user_email') ?? 'User Email';
       _userToken = token;
       _isAuthenticated = true;
+      getCart();
       notifyListeners();
     }
   }
