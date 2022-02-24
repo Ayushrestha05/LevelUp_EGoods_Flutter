@@ -27,7 +27,7 @@ class _BaseScreenState extends State<BaseScreen> {
       print('is Authenticated = ${auth.isAuthenticated}');
       if (auth.isAuthenticated) {
         return Container(
-          child: Text('Cart Screen'),
+          child: CartScreen(),
         );
       } else {
         return NotLoggedScreen();
