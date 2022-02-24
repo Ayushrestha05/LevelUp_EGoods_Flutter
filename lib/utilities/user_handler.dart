@@ -19,4 +19,14 @@ class UserHandler {
     await prefs.remove('user_email');
     await prefs.remove('user_token');
   }
+
+  Future<String?> getThemeData() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('selectedTheme');
+  }
+
+  void setThemeData(String theme) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString('selectedTheme', theme);
+  }
 }
