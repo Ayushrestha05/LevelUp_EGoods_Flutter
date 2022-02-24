@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:levelup_egoods/utilities/auth.dart';
 import 'package:levelup_egoods/utilities/models/giftcard.dart';
 import 'package:levelup_egoods/utilities/size_config.dart';
 import 'package:levelup_egoods/widgets/bottomNavigationItemBar.dart';
@@ -11,11 +12,16 @@ class GiftCardView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final auth = Provider.of<Auth>(context, listen: false);
     final giftCardData = Provider.of<GiftCard>(context);
     return SafeArea(
       child: Scaffold(
         bottomNavigationBar: buildBottomNavigationBarItem(
-            giftCardData.getSelectedPrice(), () {}),
+          giftCardData.getSelectedPrice(),
+          () {
+            auth.addToCart(context, giftCardData.id, giftCardData.option);
+          },
+        ),
         body: Container(
           padding: EdgeInsets.symmetric(
               horizontal: rWidth(10), vertical: rWidth(10)),
