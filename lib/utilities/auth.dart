@@ -12,12 +12,16 @@ class Auth extends ChangeNotifier {
   bool _isAuthenticated = false;
   String _userName = 'User Name';
   String _userEmail = 'User Email';
+  var _cartItems = [];
+  double _totalPrice = 0;
+  String _userToken = '';
 
   bool get isAuthenticated => _isAuthenticated;
-
   get userName => _userName;
-
   get userEmail => _userEmail;
+  get cartItems => _cartItems;
+  get totalPrice => _totalPrice;
+  get userToken => _userToken;
 
   Auth() {
     getUserDetails();
@@ -29,6 +33,8 @@ class Auth extends ChangeNotifier {
       final prefs = await SharedPreferences.getInstance();
       _userName = await prefs.getString('user_name') ?? 'User Name';
       _userEmail = await prefs.getString('user_email') ?? 'User Email';
+      _userToken = token;
+      _isAuthenticated = true;
       notifyListeners();
     }
   }
@@ -48,7 +54,11 @@ class Auth extends ChangeNotifier {
       _isAuthenticated = true;
       _userName = jsonResponse['user']['name'];
       _userEmail = jsonResponse['user']['email'];
+      _userToken = jsonResponse['token'];
+      Alert(message: "You have been logged in").show();
       notifyListeners();
+      getCart();
+      print(jsonResponse['token']);
     }
 
     return response.statusCode;
@@ -70,7 +80,9 @@ class Auth extends ChangeNotifier {
       _isAuthenticated = true;
       _userName = jsonResponse['user']['name'];
       _userEmail = jsonResponse['user']['email'];
+      _userToken = jsonResponse['token'];
       notifyListeners();
+      getCart();
     }
 
     return response.statusCode;
@@ -83,9 +95,15 @@ class Auth extends ChangeNotifier {
       'Authorization': 'Bearer $userToken'
     });
     print(response.body);
-    _isAuthenticated = false;
-    UserHandler().loggedOut();
-    notifyListeners();
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      _isAuthenticated = false;
+      UserHandler().loggedOut();
+      Alert(message: 'You have been logged out').show();
+      notifyListeners();
+    } else {
+      Alert(message: 'Some Error Occurred. Please try again later.').show();
+    }
   }
 
   void addToCart(BuildContext context, itemID, option) async {
@@ -124,7 +142,21 @@ class Auth extends ChangeNotifier {
         body: jsonEncode({'item_id': itemID.toString(), 'option': option}),
       );
       var decode = jsonDecode(response.body);
+      getCart();
       Alert(message: decode['message']).show();
     }
+  }
+
+  void getCart() async {
+    var response = await http.get(Uri.parse('$apiUrl/cart/get'), headers: {
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $userToken'
+    });
+
+    var decode = jsonDecode(response.body);
+    _cartItems = decode['items'];
+    _totalPrice = decode['total_price'].toDouble();
+    print(_cartItems);
+    notifyListeners();
   }
 }
