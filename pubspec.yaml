@@ -101,6 +101,9 @@ flutter:
     - family: Archivo-Italic
       fonts:
         - asset: assets/fonts/Archivo-ThinItalic.ttf
+    - family: Archivo-Regular
+      fonts:
+        - asset: assets/fonts/Archivo-Regular.ttf
 
   #
   # For details regarding fonts from package dependencies,
