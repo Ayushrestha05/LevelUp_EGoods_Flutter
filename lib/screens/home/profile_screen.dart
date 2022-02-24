@@ -1,6 +1,7 @@
 import 'package:antdesign_icons/antdesign_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:levelup_egoods/screens/report_screen.dart';
+import 'package:levelup_egoods/screens/settings/index.dart';
 import 'package:levelup_egoods/utilities/auth.dart';
 import 'package:levelup_egoods/utilities/size_config.dart';
 import 'package:provider/provider.dart';
@@ -62,7 +63,12 @@ class ProfileScreen extends StatelessWidget {
                       buildProfileButton(
                         buttonName: "Settings",
                         buttonIcon: AntIcons.settingOutlined,
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) => SettingIndex()));
+                        },
                       ),
                     ],
                   ),
