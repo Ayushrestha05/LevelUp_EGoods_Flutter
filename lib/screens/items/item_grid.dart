@@ -111,8 +111,10 @@ class _ItemGridState extends State<ItemGrid> {
                                           tag:
                                               'itemImage${decode[index]['id']}',
                                           child: CachedNetworkImage(
-                                            httpHeaders: {
-                                              'Keep-Alive': 'timeout=5,max=1000'
+                                            httpHeaders: const {
+                                              'Connection': 'Keep-Alive',
+                                              'Keep-Alive':
+                                                  'timeout=10,max=1000'
                                             },
                                             imageUrl: decode[index]
                                                 ['item_image'],

@@ -136,7 +136,10 @@ class _buildCategoryCardsState extends State<buildCategoryCards> {
         ),
         onTap: widget.onTap,
         child: CachedNetworkImage(
-          httpHeaders: const {'Keep-Alive': 'timeout=5,max=1000'},
+          httpHeaders: const {
+            'Connection': 'Keep-Alive',
+            'Keep-Alive': 'timeout=10,max=1000'
+          },
           imageUrl: widget.categoryImage,
           placeholder: (context, url) => Container(
               height: rWidth(150),
@@ -196,9 +199,6 @@ class _buildCategoryCardsState extends State<buildCategoryCards> {
               ],
               image: DecorationImage(
                 opacity: 0.4,
-                onError: (object, error) {
-                  print('Decoration Image Error!');
-                },
                 fit: BoxFit.cover,
                 image: imageProvider,
               ),
