@@ -171,23 +171,7 @@ class _LoginScreenState extends State<LoginScreen> {
         //Alert Dialogs for carious status codes.
         switch (status) {
           case 200:
-            showDialog(
-                barrierDismissible: false,
-                context: context,
-                builder: (_) {
-                  return AlertDialog(
-                    title: const Text('Login Successful'),
-                    content: const Text('You have Successfully Logged in.'),
-                    actions: [
-                      TextButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                            Navigator.pop(context);
-                          },
-                          child: const Text('OK'))
-                    ],
-                  );
-                });
+            Navigator.pop(context);
             break;
 
           case 401:
