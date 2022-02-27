@@ -5,7 +5,7 @@ import 'package:levelup_egoods/utilities/user_handler.dart';
 
 class AppTheme extends ChangeNotifier {
   String _selectedTheme = '';
-  ThemeData _selectedThemeData = ThemeData.light();
+  ThemeData _selectedThemeData = light;
 
   get selectedTheme => _selectedTheme;
   get selectedThemeData => _selectedThemeData;
