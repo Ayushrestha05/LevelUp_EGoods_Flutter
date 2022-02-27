@@ -100,6 +100,7 @@ class Auth extends ChangeNotifier {
     if (response.statusCode == 200) {
       _isAuthenticated = false;
       UserHandler().loggedOut();
+      _cartItems = [];
       Alert(message: 'You have been logged out').show();
       notifyListeners();
     } else {
