@@ -146,6 +146,7 @@ class Auth extends ChangeNotifier {
       var decode = jsonDecode(response.body);
       getCart();
       Alert(message: decode['message']).show();
+      notifyListeners();
     }
   }
 
@@ -160,5 +161,63 @@ class Auth extends ChangeNotifier {
     _totalPrice = decode['total_price'].toDouble();
     print(_cartItems);
     notifyListeners();
+  }
+
+  void removeItemFromCart(BuildContext context, int cart_item) async {
+    var response = await http.post(Uri.parse('$apiUrl/cart/remove'),
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $userToken',
+          "Content-Type": "application/json",
+        },
+        body: jsonEncode({'cart_item_id': cart_item}));
+
+    if (response.statusCode == 200) {
+      Alert(message: jsonDecode(response.body)['message']).show();
+      getCart();
+      notifyListeners();
+    } else {
+      Alert(message: jsonDecode(response.body)['message']).show();
+      notifyListeners();
+    }
+  }
+
+  void increaseItemQuantity(BuildContext context, int cart_item) async {
+    var response = await http.post(Uri.parse('$apiUrl/cart/increase'),
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $userToken',
+          "Content-Type": "application/json",
+        },
+        body: jsonEncode({'cart_item_id': cart_item}));
+
+    if (response.statusCode == 200) {
+      Alert(message: jsonDecode(response.body)['message']).show();
+      getCart();
+      notifyListeners();
+    } else {
+      Alert(message: jsonDecode(response.body)['message']).show();
+      notifyListeners();
+    }
+  }
+
+  ///Reduce the Quantity of Cart Item by 1
+  void decreaseItemQuantity(BuildContext context, int cart_item) async {
+    var response = await http.post(Uri.parse('$apiUrl/cart/decrease'),
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $userToken',
+          "Content-Type": "application/json",
+        },
+        body: jsonEncode({'cart_item_id': cart_item}));
+
+    if (response.statusCode == 200) {
+      Alert(message: jsonDecode(response.body)['message']).show();
+      getCart();
+      notifyListeners();
+    } else {
+      Alert(message: jsonDecode(response.body)['message']).show();
+      notifyListeners();
+    }
   }
 }
