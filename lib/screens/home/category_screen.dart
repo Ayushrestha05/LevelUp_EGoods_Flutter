@@ -6,6 +6,7 @@ import 'package:levelup_egoods/screens/items/item_grid.dart';
 import 'package:levelup_egoods/utilities/constants.dart';
 import 'package:levelup_egoods/utilities/size_config.dart';
 import 'package:http/http.dart' as http;
+import 'package:levelup_egoods/widgets/titleContainer.dart';
 
 class CategoryScreen extends StatelessWidget {
   const CategoryScreen({Key? key}) : super(key: key);
@@ -21,7 +22,7 @@ class CategoryScreen extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          _buildTitle(context),
+          buildTitle(context, 'Categories'),
           FutureBuilder(
             future: getCategoryData(),
             builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
@@ -67,39 +68,6 @@ class CategoryScreen extends StatelessWidget {
                   return Text('default');
               }
             },
-          ),
-        ],
-      ),
-    );
-  }
-
-  Container _buildTitle(BuildContext context) {
-    return Container(
-      margin:
-          EdgeInsets.symmetric(horizontal: rWidth(20), vertical: rWidth(20)),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(
-            child: Container(
-              color: Theme.of(context).primaryColor.value == 4280361249
-                  ? Colors.white
-                  : Colors.black,
-              height: 2,
-            ),
-          ),
-          Container(
-              margin: EdgeInsets.symmetric(horizontal: rWidth(20)),
-              child: Text('Categories',
-                  style:
-                      TextStyle(fontFamily: "Outfit", fontSize: rWidth(24)))),
-          Expanded(
-            child: Container(
-              color: Theme.of(context).primaryColor.value == 4280361249
-                  ? Colors.white
-                  : Colors.black,
-              height: 2,
-            ),
           ),
         ],
       ),
