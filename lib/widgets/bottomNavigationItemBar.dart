@@ -47,3 +47,48 @@ Container buildBottomNavigationBarItem(
     ),
   );
 }
+
+Container buildBottomCheckoutBarItem(String itemPrice, Function()? onPressed) {
+  return Container(
+    color: const Color(0xFF112149),
+    padding: EdgeInsets.symmetric(horizontal: rWidth(10), vertical: rWidth(10)),
+    child: Row(
+      children: [
+        Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              'NPR',
+              style: TextStyle(fontFamily: 'Righteous', color: Colors.white),
+            ),
+            Text(
+              itemPrice,
+              style: TextStyle(
+                  fontFamily: 'Righteous',
+                  color: Colors.white,
+                  fontSize: rWidth(25)),
+            )
+          ],
+        ),
+        const Spacer(),
+        ElevatedButton(
+          onPressed: onPressed,
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: rWidth(15), vertical: rWidth(10)),
+            child: Text(
+              'Checkout',
+              style: TextStyle(color: Colors.black, fontFamily: 'Archivo'),
+            ),
+          ),
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all(
+              const Color(0xFF6FFFE9),
+            ),
+          ),
+        )
+      ],
+    ),
+  );
+}
