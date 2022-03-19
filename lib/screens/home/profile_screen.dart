@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:levelup_egoods/screens/report_screen.dart';
 import 'package:levelup_egoods/screens/settings/index.dart';
 import 'package:levelup_egoods/utilities/auth.dart';
+import 'package:levelup_egoods/utilities/constants.dart';
 import 'package:levelup_egoods/utilities/size_config.dart';
 import 'package:provider/provider.dart';
 
@@ -154,12 +155,13 @@ class buildProfileButton extends StatelessWidget {
             height: 60,
             width: 60,
             decoration: BoxDecoration(
-              color: const Color(0xFFC4C4C4),
-              borderRadius: BorderRadius.circular(10),
-            ),
+                color: const Color(0xFFC4C4C4),
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: getBoxShadow(context)),
             child: Center(
               child: Icon(
                 buttonIcon,
+                color: Colors.black,
                 size: 32,
               ),
             ),

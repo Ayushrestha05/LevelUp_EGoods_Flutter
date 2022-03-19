@@ -133,18 +133,30 @@ class _buildCategoryCardsState extends State<buildCategoryCards> {
                     borderRadius: BorderRadius.circular(rWidth(10)),
                     color: Color(int.parse(
                         widget.categoryColor.replaceAll('#', '0xff'))),
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Colors.grey,
-                        blurRadius: 4.0, // soften the shadow
-                        spreadRadius: 1.0, //extend the shadow
-                        offset: Offset(
-                          3.0, // Move to right 10  horizontally
-                          4.0, // Move to bottom 10 Vertically
-                        ),
-                      )
-                    ]),
-                child: const Icon(Icons.error));
+                    boxShadow: getBoxShadow(context)),
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Expanded(
+                        child: Padding(
+                      padding: EdgeInsets.only(top: rWidth(40)),
+                      child: const Icon(Icons.error),
+                    )),
+                    Container(
+                      margin:
+                          EdgeInsets.only(left: rWidth(16), bottom: rWidth(18)),
+                      alignment: AlignmentDirectional.bottomStart,
+                      child: Text(
+                        widget.categoryTitle,
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'Outfit',
+                            fontSize: rWidth(20),
+                            fontWeight: FontWeight.bold),
+                      ),
+                    )
+                  ],
+                ));
           },
           imageBuilder: (context, imageProvider) => Container(
             height: rWidth(150),

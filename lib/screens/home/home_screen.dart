@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:levelup_egoods/utilities/constants.dart';
 import 'package:levelup_egoods/utilities/size_config.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -67,17 +68,7 @@ class HomeScreen extends StatelessWidget {
               Container(
                 height: 200,
                 decoration: BoxDecoration(
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Colors.grey,
-                        blurRadius: 4.0, // soften the shadow
-                        spreadRadius: 1.0, //extend the shadow
-                        offset: Offset(
-                          3.0, // Move to right 10  horizontally
-                          4.0, // Move to bottom 10 Vertically
-                        ),
-                      )
-                    ],
+                    boxShadow: getBoxShadow(context),
                     borderRadius: BorderRadius.circular(10),
                     image: const DecorationImage(
                         fit: BoxFit.fill,
@@ -145,17 +136,7 @@ class HomeScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(10),
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Colors.grey,
-                        blurRadius: 4.0, // soften the shadow
-                        spreadRadius: 1.0, //extend the shadow
-                        offset: Offset(
-                          3.0, // Move to right 10  horizontally
-                          4.0, // Move to bottom 10 Vertically
-                        ),
-                      )
-                    ]),
+                    boxShadow: getBoxShadow(context)),
                 child: Column(
                   children: [
                     const SizedBox(
@@ -238,17 +219,7 @@ class HomeScreen extends StatelessWidget {
               Container(
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(rWidth(10)),
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Colors.grey,
-                        blurRadius: 4.0, // soften the shadow
-                        spreadRadius: 1.0, //extend the shadow
-                        offset: Offset(
-                          3.0, // Move to right 10  horizontally
-                          4.0, // Move to bottom 10 Vertically
-                        ),
-                      )
-                    ]),
+                    boxShadow: getBoxShadow(context)),
                 child: InkWell(
                   onTap: () {},
                   child: Stack(
