@@ -9,6 +9,7 @@ MERGED from [:just_audio] C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flu
 MERGED from [:shared_preferences_android] C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\build\shared_preferences_android\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:alert] C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\build\alert\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:sqflite] C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\build\sqflite\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
+MERGED from [:url_launcher_android] C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\build\url_launcher_android\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-14:12
 MERGED from [:path_provider_android] C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\build\path_provider_android\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:audio_session] C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\build\audio_session\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [com.google.android.exoplayer:exoplayer-dash:2.15.0] C:\Users\BR33Z3-PCMR\.gradle\caches\transforms-2\files-2.1\f38da73be4f05890ab9da5d4094febbb\jetified-exoplayer-dash-2.15.0\AndroidManifest.xml:17:1-24:12
@@ -54,6 +55,8 @@ INJECTED from C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\android
 		ADDED from C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\android\app\src\main\AndroidManifest.xml:1:11-69
 application
 ADDED from C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\android\app\src\main\AndroidManifest.xml:3:4-42:19
+MERGED from [:url_launcher_android] C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\build\url_launcher_android\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-12:19
+MERGED from [:url_launcher_android] C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\build\url_launcher_android\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-12:19
 MERGED from [androidx.core:core:1.6.0] C:\Users\BR33Z3-PCMR\.gradle\caches\transforms-2\files-2.1\5f663b08eec19eef9a9d1af662d9025e\core-1.6.0\AndroidManifest.xml:24:5-89
 MERGED from [androidx.core:core:1.6.0] C:\Users\BR33Z3-PCMR\.gradle\caches\transforms-2\files-2.1\5f663b08eec19eef9a9d1af662d9025e\core-1.6.0\AndroidManifest.xml:24:5-89
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\BR33Z3-PCMR\.gradle\caches\transforms-2\files-2.1\87cae496edf0d81af80ab48e3e89ecce\versionedparcelable-1.1.1\AndroidManifest.xml:24:5-25:19
@@ -126,6 +129,8 @@ MERGED from [:alert] C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\
 MERGED from [:alert] C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\build\alert\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:sqflite] C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\build\sqflite\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:sqflite] C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\build\sqflite\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:url_launcher_android] C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\build\url_launcher_android\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:url_launcher_android] C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\build\url_launcher_android\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:path_provider_android] C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\build\path_provider_android\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:path_provider_android] C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\build\path_provider_android\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:audio_session] C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\build\audio_session\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
@@ -186,6 +191,14 @@ INJECTED from C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\android
 	android:minSdkVersion
 		INJECTED from C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\android\app\src\main\AndroidManifest.xml
 		INJECTED from C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\android\app\src\debug\AndroidManifest.xml
+activity#io.flutter.plugins.urllauncher.WebViewActivity
+ADDED from [:url_launcher_android] C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\build\url_launcher_android\intermediates\library_manifest\debug\AndroidManifest.xml:8:9-11:74
+	android:exported
+		ADDED from [:url_launcher_android] C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\build\url_launcher_android\intermediates\library_manifest\debug\AndroidManifest.xml:10:13-37
+	android:theme
+		ADDED from [:url_launcher_android] C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\build\url_launcher_android\intermediates\library_manifest\debug\AndroidManifest.xml:11:13-71
+	android:name
+		ADDED from [:url_launcher_android] C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\build\url_launcher_android\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-74
 uses-permission#android.permission.ACCESS_NETWORK_STATE
 ADDED from [com.google.android.exoplayer:exoplayer-core:2.15.0] C:\Users\BR33Z3-PCMR\.gradle\caches\transforms-2\files-2.1\2f681db8128542500b825444bc09e386\jetified-exoplayer-core-2.15.0\AndroidManifest.xml:24:5-79
 MERGED from [com.google.android.exoplayer:exoplayer-common:2.15.0] C:\Users\BR33Z3-PCMR\.gradle\caches\transforms-2\files-2.1\ddc633bf2ebc8c7582b0768f902d2a8f\jetified-exoplayer-common-2.15.0\AndroidManifest.xml:24:5-79

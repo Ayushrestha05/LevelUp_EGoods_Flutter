@@ -6,7 +6,12 @@ import 'package:provider/provider.dart';
 class MusicProvider extends StatelessWidget {
   final int itemID;
   final String imageURL;
-  const MusicProvider({Key? key, required this.itemID, required this.imageURL})
+  final String heroTag;
+  const MusicProvider(
+      {Key? key,
+      required this.itemID,
+      required this.imageURL,
+      required this.heroTag})
       : super(key: key);
 
   @override
@@ -15,6 +20,7 @@ class MusicProvider extends StatelessWidget {
       create: (context) => Music(itemID),
       child: MusicViewScreen(
         imageURL: imageURL,
+        heroTag: heroTag,
       ),
     );
   }

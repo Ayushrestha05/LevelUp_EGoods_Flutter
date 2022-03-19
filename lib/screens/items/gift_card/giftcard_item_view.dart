@@ -8,7 +8,9 @@ import 'package:provider/provider.dart';
 
 class GiftCardView extends StatelessWidget {
   final String imageURL;
-  const GiftCardView({Key? key, required this.imageURL}) : super(key: key);
+  final String heroTag;
+  const GiftCardView({Key? key, required this.imageURL, required this.heroTag})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +32,7 @@ class GiftCardView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Hero(
-                tag: 'itemImage${giftCardData.id}',
+                tag: heroTag,
                 child: CachedNetworkImage(
                   imageUrl: imageURL,
                   placeholder: (context, url) => const Center(

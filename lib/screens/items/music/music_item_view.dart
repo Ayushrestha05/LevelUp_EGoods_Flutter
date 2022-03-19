@@ -10,7 +10,10 @@ import 'package:provider/provider.dart';
 
 class MusicViewScreen extends StatelessWidget {
   final String imageURL;
-  const MusicViewScreen({Key? key, required this.imageURL}) : super(key: key);
+  final String heroTag;
+  const MusicViewScreen(
+      {Key? key, required this.imageURL, required this.heroTag})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +46,7 @@ class MusicViewScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Hero(
-                        tag: 'itemImage${musicData.id}',
+                        tag: heroTag,
                         child: CachedNetworkImage(
                           imageUrl: imageURL,
                           placeholder: (context, url) => const Center(

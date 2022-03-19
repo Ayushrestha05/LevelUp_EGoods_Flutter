@@ -6,8 +6,12 @@ import 'package:provider/provider.dart';
 class GiftCardProvider extends StatelessWidget {
   final int itemID;
   final String imageURL;
+  final String heroTag;
   const GiftCardProvider(
-      {Key? key, required this.itemID, required this.imageURL})
+      {Key? key,
+      required this.itemID,
+      required this.imageURL,
+      required this.heroTag})
       : super(key: key);
 
   @override
@@ -16,6 +20,7 @@ class GiftCardProvider extends StatelessWidget {
       create: (context) => GiftCard(itemID),
       child: GiftCardView(
         imageURL: imageURL,
+        heroTag: heroTag,
       ),
     );
   }
