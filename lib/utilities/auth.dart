@@ -95,8 +95,6 @@ class Auth extends ChangeNotifier {
       'Accept': 'application/json',
       'Authorization': 'Bearer $userToken'
     });
-    print(response.body);
-    print(response.statusCode);
     if (response.statusCode == 200) {
       _isAuthenticated = false;
       UserHandler().loggedOut();
@@ -159,7 +157,6 @@ class Auth extends ChangeNotifier {
     var decode = jsonDecode(response.body);
     _cartItems = decode['items'];
     _totalPrice = decode['total_price'].toDouble();
-    print(_cartItems);
     notifyListeners();
   }
 

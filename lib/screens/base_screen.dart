@@ -24,7 +24,6 @@ class _BaseScreenState extends State<BaseScreen> {
     HomeScreen(),
     CategoryScreen(),
     Consumer<Auth>(builder: (context, auth, child) {
-      print('is Authenticated = ${auth.isAuthenticated}');
       if (auth.isAuthenticated) {
         return Container(
           child: CartScreen(),
@@ -34,7 +33,6 @@ class _BaseScreenState extends State<BaseScreen> {
       }
     }),
     Consumer<Auth>(builder: (context, auth, child) {
-      print('is Authenticated = ${auth.isAuthenticated}');
       if (auth.isAuthenticated) {
         return ProfileScreen();
       } else {
