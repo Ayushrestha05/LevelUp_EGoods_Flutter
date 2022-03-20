@@ -1,0 +1,4 @@
+io/flutter/plugins/GeneratedPluginRegistrant.java
+ io.flutter.plugins.GeneratedPluginRegistrant
+com/brainoutofbounds/levelup_egoods/BuildConfig.java
+ com.brainoutofbounds.levelup_egoods.BuildConfig

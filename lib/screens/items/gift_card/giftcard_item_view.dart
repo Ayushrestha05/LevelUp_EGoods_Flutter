@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:levelup_egoods/utilities/auth.dart';
 import 'package:levelup_egoods/utilities/models/giftcard.dart';
 import 'package:levelup_egoods/utilities/size_config.dart';
@@ -92,6 +93,34 @@ class GiftCardView extends StatelessWidget {
                     fontFamily: 'Outfit',
                     fontSize: rWidth(20),
                     fontWeight: FontWeight.w600),
+              ),
+              SizedBox(
+                height: rWidth(5),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  RatingBarIndicator(
+                    rating: giftCardData.averageRating,
+                    itemBuilder: (context, index) =>
+                        const Icon(Icons.star, color: Colors.amber),
+                    itemCount: 5,
+                    itemSize: 15,
+                  ),
+                  SizedBox(
+                    width: rWidth(5),
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(top: rWidth(2)),
+                    child: Text(
+                      "${giftCardData.averageRating} (${giftCardData.totalReviews})",
+                      style:
+                          TextStyle(fontFamily: 'Gotham', fontSize: rWidth(10)),
+                    ),
+                  ),
+                ],
               ),
               SizedBox(
                 height: rWidth(20),

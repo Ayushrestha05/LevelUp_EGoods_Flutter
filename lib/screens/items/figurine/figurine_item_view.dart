@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:levelup_egoods/screens/imageView/image_view.dart';
 import 'package:levelup_egoods/utilities/auth.dart';
 import 'package:levelup_egoods/utilities/models/figurine.dart';
@@ -97,7 +98,7 @@ class FigurineView extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: rWidth(20),
+                      height: rWidth(10),
                     ),
                     figurineData.figurineHeight != ''
                         ? Text(
@@ -116,7 +117,35 @@ class FigurineView extends StatelessWidget {
                           )
                         : Container(),
                     SizedBox(
-                      height: rWidth(40),
+                      height: rWidth(5),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        RatingBarIndicator(
+                          rating: figurineData.averageRating,
+                          itemBuilder: (context, index) =>
+                              const Icon(Icons.star, color: Colors.amber),
+                          itemCount: 5,
+                          itemSize: 15,
+                        ),
+                        SizedBox(
+                          width: rWidth(5),
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(top: rWidth(2)),
+                          child: Text(
+                            "${figurineData.averageRating} (${figurineData.totalReviews})",
+                            style: TextStyle(
+                                fontFamily: 'Gotham', fontSize: rWidth(10)),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: rWidth(20),
                     ),
                     Text(
                       figurineData.description,

@@ -5,11 +5,11 @@ import 'package:http/http.dart' as http;
 import 'package:levelup_egoods/utilities/constants.dart';
 
 class GiftCard with ChangeNotifier {
-  int _id = 0;
+  int _id = 0, _totalReviews = 0;
   String _itemName = '', _itemDescription = '', _itemImage = '', _option = '';
   var _cardDetails = [];
   int _isSelected = 0;
-
+  double _averageRating = 0;
   get id => _id;
   get itemName => _itemName;
   get itemDescription => _itemDescription;
@@ -17,10 +17,13 @@ class GiftCard with ChangeNotifier {
   get isSelected => _isSelected;
   get option => _option;
   get cardDetails => _cardDetails;
+  get totalReviews => _totalReviews;
+  get averageRating => _averageRating;
 
   GiftCard(int itemID) {
     _id = itemID;
     getCardDetails();
+    getReviewData();
   }
 
   void getCardDetails() async {
@@ -34,6 +37,16 @@ class GiftCard with ChangeNotifier {
     _cardDetails = decode['gift_card_details'];
     _isSelected = _cardDetails[0]['id'];
     _option = _cardDetails[0]['card_type'];
+    notifyListeners();
+  }
+
+  void getReviewData() async {
+    var response = await http.get(Uri.parse('$apiUrl/reviews/$id'),
+        headers: {'Accept': 'application/json'});
+
+    var reviewDecode = jsonDecode(response.body);
+    _totalReviews = reviewDecode['total_reviews'];
+    _averageRating = reviewDecode['average_rating'].toDouble();
     notifyListeners();
   }
 

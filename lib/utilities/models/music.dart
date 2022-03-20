@@ -5,10 +5,15 @@ import 'package:http/http.dart' as http;
 import 'package:levelup_egoods/utilities/constants.dart';
 
 class Music with ChangeNotifier {
-  int _id = 0;
-  double _digitalPrice = 0, _physicalPrice = 0, _selectedPrice = 0;
+  int _id = 0, _totalReviews = 0;
+
+  double _digitalPrice = 0,
+      _physicalPrice = 0,
+      _selectedPrice = 0,
+      _averageRating = 0;
   String _albumName = '', _albumArtist = '', _albumImage = '', _albumType = '';
   var _albumTracks = [];
+  var _latestReview = [];
   String _isSelected = '';
 
   get id => _id;
@@ -21,6 +26,9 @@ class Music with ChangeNotifier {
   get albumTracks => _albumTracks;
   get isSelected => _isSelected;
   get selectedPrice => _selectedPrice;
+  get totalReviews => _totalReviews;
+  get averageRating => _averageRating;
+  get latestReview => _latestReview;
 
   void getAlbumDetails() async {
     var response = await http.get(Uri.parse('$apiUrl/items/music-data/$id'),
@@ -46,6 +54,17 @@ class Music with ChangeNotifier {
     notifyListeners();
   }
 
+  void getReviewData() async {
+    var response = await http.get(Uri.parse('$apiUrl/reviews/$id'),
+        headers: {'Accept': 'application/json'});
+
+    var reviewDecode = jsonDecode(response.body);
+    _totalReviews = reviewDecode['total_reviews'];
+    _averageRating = reviewDecode['average_rating'].toDouble();
+    _latestReview = reviewDecode['latest_review'];
+    notifyListeners();
+  }
+
   void setSelectedValue(String type) {
     _isSelected = type;
     getValue(_isSelected);
@@ -65,5 +84,6 @@ class Music with ChangeNotifier {
   Music(int itemID) {
     _id = itemID;
     getAlbumDetails();
+    getReviewData();
   }
 }

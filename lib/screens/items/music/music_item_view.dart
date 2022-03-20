@@ -1,11 +1,13 @@
 import 'package:antdesign_icons/antdesign_icons.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:levelup_egoods/screens/items/music/music_player.dart';
 import 'package:levelup_egoods/utilities/auth.dart';
 import 'package:levelup_egoods/utilities/models/music.dart';
 import 'package:levelup_egoods/utilities/size_config.dart';
 import 'package:levelup_egoods/widgets/bottomNavigationItemBar.dart';
+import 'package:levelup_egoods/widgets/bulidRatingStars.dart';
 import 'package:provider/provider.dart';
 
 class MusicViewScreen extends StatelessWidget {
@@ -93,7 +95,30 @@ class MusicViewScreen extends StatelessWidget {
                                 musicData.albumArtist,
                                 style: TextStyle(
                                     fontFamily: 'Gotham', fontSize: rWidth(14)),
-                              )
+                              ),
+                              SizedBox(
+                                height: rWidth(10),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  buildRatingStars(musicData.averageRating),
+                                  SizedBox(
+                                    width: rWidth(5),
+                                  ),
+                                  Container(
+                                    padding: EdgeInsets.only(top: rWidth(2)),
+                                    child: Text(
+                                      "${musicData.averageRating} (${musicData.totalReviews})",
+                                      style: TextStyle(
+                                          fontFamily: 'Gotham',
+                                          fontSize: rWidth(10)),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ],
                           ),
                         ),
@@ -158,58 +183,84 @@ class MusicViewScreen extends StatelessWidget {
                   color: Colors.black,
                   thickness: 1.5,
                 ),
-                SizedBox(
-                  height: 200,
-                  child: ListView.builder(
-                      itemCount: musicData.albumTracks.length,
-                      itemBuilder: (context, index) {
-                        return Container(
-                          margin: EdgeInsets.only(right: rWidth(15)),
-                          child: Row(
-                            children: [
-                              IconButton(
-                                icon: Icon(
-                                  Icons.play_circle_fill,
-                                  size: rWidth(30),
-                                ),
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (_) => MusicPlayer(
-                                                trackName:
-                                                    musicData.albumTracks[index]
-                                                        ['track_name'],
-                                                url:
-                                                    musicData.albumTracks[index]
-                                                        ['track_file'],
-                                                id: musicData.id,
-                                                albumName: musicData.albumName,
-                                                image: imageURL,
-                                              )));
-                                },
-                              ),
-                              SizedBox(
-                                width: rWidth(10),
-                              ),
-                              Text(
-                                musicData.albumTracks[index]['track_name'],
-                                style: TextStyle(
-                                    fontFamily: 'Gotham', fontSize: rWidth(12)),
-                              ),
-                              const Spacer(),
-                              Text(
-                                musicData.albumTracks[index]['track_time'],
-                                style: TextStyle(
-                                  fontFamily: 'Gotham',
-                                  fontSize: rWidth(14),
-                                ),
-                              ),
-                            ],
+                ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: musicData.albumTracks.length,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      margin: EdgeInsets.only(right: rWidth(15)),
+                      child: Row(
+                        children: [
+                          IconButton(
+                            icon: Icon(
+                              Icons.play_circle_fill,
+                              size: rWidth(30),
+                            ),
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (_) => MusicPlayer(
+                                            trackName:
+                                                musicData.albumTracks[index]
+                                                    ['track_name'],
+                                            url: musicData.albumTracks[index]
+                                                ['track_file'],
+                                            id: musicData.id,
+                                            albumName: musicData.albumName,
+                                            image: imageURL,
+                                          )));
+                            },
                           ),
-                        );
-                      }),
-                )
+                          SizedBox(
+                            width: rWidth(10),
+                          ),
+                          Text(
+                            musicData.albumTracks[index]['track_name'],
+                            style: TextStyle(
+                                fontFamily: 'Gotham', fontSize: rWidth(12)),
+                          ),
+                          const Spacer(),
+                          Text(
+                            musicData.albumTracks[index]['track_time'],
+                            style: TextStyle(
+                              fontFamily: 'Gotham',
+                              fontSize: rWidth(14),
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+                SizedBox(
+                  height: rWidth(10),
+                ),
+                Text(
+                  'Customer Reviews',
+                  style: TextStyle(fontFamily: 'Outfit'),
+                ),
+                ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: musicData.latestReview.length,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                Text(
+                                    musicData.latestReview[index]['user_name']),
+                                Spacer(),
+                                buildRatingStars(musicData.latestReview[index]
+                                        ['rating']
+                                    .toDouble())
+                              ],
+                            )
+                          ],
+                        ),
+                      );
+                    })
               ],
             ),
           ),

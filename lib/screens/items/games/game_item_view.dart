@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:intl/intl.dart';
 import 'package:alert/alert.dart';
 import 'package:antdesign_icons/antdesign_icons.dart';
@@ -40,192 +41,215 @@ class GameView extends StatelessWidget {
                       fontSize: rWidth(25)),
                 ),
               ),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              height: rWidth(250),
-              child: Swiper(
-                //fade: 0.5,
-                autoplay: gameData.gameImages.length == 1 ? false : true,
-                autoplayDelay: 7000,
-                //viewportFraction: rWidth(0.5),
-                //scale: rWidth(0.5),
-                index: -1,
-                itemCount: gameData.gameImages.length,
-                itemBuilder: (context, index) {
-                  return CachedNetworkImage(
-                      httpHeaders: const {
-                        'Connection': 'Keep-Alive',
-                        'Keep-Alive': 'timeout=10,max=1000'
-                      },
-                      imageUrl: gameData.gameImages[index],
-                      imageBuilder: (context, image) {
-                        return GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (_) => ImageView(image: image)));
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  fit: BoxFit.cover, image: image),
-                            ),
-                          ),
-                        );
-                      },
-                      placeholder: (context, url) => Container(
-                            height: 100,
-                            width: 100,
-                            child: const Center(
-                              child: CircularProgressIndicator(),
-                            ),
-                          ),
-                      errorWidget: (context, url, error) {
-                        if (error != null) {
-                          print(error);
-                        }
-                        return const Icon(Icons.error);
-                      });
-                },
-              ),
-            ),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Container(
-                  margin: EdgeInsets.symmetric(horizontal: rWidth(14)),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: rWidth(20),
-                      ),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Text(
-                              gameData.itemName,
-                              style: TextStyle(
-                                  fontFamily: 'Outfit', fontSize: rWidth(20)),
-                            ),
-                          ),
-                          Container(
-                            width: 50,
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        height: rWidth(10),
-                      ),
-                      gameData.gamePrices.length != 0
-                          ? Text('Available For:')
-                          : Container(),
-                      gameData.gamePrices.length != 0
-                          ? SizedBox(
-                              height: rWidth(10),
-                            )
-                          : Container(),
-                      gameData.gamePrices.length != 0
-                          ? Container(
-                              height: rWidth(40),
-                              child: ListView.builder(
-                                  itemCount: gameData.gamePrices.length,
-                                  scrollDirection: Axis.horizontal,
-                                  itemBuilder: (builder, index) {
-                                    return Container(
-                                      margin: EdgeInsets.only(right: rWidth(5)),
-                                      child: gameData.selected ==
-                                              gameData.gamePrices[index]['id']
-                                          ? ElevatedButton(
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: [
-                                                  SvgPicture.network(
-                                                    gameData.gamePrices[index]
-                                                        ['platform_logo'],
-                                                    height: rWidth(20),
-                                                    width: rWidth(20),
-                                                  ),
-                                                  SizedBox(
-                                                    width: rWidth(10),
-                                                  ),
-                                                  Text(
-                                                      gameData.gamePrices[index]
-                                                          ['platform_name']),
-                                                ],
-                                              ),
-                                              onPressed: () {
-                                                gameData.setSelected(gameData
-                                                    .gamePrices[index]['id']);
-                                              },
-                                            )
-                                          : OutlinedButton(
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: [
-                                                  SvgPicture.network(
-                                                    gameData.gamePrices[index]
-                                                        ['platform_logo'],
-                                                    height: rWidth(20),
-                                                    width: rWidth(20),
-                                                  ),
-                                                  SizedBox(
-                                                    width: rWidth(10),
-                                                  ),
-                                                  Text(
-                                                      gameData.gamePrices[index]
-                                                          ['platform_name']),
-                                                ],
-                                              ),
-                                              onPressed: () {
-                                                gameData.setSelected(gameData
-                                                    .gamePrices[index]['id']);
-                                              },
-                                            ),
-                                    );
-                                  }),
-                            )
-                          : Container(),
-                      SizedBox(
-                        height: rWidth(20),
-                      ),
-                      Text(
-                        gameData.description,
-                        textAlign: TextAlign.justify,
-                        style: TextStyle(
-                          fontFamily: 'Archivo-Regular',
-                          fontSize: rWidth(12),
-                          color: const Color(0xFF686868),
-                        ),
-                      ),
-                      SizedBox(
-                        height: rWidth(20),
-                      ),
-                      ElevatedButton(
-                          style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStateProperty.all(Colors.red)),
-                          onPressed: () {
-                            _launchURL(gameData.trailer);
-                          },
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Icon(AntIcons.youtubeFilled),
-                              SizedBox(
-                                width: rWidth(10),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                height: rWidth(250),
+                child: Swiper(
+                  //fade: 0.5,
+                  autoplay: gameData.gameImages.length == 1 ? false : true,
+                  autoplayDelay: 7000,
+                  //viewportFraction: rWidth(0.5),
+                  //scale: rWidth(0.5),
+                  index: -1,
+                  itemCount: gameData.gameImages.length,
+                  itemBuilder: (context, index) {
+                    return CachedNetworkImage(
+                        httpHeaders: const {
+                          'Connection': 'Keep-Alive',
+                          'Keep-Alive': 'timeout=10,max=1000'
+                        },
+                        imageUrl: gameData.gameImages[index],
+                        imageBuilder: (context, image) {
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (_) => ImageView(image: image)));
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    fit: BoxFit.cover, image: image),
                               ),
-                              Text('Watch Trailer')
-                            ],
-                          ))
-                    ],
-                  ),
+                            ),
+                          );
+                        },
+                        placeholder: (context, url) => Container(
+                              height: 100,
+                              width: 100,
+                              child: const Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                            ),
+                        errorWidget: (context, url, error) {
+                          if (error != null) {
+                            print(error);
+                          }
+                          return const Icon(Icons.error);
+                        });
+                  },
                 ),
               ),
-            )
-          ],
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: rWidth(14)),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: rWidth(10),
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            gameData.itemName,
+                            style: TextStyle(
+                                fontFamily: 'Outfit', fontSize: rWidth(20)),
+                          ),
+                        ),
+                        Container(
+                          width: 50,
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: rWidth(5),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        RatingBarIndicator(
+                          rating: gameData.averageRating,
+                          itemBuilder: (context, index) =>
+                              const Icon(Icons.star, color: Colors.amber),
+                          itemCount: 5,
+                          itemSize: 15,
+                        ),
+                        SizedBox(
+                          width: rWidth(5),
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(top: rWidth(2)),
+                          child: Text(
+                            "${gameData.averageRating} (${gameData.totalReviews})",
+                            style: TextStyle(
+                                fontFamily: 'Gotham', fontSize: rWidth(10)),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: rWidth(10),
+                    ),
+                    gameData.gamePrices.length != 0
+                        ? Text('Available For:')
+                        : Container(),
+                    gameData.gamePrices.length != 0
+                        ? SizedBox(
+                            height: rWidth(10),
+                          )
+                        : Container(),
+                    gameData.gamePrices.length != 0
+                        ? Container(
+                            height: rWidth(40),
+                            child: ListView.builder(
+                                itemCount: gameData.gamePrices.length,
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (builder, index) {
+                                  return Container(
+                                    margin: EdgeInsets.only(right: rWidth(5)),
+                                    child: gameData.selected ==
+                                            gameData.gamePrices[index]['id']
+                                        ? ElevatedButton(
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                SvgPicture.network(
+                                                  gameData.gamePrices[index]
+                                                      ['platform_logo'],
+                                                  height: rWidth(20),
+                                                  width: rWidth(20),
+                                                ),
+                                                SizedBox(
+                                                  width: rWidth(10),
+                                                ),
+                                                Text(gameData.gamePrices[index]
+                                                    ['platform_name']),
+                                              ],
+                                            ),
+                                            onPressed: () {
+                                              gameData.setSelected(gameData
+                                                  .gamePrices[index]['id']);
+                                            },
+                                          )
+                                        : OutlinedButton(
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                SvgPicture.network(
+                                                  gameData.gamePrices[index]
+                                                      ['platform_logo'],
+                                                  height: rWidth(20),
+                                                  width: rWidth(20),
+                                                ),
+                                                SizedBox(
+                                                  width: rWidth(10),
+                                                ),
+                                                Text(gameData.gamePrices[index]
+                                                    ['platform_name']),
+                                              ],
+                                            ),
+                                            onPressed: () {
+                                              gameData.setSelected(gameData
+                                                  .gamePrices[index]['id']);
+                                            },
+                                          ),
+                                  );
+                                }),
+                          )
+                        : Container(),
+                    SizedBox(
+                      height: rWidth(20),
+                    ),
+                    Text(
+                      gameData.description,
+                      textAlign: TextAlign.justify,
+                      style: TextStyle(
+                        fontFamily: 'Archivo-Regular',
+                        fontSize: rWidth(12),
+                        color: const Color(0xFF686868),
+                      ),
+                    ),
+                    SizedBox(
+                      height: rWidth(20),
+                    ),
+                    ElevatedButton(
+                        style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all(Colors.red)),
+                        onPressed: () {
+                          _launchURL(gameData.trailer);
+                        },
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(AntIcons.youtubeFilled),
+                            SizedBox(
+                              width: rWidth(10),
+                            ),
+                            Text('Watch Trailer')
+                          ],
+                        ))
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

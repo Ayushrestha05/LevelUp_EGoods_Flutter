@@ -5,10 +5,11 @@ import 'package:http/http.dart' as http;
 import 'package:levelup_egoods/utilities/constants.dart';
 
 class Game with ChangeNotifier {
-  int _id = 0, _selected = 0;
+  int _id = 0, _selected = 0, _totalReviews = 0;
   String _itemName = '', _description = '', _trailer = '', _option = '';
   var _gameImages = [];
   var _gamePrices = [];
+  double _averageRating = 0;
   DateTime _releaseDate = DateTime.now();
 
   get id => _id;
@@ -20,10 +21,23 @@ class Game with ChangeNotifier {
   get selected => _selected;
   get option => _option;
   get releaseDate => _releaseDate;
+  get totalReviews => _totalReviews;
+  get averageRating => _averageRating;
 
   Game(int itemID) {
     _id = itemID;
     getGameDetails();
+    getReviewData();
+  }
+
+  void getReviewData() async {
+    var response = await http.get(Uri.parse('$apiUrl/reviews/$id'),
+        headers: {'Accept': 'application/json'});
+
+    var reviewDecode = jsonDecode(response.body);
+    _totalReviews = reviewDecode['total_reviews'];
+    _averageRating = reviewDecode['average_rating'].toDouble();
+    notifyListeners();
   }
 
   void getGameDetails() async {

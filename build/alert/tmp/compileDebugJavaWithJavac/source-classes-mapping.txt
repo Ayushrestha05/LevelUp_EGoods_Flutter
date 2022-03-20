@@ -1,0 +1,2 @@
+com/oleksandr32/alert/BuildConfig.java
+ com.oleksandr32.alert.BuildConfig

@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:levelup_egoods/utilities/auth.dart';
 import 'package:levelup_egoods/utilities/models/illustration.dart';
 import 'package:levelup_egoods/utilities/size_config.dart';
@@ -26,8 +27,10 @@ class IllustrationView extends StatelessWidget {
         },
       ),
       body: Container(
-        padding:
-            EdgeInsets.symmetric(horizontal: rWidth(10), vertical: rWidth(10)),
+        padding: EdgeInsets.symmetric(
+          horizontal: rWidth(10),
+          vertical: rWidth(10),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -63,31 +66,32 @@ class IllustrationView extends StatelessWidget {
             Container(
               height: rWidth(40),
               child: ListView.builder(
-                  itemCount: illustration.illustration_prices.length,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (builder, index) {
-                    return Container(
-                      margin: EdgeInsets.only(right: rWidth(5)),
-                      child: illustration.selected ==
-                              illustration.illustration_prices[index]['id']
-                          ? ElevatedButton(
-                              child: Text(illustration
-                                  .illustration_prices[index]['size']),
-                              onPressed: () {
-                                illustration.setSelected(illustration
-                                    .illustration_prices[index]['id']);
-                              },
-                            )
-                          : OutlinedButton(
-                              child: Text(illustration
-                                  .illustration_prices[index]['size']),
-                              onPressed: () {
-                                illustration.setSelected(illustration
-                                    .illustration_prices[index]['id']);
-                              },
-                            ),
-                    );
-                  }),
+                itemCount: illustration.illustration_prices.length,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (builder, index) {
+                  return Container(
+                    margin: EdgeInsets.only(right: rWidth(5)),
+                    child: illustration.selected ==
+                            illustration.illustration_prices[index]['id']
+                        ? ElevatedButton(
+                            child: Text(illustration.illustration_prices[index]
+                                ['size']),
+                            onPressed: () {
+                              illustration.setSelected(illustration
+                                  .illustration_prices[index]['id']);
+                            },
+                          )
+                        : OutlinedButton(
+                            child: Text(illustration.illustration_prices[index]
+                                ['size']),
+                            onPressed: () {
+                              illustration.setSelected(illustration
+                                  .illustration_prices[index]['id']);
+                            },
+                          ),
+                  );
+                },
+              ),
             ),
             SizedBox(
               height: rWidth(20),
@@ -98,6 +102,34 @@ class IllustrationView extends StatelessWidget {
                   fontFamily: 'Outfit',
                   fontSize: rWidth(20),
                   fontWeight: FontWeight.w600),
+            ),
+            SizedBox(
+              height: rWidth(5),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                RatingBarIndicator(
+                  rating: illustration.averageRating,
+                  itemBuilder: (context, index) =>
+                      const Icon(Icons.star, color: Colors.amber),
+                  itemCount: 5,
+                  itemSize: 15,
+                ),
+                SizedBox(
+                  width: rWidth(5),
+                ),
+                Container(
+                  padding: EdgeInsets.only(top: rWidth(2)),
+                  child: Text(
+                    "${illustration.averageRating} (${illustration.totalReviews})",
+                    style:
+                        TextStyle(fontFamily: 'Gotham', fontSize: rWidth(10)),
+                  ),
+                ),
+              ],
             ),
             SizedBox(
               height: rWidth(20),
