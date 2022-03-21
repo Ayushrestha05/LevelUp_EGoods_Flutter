@@ -13,6 +13,7 @@ class Illustration extends ChangeNotifier {
       _creator = '',
       _option = '';
   var _illustration_prices = [];
+  var _latestReview = [];
 
   get id => _id;
   get name => _name;
@@ -25,6 +26,7 @@ class Illustration extends ChangeNotifier {
   get option => _option;
   get totalReviews => _totalReviews;
   get averageRating => _averageRating;
+  get latestReview => _latestReview;
 
   Illustration(int itemID) {
     _id = itemID;
@@ -73,6 +75,7 @@ class Illustration extends ChangeNotifier {
     var reviewDecode = jsonDecode(response.body);
     _totalReviews = reviewDecode['total_reviews'];
     _averageRating = reviewDecode['average_rating'].toDouble();
+    _latestReview = reviewDecode['latest_review'];
     notifyListeners();
   }
 }

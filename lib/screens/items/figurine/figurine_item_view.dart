@@ -8,6 +8,7 @@ import 'package:levelup_egoods/utilities/auth.dart';
 import 'package:levelup_egoods/utilities/models/figurine.dart';
 import 'package:levelup_egoods/utilities/size_config.dart';
 import 'package:levelup_egoods/widgets/bottomNavigationItemBar.dart';
+import 'package:levelup_egoods/widgets/buildCustomerReviews.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:provider/provider.dart';
 
@@ -157,7 +158,15 @@ class FigurineView extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: rWidth(40),
+                      height: rWidth(10),
+                    ),
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      child: buildCustomerReviews(
+                          context: context, data: figurineData.latestReview),
+                    ),
+                    SizedBox(
+                      height: rWidth(10),
                     ),
                   ],
                 ),

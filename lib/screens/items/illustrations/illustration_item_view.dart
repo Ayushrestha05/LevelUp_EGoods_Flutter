@@ -5,6 +5,7 @@ import 'package:levelup_egoods/utilities/auth.dart';
 import 'package:levelup_egoods/utilities/models/illustration.dart';
 import 'package:levelup_egoods/utilities/size_config.dart';
 import 'package:levelup_egoods/widgets/bottomNavigationItemBar.dart';
+import 'package:levelup_egoods/widgets/buildCustomerReviews.dart';
 import 'package:provider/provider.dart';
 
 class IllustrationView extends StatelessWidget {
@@ -141,6 +142,14 @@ class IllustrationView extends StatelessWidget {
                   fontFamily: 'Archivo-Regular',
                   color: const Color(0xFF686868),
                   fontSize: rWidth(12)),
+            ),
+            SizedBox(
+              height: rWidth(20),
+            ),
+            buildCustomerReviews(
+                data: illustration.latestReview, context: context),
+            SizedBox(
+              height: rWidth(20),
             ),
           ],
         ),

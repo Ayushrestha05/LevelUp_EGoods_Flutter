@@ -9,6 +9,7 @@ class Game with ChangeNotifier {
   String _itemName = '', _description = '', _trailer = '', _option = '';
   var _gameImages = [];
   var _gamePrices = [];
+  var _latestReview = [];
   double _averageRating = 0;
   DateTime _releaseDate = DateTime.now();
 
@@ -23,6 +24,7 @@ class Game with ChangeNotifier {
   get releaseDate => _releaseDate;
   get totalReviews => _totalReviews;
   get averageRating => _averageRating;
+  get latestReview => _latestReview;
 
   Game(int itemID) {
     _id = itemID;
@@ -37,6 +39,7 @@ class Game with ChangeNotifier {
     var reviewDecode = jsonDecode(response.body);
     _totalReviews = reviewDecode['total_reviews'];
     _averageRating = reviewDecode['average_rating'].toDouble();
+    _latestReview = reviewDecode['latest_review'];
     notifyListeners();
   }
 

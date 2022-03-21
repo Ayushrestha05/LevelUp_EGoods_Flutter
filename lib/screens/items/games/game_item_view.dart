@@ -14,6 +14,7 @@ import 'package:levelup_egoods/utilities/auth.dart';
 import 'package:levelup_egoods/utilities/models/game.dart';
 import 'package:levelup_egoods/utilities/size_config.dart';
 import 'package:levelup_egoods/widgets/bottomNavigationItemBar.dart';
+import 'package:levelup_egoods/widgets/buildCustomerReviews.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -229,22 +230,31 @@ class GameView extends StatelessWidget {
                       height: rWidth(20),
                     ),
                     ElevatedButton(
-                        style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all(Colors.red)),
-                        onPressed: () {
-                          _launchURL(gameData.trailer);
-                        },
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Icon(AntIcons.youtubeFilled),
-                            SizedBox(
-                              width: rWidth(10),
-                            ),
-                            Text('Watch Trailer')
-                          ],
-                        ))
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.red)),
+                      onPressed: () {
+                        _launchURL(gameData.trailer);
+                      },
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Icon(AntIcons.youtubeFilled),
+                          SizedBox(
+                            width: rWidth(10),
+                          ),
+                          const Text('Watch Trailer')
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: rWidth(20),
+                    ),
+                    buildCustomerReviews(
+                        data: gameData.latestReview, context: context),
+                    SizedBox(
+                      height: rWidth(20),
+                    ),
                   ],
                 ),
               ),

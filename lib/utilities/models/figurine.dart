@@ -12,6 +12,7 @@ class Figurine extends ChangeNotifier {
       _figurineDimension = '';
   double _price = 0, _averageRating = 0;
   var _imagesList = [];
+  var _latestReview = [];
 
   get id => _id;
   get itemName => _itemName;
@@ -22,6 +23,7 @@ class Figurine extends ChangeNotifier {
   get figurineDimension => _figurineDimension;
   get totalReviews => _totalReviews;
   get averageRating => _averageRating;
+  get latestReview => _latestReview;
 
   Figurine(int itemID) {
     _id = itemID;
@@ -51,6 +53,7 @@ class Figurine extends ChangeNotifier {
     var reviewDecode = jsonDecode(response.body);
     _totalReviews = reviewDecode['total_reviews'];
     _averageRating = reviewDecode['average_rating'].toDouble();
+    _latestReview = reviewDecode['latest_review'];
     notifyListeners();
   }
 }

@@ -8,8 +8,10 @@ class GiftCard with ChangeNotifier {
   int _id = 0, _totalReviews = 0;
   String _itemName = '', _itemDescription = '', _itemImage = '', _option = '';
   var _cardDetails = [];
+  var _latestReview = [];
   int _isSelected = 0;
   double _averageRating = 0;
+
   get id => _id;
   get itemName => _itemName;
   get itemDescription => _itemDescription;
@@ -19,6 +21,7 @@ class GiftCard with ChangeNotifier {
   get cardDetails => _cardDetails;
   get totalReviews => _totalReviews;
   get averageRating => _averageRating;
+  get latestReview => _latestReview;
 
   GiftCard(int itemID) {
     _id = itemID;
@@ -47,6 +50,7 @@ class GiftCard with ChangeNotifier {
     var reviewDecode = jsonDecode(response.body);
     _totalReviews = reviewDecode['total_reviews'];
     _averageRating = reviewDecode['average_rating'].toDouble();
+    _latestReview = reviewDecode['latest_review'];
     notifyListeners();
   }
 

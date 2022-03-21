@@ -7,6 +7,7 @@ import 'package:levelup_egoods/utilities/auth.dart';
 import 'package:levelup_egoods/utilities/models/music.dart';
 import 'package:levelup_egoods/utilities/size_config.dart';
 import 'package:levelup_egoods/widgets/bottomNavigationItemBar.dart';
+import 'package:levelup_egoods/widgets/buildCustomerReviews.dart';
 import 'package:levelup_egoods/widgets/bulidRatingStars.dart';
 import 'package:provider/provider.dart';
 
@@ -236,31 +237,8 @@ class MusicViewScreen extends StatelessWidget {
                 SizedBox(
                   height: rWidth(10),
                 ),
-                Text(
-                  'Customer Reviews',
-                  style: TextStyle(fontFamily: 'Outfit'),
-                ),
-                ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: musicData.latestReview.length,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        child: Column(
-                          children: [
-                            Row(
-                              children: [
-                                Text(
-                                    musicData.latestReview[index]['user_name']),
-                                Spacer(),
-                                buildRatingStars(musicData.latestReview[index]
-                                        ['rating']
-                                    .toDouble())
-                              ],
-                            )
-                          ],
-                        ),
-                      );
-                    })
+                buildCustomerReviews(
+                    data: musicData.latestReview, context: context)
               ],
             ),
           ),
