@@ -9,6 +9,7 @@ import 'package:levelup_egoods/utilities/models/figurine.dart';
 import 'package:levelup_egoods/utilities/size_config.dart';
 import 'package:levelup_egoods/widgets/bottomNavigationItemBar.dart';
 import 'package:levelup_egoods/widgets/buildCustomerReviews.dart';
+import 'package:levelup_egoods/widgets/wishlistButton.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:provider/provider.dart';
 
@@ -101,48 +102,63 @@ class FigurineView extends StatelessWidget {
                     SizedBox(
                       height: rWidth(10),
                     ),
-                    figurineData.figurineHeight != ''
-                        ? Text(
-                            'Height: ${figurineData.figurineHeight}',
-                            style: const TextStyle(
-                              fontFamily: 'Outfit',
-                            ),
-                          )
-                        : Container(),
-                    figurineData.figurineDimension != ''
-                        ? Text(
-                            'Dimensions: ${figurineData.figurineDimension}',
-                            style: const TextStyle(
-                              fontFamily: 'Outfit',
-                            ),
-                          )
-                        : Container(),
-                    SizedBox(
-                      height: rWidth(5),
-                    ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        RatingBarIndicator(
-                          rating: figurineData.averageRating,
-                          itemBuilder: (context, index) =>
-                              const Icon(Icons.star, color: Colors.amber),
-                          itemCount: 5,
-                          itemSize: 15,
+                        Column(
+                          children: [
+                            figurineData.figurineHeight != ''
+                                ? Text(
+                                    'Height: ${figurineData.figurineHeight}',
+                                    style: const TextStyle(
+                                      fontFamily: 'Outfit',
+                                    ),
+                                  )
+                                : Container(),
+                            figurineData.figurineDimension != ''
+                                ? Text(
+                                    'Dimensions: ${figurineData.figurineDimension}',
+                                    style: const TextStyle(
+                                      fontFamily: 'Outfit',
+                                    ),
+                                  )
+                                : Container(),
+                            SizedBox(
+                              height: rWidth(5),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                RatingBarIndicator(
+                                  rating: figurineData.averageRating,
+                                  itemBuilder: (context, index) => const Icon(
+                                      Icons.star,
+                                      color: Colors.amber),
+                                  itemCount: 5,
+                                  itemSize: 15,
+                                ),
+                                SizedBox(
+                                  width: rWidth(5),
+                                ),
+                                Container(
+                                  padding: EdgeInsets.only(top: rWidth(2)),
+                                  child: Text(
+                                    "${figurineData.averageRating} (${figurineData.totalReviews})",
+                                    style: TextStyle(
+                                        fontFamily: 'Gotham',
+                                        fontSize: rWidth(10)),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
-                        SizedBox(
-                          width: rWidth(5),
-                        ),
-                        Container(
-                          padding: EdgeInsets.only(top: rWidth(2)),
-                          child: Text(
-                            "${figurineData.averageRating} (${figurineData.totalReviews})",
-                            style: TextStyle(
-                                fontFamily: 'Gotham', fontSize: rWidth(10)),
-                          ),
-                        ),
+                        WishlistButton(
+                          itemID: figurineData.id,
+                          ctx: context,
+                        )
                       ],
                     ),
                     SizedBox(

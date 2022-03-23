@@ -6,6 +6,7 @@ import 'package:levelup_egoods/utilities/models/illustration.dart';
 import 'package:levelup_egoods/utilities/size_config.dart';
 import 'package:levelup_egoods/widgets/bottomNavigationItemBar.dart';
 import 'package:levelup_egoods/widgets/buildCustomerReviews.dart';
+import 'package:levelup_egoods/widgets/wishlistButton.dart';
 import 'package:provider/provider.dart';
 
 class IllustrationView extends StatelessWidget {
@@ -57,9 +58,64 @@ class IllustrationView extends StatelessWidget {
             SizedBox(
               height: rWidth(20),
             ),
+            Row(
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: rWidth(280),
+                      child: Text(
+                        illustration.name,
+                        style: TextStyle(
+                            fontFamily: 'Outfit',
+                            fontSize: rWidth(20),
+                            fontWeight: FontWeight.w600),
+                      ),
+                    ),
+                    SizedBox(
+                      height: rWidth(5),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        RatingBarIndicator(
+                          rating: illustration.averageRating,
+                          itemBuilder: (context, index) =>
+                              const Icon(Icons.star, color: Colors.amber),
+                          itemCount: 5,
+                          itemSize: 15,
+                        ),
+                        SizedBox(
+                          width: rWidth(5),
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(top: rWidth(2)),
+                          child: Text(
+                            "${illustration.averageRating} (${illustration.totalReviews})",
+                            style: TextStyle(
+                                fontFamily: 'Gotham', fontSize: rWidth(10)),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                Spacer(),
+                WishlistButton(
+                  itemID: illustration.id,
+                  ctx: context,
+                )
+              ],
+            ),
+            SizedBox(
+              height: rWidth(20),
+            ),
             Text(
               'Sizes Available',
-              style: TextStyle(fontSize: rWidth(10), fontFamily: 'Outfit'),
+              style: TextStyle(fontSize: rWidth(13), fontFamily: 'Outfit'),
             ),
             SizedBox(
               height: rWidth(5),
@@ -93,44 +149,6 @@ class IllustrationView extends StatelessWidget {
                   );
                 },
               ),
-            ),
-            SizedBox(
-              height: rWidth(20),
-            ),
-            Text(
-              illustration.name,
-              style: TextStyle(
-                  fontFamily: 'Outfit',
-                  fontSize: rWidth(20),
-                  fontWeight: FontWeight.w600),
-            ),
-            SizedBox(
-              height: rWidth(5),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                RatingBarIndicator(
-                  rating: illustration.averageRating,
-                  itemBuilder: (context, index) =>
-                      const Icon(Icons.star, color: Colors.amber),
-                  itemCount: 5,
-                  itemSize: 15,
-                ),
-                SizedBox(
-                  width: rWidth(5),
-                ),
-                Container(
-                  padding: EdgeInsets.only(top: rWidth(2)),
-                  child: Text(
-                    "${illustration.averageRating} (${illustration.totalReviews})",
-                    style:
-                        TextStyle(fontFamily: 'Gotham', fontSize: rWidth(10)),
-                  ),
-                ),
-              ],
             ),
             SizedBox(
               height: rWidth(20),

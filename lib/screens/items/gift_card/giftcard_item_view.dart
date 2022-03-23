@@ -6,6 +6,7 @@ import 'package:levelup_egoods/utilities/models/giftcard.dart';
 import 'package:levelup_egoods/utilities/size_config.dart';
 import 'package:levelup_egoods/widgets/bottomNavigationItemBar.dart';
 import 'package:levelup_egoods/widgets/buildCustomerReviews.dart';
+import 'package:levelup_egoods/widgets/wishlistButton.dart';
 import 'package:provider/provider.dart';
 
 class GiftCardView extends StatelessWidget {
@@ -88,38 +89,55 @@ class GiftCardView extends StatelessWidget {
               SizedBox(
                 height: rWidth(20),
               ),
-              Text(
-                giftCardData.itemName,
-                style: TextStyle(
-                    fontFamily: 'Outfit',
-                    fontSize: rWidth(20),
-                    fontWeight: FontWeight.w600),
-              ),
-              SizedBox(
-                height: rWidth(5),
-              ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
                 children: [
-                  RatingBarIndicator(
-                    rating: giftCardData.averageRating,
-                    itemBuilder: (context, index) =>
-                        const Icon(Icons.star, color: Colors.amber),
-                    itemCount: 5,
-                    itemSize: 15,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        width: rWidth(280),
+                        child: Text(
+                          giftCardData.itemName,
+                          style: TextStyle(
+                              fontFamily: 'Outfit',
+                              fontSize: rWidth(20),
+                              fontWeight: FontWeight.w600),
+                        ),
+                      ),
+                      SizedBox(
+                        height: rWidth(5),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          RatingBarIndicator(
+                            rating: giftCardData.averageRating,
+                            itemBuilder: (context, index) =>
+                                const Icon(Icons.star, color: Colors.amber),
+                            itemCount: 5,
+                            itemSize: 15,
+                          ),
+                          SizedBox(
+                            width: rWidth(5),
+                          ),
+                          Container(
+                            padding: EdgeInsets.only(top: rWidth(2)),
+                            child: Text(
+                              "${giftCardData.averageRating} (${giftCardData.totalReviews})",
+                              style: TextStyle(
+                                  fontFamily: 'Gotham', fontSize: rWidth(10)),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
-                  SizedBox(
-                    width: rWidth(5),
-                  ),
-                  Container(
-                    padding: EdgeInsets.only(top: rWidth(2)),
-                    child: Text(
-                      "${giftCardData.averageRating} (${giftCardData.totalReviews})",
-                      style:
-                          TextStyle(fontFamily: 'Gotham', fontSize: rWidth(10)),
-                    ),
+                  Spacer(),
+                  WishlistButton(
+                    itemID: giftCardData.id,
+                    ctx: context,
                   ),
                 ],
               ),

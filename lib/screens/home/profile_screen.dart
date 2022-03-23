@@ -2,6 +2,7 @@ import 'package:antdesign_icons/antdesign_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:levelup_egoods/screens/report_screen.dart';
 import 'package:levelup_egoods/screens/settings/index.dart';
+import 'package:levelup_egoods/screens/wishlist/wishlist_provider.dart';
 import 'package:levelup_egoods/utilities/auth.dart';
 import 'package:levelup_egoods/utilities/constants.dart';
 import 'package:levelup_egoods/utilities/size_config.dart';
@@ -59,7 +60,12 @@ class ProfileScreen extends StatelessWidget {
                       buildProfileButton(
                         buttonName: "My Wishlist",
                         buttonIcon: AntIcons.heartOutlined,
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) => WishlistProvider()));
+                        },
                       ),
                       buildProfileButton(
                         buttonName: "Settings",

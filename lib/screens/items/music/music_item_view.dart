@@ -9,6 +9,7 @@ import 'package:levelup_egoods/utilities/size_config.dart';
 import 'package:levelup_egoods/widgets/bottomNavigationItemBar.dart';
 import 'package:levelup_egoods/widgets/buildCustomerReviews.dart';
 import 'package:levelup_egoods/widgets/bulidRatingStars.dart';
+import 'package:levelup_egoods/widgets/wishlistButton.dart';
 import 'package:provider/provider.dart';
 
 class MusicViewScreen extends StatelessWidget {
@@ -87,7 +88,7 @@ class MusicViewScreen extends StatelessWidget {
                               Text(
                                 musicData.albumName,
                                 style: TextStyle(
-                                    fontFamily: 'Gotham', fontSize: rWidth(24)),
+                                    fontFamily: 'Gotham', fontSize: rWidth(20)),
                               ),
                               SizedBox(
                                 height: rWidth(10),
@@ -120,6 +121,16 @@ class MusicViewScreen extends StatelessWidget {
                                   ),
                                 ],
                               ),
+                              SizedBox(
+                                height: rWidth(10),
+                              ),
+                              Container(
+                                alignment: Alignment.bottomRight,
+                                child: WishlistButton(
+                                  itemID: musicData.id,
+                                  ctx: context,
+                                ),
+                              )
                             ],
                           ),
                         ),
