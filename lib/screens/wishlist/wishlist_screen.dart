@@ -17,11 +17,15 @@ class WishlistScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              margin: EdgeInsets.symmetric(
-                  horizontal: rWidth(15), vertical: rWidth(10)),
+              margin: EdgeInsets.only(
+                  left: rWidth(15),
+                  right: rWidth(15),
+                  top: rWidth(30),
+                  bottom: rWidth(20)),
               child: Text(
                 'Wishlist',
-                style: TextStyle(fontFamily: 'Outfit', fontSize: rWidth(30)),
+                style:
+                    TextStyle(fontFamily: 'Kamerik-Bold', fontSize: rWidth(30)),
               ),
             ),
             Expanded(

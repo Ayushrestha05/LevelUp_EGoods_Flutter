@@ -58,11 +58,9 @@ class CartScreen extends StatelessWidget {
       padding:
           EdgeInsets.symmetric(horizontal: rWidth(8), vertical: rWidth(14)),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(rWidth(10)),
-          color: Theme.of(context).scaffoldBackgroundColor.value == 4292929004
-              ? Colors.white
-              : Color(0xFF2E2E2E),
-          boxShadow: getBoxShadow(context)),
+        borderRadius: BorderRadius.circular(rWidth(10)),
+        color: Colors.white,
+      ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -159,11 +157,10 @@ class CartScreen extends StatelessWidget {
                         padding: EdgeInsets.symmetric(
                             horizontal: rWidth(10), vertical: rWidth(5)),
                         decoration: BoxDecoration(
-                          color: Theme.of(context).scaffoldBackgroundColor,
-                          // borderRadius: BorderRadius.circular(
-                          //   rWidth(10),
-                          // ),
-                        ),
+                            borderRadius: BorderRadius.circular(
+                              rWidth(3),
+                            ),
+                            border: Border.all(color: Colors.brown)),
                         child: Text(auth.cartItems[index]['option']),
                       )
                     : Container(),

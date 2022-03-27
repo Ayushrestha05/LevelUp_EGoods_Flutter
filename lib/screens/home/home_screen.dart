@@ -13,6 +13,7 @@ class HomeScreen extends StatelessWidget {
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 18, vertical: 20),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 children: [
@@ -31,8 +32,8 @@ class HomeScreen extends StatelessWidget {
                   const Text(
                     'LevelUp E-Goods',
                     style: TextStyle(
-                        fontFamily: 'Outfit',
-                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Archivo',
+                        //fontWeight: FontWeight.bold,
                         fontSize: 20),
                   ),
                   const Spacer(),
@@ -42,25 +43,13 @@ class HomeScreen extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              Row(
-                children: [
-                  Container(
-                    margin: const EdgeInsets.only(right: 15),
-                    child: const Text(
-                      'Upcoming Items',
-                      style: TextStyle(fontFamily: 'Outfit', fontSize: 20),
-                    ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      margin: EdgeInsets.only(top: 5),
-                      color: Theme.of(context).primaryColor.value == 4280361249
-                          ? Colors.white
-                          : Colors.black,
-                      height: 2,
-                    ),
-                  )
-                ],
+              Container(
+                margin: const EdgeInsets.only(right: 15),
+                child: Text(
+                  'Upcoming Items',
+                  style: TextStyle(
+                      fontFamily: 'Kamerik-Bold', fontSize: rWidth(20)),
+                ),
               ),
               const SizedBox(
                 height: 20,
@@ -68,7 +57,6 @@ class HomeScreen extends StatelessWidget {
               Container(
                 height: 200,
                 decoration: BoxDecoration(
-                    boxShadow: getBoxShadow(context),
                     borderRadius: BorderRadius.circular(10),
                     image: const DecorationImage(
                         fit: BoxFit.fill,
@@ -108,25 +96,13 @@ class HomeScreen extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              Row(
-                children: [
-                  Container(
-                    margin: const EdgeInsets.only(right: 15),
-                    child: const Text(
-                      'Artist Specials',
-                      style: TextStyle(fontFamily: 'Outfit', fontSize: 20),
-                    ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      margin: EdgeInsets.only(top: 5),
-                      color: Theme.of(context).primaryColor.value == 4280361249
-                          ? Colors.white
-                          : Colors.black,
-                      height: 2,
-                    ),
-                  )
-                ],
+              Container(
+                margin: const EdgeInsets.only(right: 15),
+                child: Text(
+                  'Artist Specials',
+                  style: TextStyle(
+                      fontFamily: 'Kamerik-Bold', fontSize: rWidth(20)),
+                ),
               ),
               const SizedBox(
                 height: 20,
@@ -134,9 +110,9 @@ class HomeScreen extends StatelessWidget {
               Container(
                 height: 250,
                 decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: getBoxShadow(context)),
+                  color: Colors.grey.shade300,
+                  borderRadius: BorderRadius.circular(10),
+                ),
                 child: Column(
                   children: [
                     const SizedBox(
@@ -193,33 +169,21 @@ class HomeScreen extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              Row(
-                children: [
-                  Container(
-                    margin: const EdgeInsets.only(right: 15),
-                    child: const Text(
-                      'Sales',
-                      style: TextStyle(fontFamily: 'Outfit', fontSize: 20),
-                    ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      margin: EdgeInsets.only(top: 5),
-                      color: Theme.of(context).primaryColor.value == 4280361249
-                          ? Colors.white
-                          : Colors.black,
-                      height: 2,
-                    ),
-                  )
-                ],
+              Container(
+                margin: const EdgeInsets.only(right: 15),
+                child: Text(
+                  'Sales',
+                  style: TextStyle(
+                      fontFamily: 'Kamerik-Bold', fontSize: rWidth(20)),
+                ),
               ),
               const SizedBox(
                 height: 20,
               ),
               Container(
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(rWidth(10)),
-                    boxShadow: getBoxShadow(context)),
+                  borderRadius: BorderRadius.circular(rWidth(10)),
+                ),
                 child: InkWell(
                   onTap: () {},
                   child: Stack(

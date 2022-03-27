@@ -37,11 +37,11 @@ class CategoryScreen extends StatelessWidget {
                     var decode = jsonDecode(snapshot.data ?? '');
                     List<Widget> categoryList = [];
 
-                    decode.forEach((element) {
+                    for (int i = 0; i < decode.length; i++) {
                       String color = '';
-                      if (element['category_color'].toString() != '' &&
-                          element['category_color'] != null) {
-                        color = element['category_color'];
+                      if (decode[i]['category_color'].toString() != '' &&
+                          decode[i]['category_color'] != null) {
+                        color = decode[i]['category_color'];
                       } else {
                         color = '#5e5e5e';
                       }
@@ -51,15 +51,19 @@ class CategoryScreen extends StatelessWidget {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (_) =>
-                                        ItemGrid(categoryID: element['id'])));
+                                    builder: (_) => ItemGrid(
+                                          index: i,
+                                          data: decode,
+                                          categoryID: decode[i]['id'],
+                                        )));
                           },
-                          categoryTitle: element['category_name'],
-                          categoryImage: element['category_image'],
+                          categoryTitle: decode[i]['category_name'],
+                          categoryImage: decode[i]['category_image'],
                           categoryColor: color,
                         ),
                       );
-                    });
+                    }
+
                     return Column(
                       children: categoryList,
                     );
@@ -130,18 +134,19 @@ class _buildCategoryCardsState extends State<buildCategoryCards> {
                 height: rWidth(150),
                 width: rWidth(411),
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(rWidth(10)),
-                    color: Color(int.parse(
-                        widget.categoryColor.replaceAll('#', '0xff'))),
-                    boxShadow: getBoxShadow(context)),
+                  borderRadius: BorderRadius.circular(rWidth(10)),
+                  color: Color(
+                      int.parse(widget.categoryColor.replaceAll('#', '0xff'))),
+                ),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Expanded(
-                        child: Padding(
-                      padding: EdgeInsets.only(top: rWidth(40)),
-                      child: const Icon(Icons.error),
-                    )),
+                      child: Padding(
+                        padding: EdgeInsets.only(top: rWidth(40)),
+                        child: const Icon(Icons.error),
+                      ),
+                    ),
                     Container(
                       margin:
                           EdgeInsets.only(left: rWidth(16), bottom: rWidth(18)),
@@ -166,17 +171,6 @@ class _buildCategoryCardsState extends State<buildCategoryCards> {
               color:
                   Color(int.parse(widget.categoryColor.replaceAll('#', '0xff')))
                       .withOpacity(0.6),
-              boxShadow: const [
-                BoxShadow(
-                  color: Colors.grey,
-                  blurRadius: 4.0, // soften the shadow
-                  spreadRadius: 1.0, //extend the shadow
-                  offset: Offset(
-                    3.0, // Move to right 10  horizontally
-                    4.0, // Move to bottom 10 Vertically
-                  ),
-                )
-              ],
               image: DecorationImage(
                 opacity: 0.4,
                 fit: BoxFit.cover,

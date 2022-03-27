@@ -110,6 +110,10 @@ flutter:
       fonts:
         - asset: assets/fonts/Archivo-Regular.ttf
 
+    - family: Kamerik-Bold
+      fonts:
+        - asset: assets/fonts/Kamerik105Cyrillic-Bold.ttf
+
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
