@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:levelup_egoods/screens/checkout/layout.dart';
 import 'package:levelup_egoods/screens/items/item_screen_switch.dart';
 import 'package:levelup_egoods/utilities/auth.dart';
 import 'package:levelup_egoods/utilities/constants.dart';
@@ -18,7 +19,10 @@ class CartScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         bottomNavigationBar: auth.cartItems.length > 0
-            ? buildBottomCheckoutBarItem(auth.totalPrice.toString(), () {})
+            ? buildBottomCheckoutBarItem(auth.totalPrice.toString(), () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (_) => CheckoutLayout()));
+              })
             : Container(
                 height: 0,
               ),
@@ -58,9 +62,8 @@ class CartScreen extends StatelessWidget {
       padding:
           EdgeInsets.symmetric(horizontal: rWidth(8), vertical: rWidth(14)),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(rWidth(10)),
-        color: Colors.white,
-      ),
+          borderRadius: BorderRadius.circular(rWidth(10)),
+          color: Theme.of(context).secondaryHeaderColor),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -68,7 +71,6 @@ class CartScreen extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () {
-              print(Theme.of(context).scaffoldBackgroundColor.value);
               itemScreen(
                   context: context,
                   categoryID: auth.cartItems[index]['category'],
@@ -161,7 +163,10 @@ class CartScreen extends StatelessWidget {
                               rWidth(3),
                             ),
                             border: Border.all(color: Colors.brown)),
-                        child: Text(auth.cartItems[index]['option']),
+                        child: Text(
+                          auth.cartItems[index]['option'],
+                          style: TextStyle(fontFamily: 'Archivo'),
+                        ),
                       )
                     : Container(),
                 Row(

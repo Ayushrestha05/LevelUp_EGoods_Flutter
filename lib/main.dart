@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:khalti_flutter/khalti_flutter.dart';
 import 'package:levelup_egoods/screens/base_screen.dart';
 import 'package:levelup_egoods/utilities/auth.dart';
 import 'package:levelup_egoods/utilities/models/theme.dart';
@@ -32,11 +33,19 @@ class MyApp extends StatelessWidget {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Level Up EGoods',
-      theme: theme.selectedThemeData,
-      home: BaseScreen(),
+    return KhaltiScope(
+      enabledDebugging: true,
+      publicKey: "test_public_key_6357c62ac39a48f8afa0fb04d0b4083a",
+      builder: (context, navigatorKey) {
+        return MaterialApp(
+          navigatorKey: navigatorKey,
+          debugShowCheckedModeBanner: false,
+          title: 'Level Up EGoods',
+          theme: theme.selectedTheme == 'dark' ? dark : light,
+          home: BaseScreen(),
+          localizationsDelegates: const [KhaltiLocalizations.delegate],
+        );
+      },
     );
   }
 }

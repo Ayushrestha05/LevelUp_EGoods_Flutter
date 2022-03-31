@@ -132,7 +132,7 @@ class _CustomDropDownState extends State<CustomDropDown> {
   Widget build(BuildContext context) {
     return DropdownButtonFormField(
       items: widget.dropDownItemList,
-      isExpanded: true,
+      //isExpanded: true,
       onChanged: widget.onChanged,
       onSaved: widget.onSaved,
       validator: widget.validator,

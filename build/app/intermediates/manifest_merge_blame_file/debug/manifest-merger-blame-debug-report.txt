@@ -5,45 +5,45 @@
 5    android:versionName="1.0.0" >
 6
 7    <uses-sdk
-8        android:minSdkVersion="16"
+8        android:minSdkVersion="19"
 9        android:targetSdkVersion="30" />
 10    <!--
 11         Flutter needs it to communicate with the running application
 12         to allow setting breakpoints, to provide hot reload, etc.
 13    -->
 14    <uses-permission android:name="android.permission.INTERNET" />
-14-->C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\android\app\src\main\AndroidManifest.xml:43:5-66
-14-->C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\android\app\src\main\AndroidManifest.xml:43:22-64
+14-->C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\android\app\src\main\AndroidManifest.xml:50:5-66
+14-->C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\android\app\src\main\AndroidManifest.xml:50:22-64
 15    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-15-->[com.google.android.exoplayer:exoplayer-core:2.15.0] C:\Users\BR33Z3-PCMR\.gradle\caches\transforms-2\files-2.1\2f681db8128542500b825444bc09e386\jetified-exoplayer-core-2.15.0\AndroidManifest.xml:24:5-79
-15-->[com.google.android.exoplayer:exoplayer-core:2.15.0] C:\Users\BR33Z3-PCMR\.gradle\caches\transforms-2\files-2.1\2f681db8128542500b825444bc09e386\jetified-exoplayer-core-2.15.0\AndroidManifest.xml:24:22-76
+15-->[com.google.android.exoplayer:exoplayer-core:2.15.0] C:\Users\BR33Z3-PCMR\.gradle\caches\transforms-2\files-2.1\1c8029bc9c6470bdd4331a8beb2ed60c\jetified-exoplayer-core-2.15.0\AndroidManifest.xml:24:5-79
+15-->[com.google.android.exoplayer:exoplayer-core:2.15.0] C:\Users\BR33Z3-PCMR\.gradle\caches\transforms-2\files-2.1\1c8029bc9c6470bdd4331a8beb2ed60c\jetified-exoplayer-core-2.15.0\AndroidManifest.xml:24:22-76
 16
 17    <queries>
-17-->[androidx.media2:media2-session:1.1.3] C:\Users\BR33Z3-PCMR\.gradle\caches\transforms-2\files-2.1\4074dcb3d3743cf31f0281258ccf41ac\jetified-media2-session-1.1.3\AndroidManifest.xml:24:5-34:15
+17-->[androidx.media2:media2-session:1.1.3] C:\Users\BR33Z3-PCMR\.gradle\caches\transforms-2\files-2.1\de16f4b64dab27be6e205eda03cecad0\jetified-media2-session-1.1.3\AndroidManifest.xml:24:5-34:15
 18        <intent>
-18-->[androidx.media2:media2-session:1.1.3] C:\Users\BR33Z3-PCMR\.gradle\caches\transforms-2\files-2.1\4074dcb3d3743cf31f0281258ccf41ac\jetified-media2-session-1.1.3\AndroidManifest.xml:25:9-27:18
+18-->[androidx.media2:media2-session:1.1.3] C:\Users\BR33Z3-PCMR\.gradle\caches\transforms-2\files-2.1\de16f4b64dab27be6e205eda03cecad0\jetified-media2-session-1.1.3\AndroidManifest.xml:25:9-27:18
 19            <action android:name="android.media.browse.MediaBrowserService" />
-19-->[androidx.media2:media2-session:1.1.3] C:\Users\BR33Z3-PCMR\.gradle\caches\transforms-2\files-2.1\4074dcb3d3743cf31f0281258ccf41ac\jetified-media2-session-1.1.3\AndroidManifest.xml:26:13-79
-19-->[androidx.media2:media2-session:1.1.3] C:\Users\BR33Z3-PCMR\.gradle\caches\transforms-2\files-2.1\4074dcb3d3743cf31f0281258ccf41ac\jetified-media2-session-1.1.3\AndroidManifest.xml:26:21-76
+19-->[androidx.media2:media2-session:1.1.3] C:\Users\BR33Z3-PCMR\.gradle\caches\transforms-2\files-2.1\de16f4b64dab27be6e205eda03cecad0\jetified-media2-session-1.1.3\AndroidManifest.xml:26:13-79
+19-->[androidx.media2:media2-session:1.1.3] C:\Users\BR33Z3-PCMR\.gradle\caches\transforms-2\files-2.1\de16f4b64dab27be6e205eda03cecad0\jetified-media2-session-1.1.3\AndroidManifest.xml:26:21-76
 20        </intent>
 21        <intent>
-21-->[androidx.media2:media2-session:1.1.3] C:\Users\BR33Z3-PCMR\.gradle\caches\transforms-2\files-2.1\4074dcb3d3743cf31f0281258ccf41ac\jetified-media2-session-1.1.3\AndroidManifest.xml:28:9-30:18
+21-->[androidx.media2:media2-session:1.1.3] C:\Users\BR33Z3-PCMR\.gradle\caches\transforms-2\files-2.1\de16f4b64dab27be6e205eda03cecad0\jetified-media2-session-1.1.3\AndroidManifest.xml:28:9-30:18
 22            <action android:name="androidx.media2.session.MediaSessionService" />
-22-->[androidx.media2:media2-session:1.1.3] C:\Users\BR33Z3-PCMR\.gradle\caches\transforms-2\files-2.1\4074dcb3d3743cf31f0281258ccf41ac\jetified-media2-session-1.1.3\AndroidManifest.xml:29:13-82
-22-->[androidx.media2:media2-session:1.1.3] C:\Users\BR33Z3-PCMR\.gradle\caches\transforms-2\files-2.1\4074dcb3d3743cf31f0281258ccf41ac\jetified-media2-session-1.1.3\AndroidManifest.xml:29:21-79
+22-->[androidx.media2:media2-session:1.1.3] C:\Users\BR33Z3-PCMR\.gradle\caches\transforms-2\files-2.1\de16f4b64dab27be6e205eda03cecad0\jetified-media2-session-1.1.3\AndroidManifest.xml:29:13-82
+22-->[androidx.media2:media2-session:1.1.3] C:\Users\BR33Z3-PCMR\.gradle\caches\transforms-2\files-2.1\de16f4b64dab27be6e205eda03cecad0\jetified-media2-session-1.1.3\AndroidManifest.xml:29:21-79
 23        </intent>
 24        <intent>
-24-->[androidx.media2:media2-session:1.1.3] C:\Users\BR33Z3-PCMR\.gradle\caches\transforms-2\files-2.1\4074dcb3d3743cf31f0281258ccf41ac\jetified-media2-session-1.1.3\AndroidManifest.xml:31:9-33:18
+24-->[androidx.media2:media2-session:1.1.3] C:\Users\BR33Z3-PCMR\.gradle\caches\transforms-2\files-2.1\de16f4b64dab27be6e205eda03cecad0\jetified-media2-session-1.1.3\AndroidManifest.xml:31:9-33:18
 25            <action android:name="androidx.media2.session.MediaLibraryService" />
-25-->[androidx.media2:media2-session:1.1.3] C:\Users\BR33Z3-PCMR\.gradle\caches\transforms-2\files-2.1\4074dcb3d3743cf31f0281258ccf41ac\jetified-media2-session-1.1.3\AndroidManifest.xml:32:13-82
-25-->[androidx.media2:media2-session:1.1.3] C:\Users\BR33Z3-PCMR\.gradle\caches\transforms-2\files-2.1\4074dcb3d3743cf31f0281258ccf41ac\jetified-media2-session-1.1.3\AndroidManifest.xml:32:21-79
+25-->[androidx.media2:media2-session:1.1.3] C:\Users\BR33Z3-PCMR\.gradle\caches\transforms-2\files-2.1\de16f4b64dab27be6e205eda03cecad0\jetified-media2-session-1.1.3\AndroidManifest.xml:32:13-82
+25-->[androidx.media2:media2-session:1.1.3] C:\Users\BR33Z3-PCMR\.gradle\caches\transforms-2\files-2.1\de16f4b64dab27be6e205eda03cecad0\jetified-media2-session-1.1.3\AndroidManifest.xml:32:21-79
 26        </intent>
 27    </queries>
 28
 29    <application
-29-->C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\android\app\src\main\AndroidManifest.xml:3:4-42:19
+29-->C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\android\app\src\main\AndroidManifest.xml:3:4-49:19
 30        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-30-->[androidx.core:core:1.6.0] C:\Users\BR33Z3-PCMR\.gradle\caches\transforms-2\files-2.1\5f663b08eec19eef9a9d1af662d9025e\core-1.6.0\AndroidManifest.xml:24:18-86
+30-->[androidx.core:core:1.6.0] C:\Users\BR33Z3-PCMR\.gradle\caches\transforms-2\files-2.1\122df2e57d294d1a53db26bbc3b813c1\core-1.6.0\AndroidManifest.xml:24:18-86
 31        android:debuggable="true"
 32        android:icon="@mipmap/ic_launcher"
 32-->C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\android\app\src\main\AndroidManifest.xml:5:9-43
@@ -52,7 +52,7 @@
 34        android:usesCleartextTraffic="true" >
 34-->C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\android\app\src\main\AndroidManifest.xml:6:9-44
 35        <activity
-35-->C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\android\app\src\main\AndroidManifest.xml:7:9-35:20
+35-->C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\android\app\src\main\AndroidManifest.xml:7:9-42:20
 36            android:name="com.brainoutofbounds.levelup_egoods.MainActivity"
 36-->C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\android\app\src\main\AndroidManifest.xml:8:13-41
 37            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
@@ -102,27 +102,56 @@
 66-->C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\android\app\src\main\AndroidManifest.xml:33:17-76
 66-->C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\android\app\src\main\AndroidManifest.xml:33:27-74
 67            </intent-filter>
-68        </activity>
-69        <!--
-70             Don't delete the meta-data below.
-71             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
-72        -->
-73
-74        <meta-data
-74-->C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\android\app\src\main\AndroidManifest.xml:39:9-41:33
-75            android:name="flutterEmbedding"
-75-->C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\android\app\src\main\AndroidManifest.xml:40:13-44
-76            android:value="2" />
-76-->C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\android\app\src\main\AndroidManifest.xml:41:13-30
-77
-78        <activity
-78-->[:url_launcher_android] C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\build\url_launcher_android\intermediates\library_manifest\debug\AndroidManifest.xml:8:9-11:74
-79            android:name="io.flutter.plugins.urllauncher.WebViewActivity"
-79-->[:url_launcher_android] C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\build\url_launcher_android\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-74
-80            android:exported="false"
-80-->[:url_launcher_android] C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\build\url_launcher_android\intermediates\library_manifest\debug\AndroidManifest.xml:10:13-37
-81            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-81-->[:url_launcher_android] C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\build\url_launcher_android\intermediates\library_manifest\debug\AndroidManifest.xml:11:13-71
-82    </application>
-83
-84</manifest>
+68
+69            <meta-data
+69-->C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\android\app\src\main\AndroidManifest.xml:35:13-100
+70                android:name="flutter_deeplinking_enabled"
+70-->C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\android\app\src\main\AndroidManifest.xml:35:24-66
+71                android:value="true" />
+71-->C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\android\app\src\main\AndroidManifest.xml:35:67-87
+72
+73            <intent-filter android:autoVerify="true" >
+73-->C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\android\app\src\main\AndroidManifest.xml:36:13-41:29
+73-->C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\android\app\src\main\AndroidManifest.xml:36:28-53
+74                <action android:name="android.intent.action.VIEW" />
+74-->C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\android\app\src\main\AndroidManifest.xml:37:17-69
+74-->C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\android\app\src\main\AndroidManifest.xml:37:25-66
+75
+76                <category android:name="android.intent.category.DEFAULT" />
+76-->C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\android\app\src\main\AndroidManifest.xml:38:17-76
+76-->C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\android\app\src\main\AndroidManifest.xml:38:27-73
+77                <category android:name="android.intent.category.BROWSABLE" />
+77-->C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\android\app\src\main\AndroidManifest.xml:39:17-78
+77-->C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\android\app\src\main\AndroidManifest.xml:39:27-75
+78
+79                <data
+79-->C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\android\app\src\main\AndroidManifest.xml:40:17-97
+80                    android:host="com.brainoutofbounds.levelup_egoods"
+80-->C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\android\app\src\main\AndroidManifest.xml:40:44-94
+81                    android:scheme="kpg" />
+81-->C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\android\app\src\main\AndroidManifest.xml:40:23-43
+82            </intent-filter>
+83        </activity>
+84        <!--
+85             Don't delete the meta-data below.
+86             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
+87        -->
+88
+89        <meta-data
+89-->C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\android\app\src\main\AndroidManifest.xml:46:9-48:33
+90            android:name="flutterEmbedding"
+90-->C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\android\app\src\main\AndroidManifest.xml:47:13-44
+91            android:value="2" />
+91-->C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\android\app\src\main\AndroidManifest.xml:48:13-30
+92
+93        <activity
+93-->[:url_launcher_android] C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\build\url_launcher_android\intermediates\library_manifest\debug\AndroidManifest.xml:8:9-11:74
+94            android:name="io.flutter.plugins.urllauncher.WebViewActivity"
+94-->[:url_launcher_android] C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\build\url_launcher_android\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-74
+95            android:exported="false"
+95-->[:url_launcher_android] C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\build\url_launcher_android\intermediates\library_manifest\debug\AndroidManifest.xml:10:13-37
+96            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+96-->[:url_launcher_android] C:\Users\BR33Z3-PCMR\StudioProjects\LevelUp_EGoods_Flutter\build\url_launcher_android\intermediates\library_manifest\debug\AndroidManifest.xml:11:13-71
+97    </application>
+98
+99</manifest>
