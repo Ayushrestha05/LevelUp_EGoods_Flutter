@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 ThemeData light = ThemeData(
+  secondaryHeaderColor: Colors.white,
   bottomNavigationBarTheme: const BottomNavigationBarThemeData(
     selectedItemColor: Color(0xFF6FFFE9),
     unselectedItemColor: Color(0xFFB8BDC9),
@@ -12,6 +13,7 @@ ThemeData light = ThemeData(
 );
 
 ThemeData dark = ThemeData(
+  secondaryHeaderColor: Color(0xFF393939),
   bottomNavigationBarTheme: const BottomNavigationBarThemeData(
     selectedItemColor: Color(0xFF6FFFE9),
     unselectedItemColor: Color(0xFFB8BDC9),
