@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:levelup_egoods/screens/forgot_password/forgot_password_screen.dart';
 import 'package:levelup_egoods/screens/register_screen.dart';
 import 'package:levelup_egoods/utilities/auth.dart';
 import 'package:levelup_egoods/utilities/size_config.dart';
@@ -113,9 +114,17 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(
                   height: rWidth(10),
                 ),
-                const Text(
-                  "Forgot Password",
-                  style: TextStyle(fontFamily: "Outfit"),
+                InkWell(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => ForgotPasswordScreen()));
+                  },
+                  child: const Text(
+                    "Forgot Password",
+                    style: TextStyle(fontFamily: "Outfit"),
+                  ),
                 ),
                 SizedBox(
                   height: rWidth(15),
