@@ -372,10 +372,8 @@ class _CheckoutLayoutState extends State<CheckoutLayout> {
                 // Perform Server Verification
                 paymentVerification(
                     token: successModel.token,
-                    amount: successModel.amount.toString());
-                setState(() {
-                  currentStep += 1;
-                });
+                    amount: successModel.amount.toString(),
+                    test_amount: auth.totalPrice.toString());
               },
               onFailure: (failureModel) {
                 // What to do on failure?
@@ -419,7 +417,9 @@ class _CheckoutLayoutState extends State<CheckoutLayout> {
   }
 
   void paymentVerification(
-      {required String token, required String amount}) async {
+      {required String token,
+      required String amount,
+      required String test_amount}) async {
     final auth = Provider.of<Auth>(context, listen: false);
     var response =
         await http.post(Uri.parse("$apiUrl/payment-verification"), headers: {
@@ -428,6 +428,7 @@ class _CheckoutLayoutState extends State<CheckoutLayout> {
     }, body: {
       'token': token,
       'amount': amount,
+      'test_amount': test_amount,
       'recieverName': fullName,
       'recieverPhone': phone,
       'recieverCity': city,
@@ -436,14 +437,17 @@ class _CheckoutLayoutState extends State<CheckoutLayout> {
       'nonTransparentBag': hidden! ? "1" : "0",
       'giftWrap': wrapped! ? "1" : "0",
     });
-
+    print(response.body);
     if (response.statusCode == 200) {
       setState(() {
         successPayment = true;
+        currentStep += 1;
+        auth.getCart();
       });
     } else {
       setState(() {
         successPayment = false;
+        currentStep += 1;
       });
     }
   }

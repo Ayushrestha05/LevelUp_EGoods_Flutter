@@ -15,6 +15,7 @@ class Auth extends ChangeNotifier {
   var _cartItems = [];
   double _totalPrice = 0;
   String _userToken = '';
+  int _userPoint = 0;
 
   bool get isAuthenticated => _isAuthenticated;
   get userName => _userName;
@@ -22,6 +23,7 @@ class Auth extends ChangeNotifier {
   get cartItems => _cartItems;
   get totalPrice => _totalPrice;
   get userToken => _userToken;
+  get userPoint => _userPoint;
 
   Auth() {
     getUserDetails();
@@ -36,6 +38,21 @@ class Auth extends ChangeNotifier {
       _userToken = token;
       _isAuthenticated = true;
       getCart();
+      getUserPoints();
+      notifyListeners();
+    }
+  }
+
+  void getUserPoints() async {
+    final response = await http.get(Uri.parse('$apiUrl/get-user-points'),
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $userToken'
+        });
+
+    var decode = jsonDecode(response.body);
+    if (response.statusCode == 200) {
+      _userPoint = decode['points'];
       notifyListeners();
     }
   }
@@ -56,6 +73,7 @@ class Auth extends ChangeNotifier {
       _userName = jsonResponse['user']['name'];
       _userEmail = jsonResponse['user']['email'];
       _userToken = jsonResponse['token'];
+      _userPoint = jsonResponse['user']['points'] ?? 0;
       Alert(message: "You have been logged in").show();
       notifyListeners();
       getCart();
@@ -155,8 +173,13 @@ class Auth extends ChangeNotifier {
     });
 
     var decode = jsonDecode(response.body);
-    _cartItems = decode['items'];
-    _totalPrice = decode['total_price'].toDouble();
+    _cartItems = decode['items'] ?? [];
+
+    if (decode['total_price'] == null) {
+      _totalPrice = 0;
+    } else {
+      _totalPrice = decode['total_price'].toDouble();
+    }
     notifyListeners();
   }
 

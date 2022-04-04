@@ -4,6 +4,7 @@ import 'package:levelup_egoods/screens/item_review/user_reviews_screen.dart';
 import 'package:levelup_egoods/screens/order/order_screen.dart';
 import 'package:levelup_egoods/screens/policies/policies_screen.dart';
 import 'package:levelup_egoods/screens/report_screen.dart';
+import 'package:levelup_egoods/screens/rewards/reward_items_screen.dart';
 import 'package:levelup_egoods/screens/wishlist/wishlist_provider.dart';
 import 'package:levelup_egoods/utilities/auth.dart';
 import 'package:levelup_egoods/utilities/models/theme.dart';
@@ -11,9 +12,14 @@ import 'package:levelup_egoods/utilities/size_config.dart';
 import 'package:levelup_egoods/utilities/user_handler.dart';
 import 'package:provider/provider.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     final authUser = Provider.of<Auth>(context, listen: false);
@@ -30,46 +36,162 @@ class ProfileScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
+                  Card(
                     color: Theme.of(context).secondaryHeaderColor,
-                    width: MediaQuery.of(context).size.width,
                     margin:
                         EdgeInsets.only(bottom: rWidth(20), top: rWidth(10)),
-                    padding: EdgeInsets.symmetric(
-                        horizontal: rWidth(20), vertical: rWidth(20)),
-                    child: Column(
-                      children: [
-                        Container(
-                          clipBehavior: Clip.antiAlias,
-                          margin: EdgeInsets.only(
-                              bottom: rWidth(12), top: rWidth(12)),
-                          height: 100,
-                          decoration:
-                              const BoxDecoration(shape: BoxShape.circle),
-                          child: FadeInImage.assetNetwork(
-                              placeholder:
-                                  'assets/images/placeholder/Portrait_Placeholder.png',
-                              image:
-                                  "https://c.tenor.com/33OG_SodkeIAAAAd/cat-nodding.gif"),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.only(bottom: 12),
-                          child: Text(
-                            authUser.userName ?? 'User Name',
-                            style: const TextStyle(
-                                fontSize: 20, fontFamily: 'Archivo'),
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: rWidth(20), vertical: rWidth(20)),
+                      child: Column(
+                        children: [
+                          Container(
+                            clipBehavior: Clip.antiAlias,
+                            margin: EdgeInsets.only(
+                                bottom: rWidth(12), top: rWidth(12)),
+                            height: 100,
+                            decoration:
+                                const BoxDecoration(shape: BoxShape.circle),
+                            child: FadeInImage.assetNetwork(
+                                placeholder:
+                                    'assets/images/placeholder/Portrait_Placeholder.png',
+                                image:
+                                    "https://c.tenor.com/33OG_SodkeIAAAAd/cat-nodding.gif"),
                           ),
-                        ),
-                        Container(
-                          child: Text(
-                            authUser.userEmail ?? 'User Email',
-                            style: const TextStyle(
-                                fontSize: 16,
-                                fontFamily: 'Archivo-Regular',
-                                fontWeight: FontWeight.w100),
+                          Container(
+                            margin: const EdgeInsets.only(bottom: 12),
+                            child: Text(
+                              authUser.userName ?? 'User Name',
+                              style: const TextStyle(
+                                  fontSize: 20, fontFamily: 'Archivo'),
+                            ),
                           ),
-                        )
-                      ],
+                          Container(
+                            child: Text(
+                              authUser.userEmail ?? 'User Email',
+                              style: const TextStyle(
+                                  fontSize: 16,
+                                  fontFamily: 'Archivo-Regular',
+                                  fontWeight: FontWeight.w100),
+                            ),
+                          ),
+                          SizedBox(
+                            height: rWidth(10),
+                          ),
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            padding: EdgeInsets.symmetric(
+                                horizontal: rWidth(10), vertical: rWidth(10)),
+                            decoration: BoxDecoration(
+                                color: Theme.of(context).backgroundColor,
+                                borderRadius: BorderRadius.circular(rWidth(5))),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  'REWARD POINTS',
+                                  style: TextStyle(fontFamily: 'Archivo'),
+                                ),
+                                Text(
+                                  authUser.userPoint.toString(),
+                                  style: TextStyle(
+                                      fontFamily: 'Archivo',
+                                      fontSize: rWidth(30)),
+                                ),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: ElevatedButton(
+                                          onPressed: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (_) =>
+                                                        RewardItemScreen()));
+                                          },
+                                          child: Text('Rewards')),
+                                    ),
+                                  ],
+                                ),
+                                ExpansionTile(
+                                  tilePadding: EdgeInsets.symmetric(
+                                      horizontal: rWidth(7)),
+                                  title: const Text(
+                                    'Details',
+                                    style: TextStyle(fontFamily: 'Archivo'),
+                                  ),
+                                  children: [
+                                    Container(
+                                      margin: EdgeInsets.only(
+                                          left: rWidth(5),
+                                          right: rWidth(5),
+                                          bottom: rWidth(10)),
+                                      child: Column(
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Container(
+                                                padding:
+                                                    EdgeInsets.all(rWidth(5)),
+                                                decoration: BoxDecoration(
+                                                  color: Theme.of(context)
+                                                      .scaffoldBackgroundColor,
+                                                  shape: BoxShape.circle,
+                                                ),
+                                                child: Icon(Icons.star),
+                                              ),
+                                              SizedBox(
+                                                width: rWidth(15),
+                                              ),
+                                              Expanded(
+                                                child: Text(
+                                                  'You earn 10\% of Reward Points from Total Amount when you place an Order.',
+                                                  style: TextStyle(
+                                                      fontFamily:
+                                                          'Archivo-Regular'),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                          SizedBox(
+                                            height: rWidth(15),
+                                          ),
+                                          Row(
+                                            children: [
+                                              Container(
+                                                padding:
+                                                    EdgeInsets.all(rWidth(5)),
+                                                decoration: BoxDecoration(
+                                                  color: Theme.of(context)
+                                                      .scaffoldBackgroundColor,
+                                                  shape: BoxShape.circle,
+                                                ),
+                                                child:
+                                                    Icon(Icons.card_giftcard),
+                                              ),
+                                              SizedBox(
+                                                width: rWidth(15),
+                                              ),
+                                              Expanded(
+                                                child: Text(
+                                                  'Use your points to redeem various items and products.',
+                                                  style: TextStyle(
+                                                      fontFamily:
+                                                          'Archivo-Regular'),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                   Container(
@@ -81,7 +203,7 @@ class ProfileScreen extends StatelessWidget {
                           fontFamily: 'Archivo', letterSpacing: rWidth(1)),
                     ),
                   ),
-                  Container(
+                  Card(
                     margin: EdgeInsets.only(bottom: rWidth(10)),
                     color: Theme.of(context).secondaryHeaderColor,
                     child: Column(
@@ -147,7 +269,7 @@ class ProfileScreen extends StatelessWidget {
                           fontFamily: 'Archivo', letterSpacing: rWidth(1)),
                     ),
                   ),
-                  Container(
+                  Card(
                     margin: EdgeInsets.only(bottom: rWidth(10)),
                     color: Theme.of(context).secondaryHeaderColor,
                     child: Column(
