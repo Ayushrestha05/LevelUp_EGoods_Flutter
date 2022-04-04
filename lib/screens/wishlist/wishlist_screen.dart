@@ -1,6 +1,7 @@
 import 'package:antdesign_icons/antdesign_icons.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:levelup_egoods/screens/items/item_screen_switch.dart';
 import 'package:levelup_egoods/utilities/models/wishlist.dart';
 import 'package:levelup_egoods/utilities/size_config.dart';
 import 'package:provider/provider.dart';
@@ -42,51 +43,70 @@ class WishlistScreen extends StatelessWidget {
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              CachedNetworkImage(
-                                httpHeaders: const {
-                                  'Connection': 'Keep-Alive',
-                                  'Keep-Alive': 'timeout=10,max=1000'
+                              GestureDetector(
+                                onTap: () {
+                                  itemScreen(
+                                    context: context,
+                                    categoryID: wishlist.wishlistItems[index]
+                                        ['category'],
+                                    itemID: wishlist.wishlistItems[index]
+                                        ['item_id'],
+                                    imageURL: wishlist.wishlistItems[index]
+                                        ['item_image'],
+                                    heroTag:
+                                        'wishlistItem${wishlist.wishlistItems[index]['id']}',
+                                  );
                                 },
-                                imageUrl: wishlist.wishlistItems[index]
-                                    ['item_image'],
-                                placeholder: (context, url) => Container(
-                                    width: rWidth(84),
-                                    height: rWidth(120),
-                                    decoration: BoxDecoration(
-                                      borderRadius:
-                                          BorderRadius.circular(rWidth(5)),
-                                      color: Colors.grey,
-                                    ),
-                                    child: const Expanded(
-                                        child: Center(
-                                            child:
-                                                CircularProgressIndicator()))),
-                                errorWidget: (context, url, error) {
-                                  if (error != null) {
-                                    print(error);
-                                  }
-                                  return Container(
+                                child: Hero(
+                                  tag:
+                                      'wishlistItem${wishlist.wishlistItems[index]['id']}',
+                                  child: CachedNetworkImage(
+                                    httpHeaders: const {
+                                      'Connection': 'Keep-Alive',
+                                      'Keep-Alive': 'timeout=10,max=1000'
+                                    },
+                                    imageUrl: wishlist.wishlistItems[index]
+                                        ['item_image'],
+                                    placeholder: (context, url) => Container(
+                                        width: rWidth(84),
+                                        height: rWidth(120),
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(rWidth(5)),
+                                          color: Colors.grey,
+                                        ),
+                                        child: const Expanded(
+                                            child: Center(
+                                                child:
+                                                    CircularProgressIndicator()))),
+                                    errorWidget: (context, url, error) {
+                                      if (error != null) {
+                                        print(error);
+                                      }
+                                      return Container(
+                                          width: rWidth(110),
+                                          height: rWidth(120),
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(
+                                                rWidth(10)),
+                                            color: Colors.grey,
+                                          ),
+                                          child: const Expanded(
+                                              child: Center(
+                                                  child: Icon(Icons.error))));
+                                    },
+                                    imageBuilder: (context, imageProvider) =>
+                                        Container(
                                       width: rWidth(110),
                                       height: rWidth(120),
                                       decoration: BoxDecoration(
                                         borderRadius:
                                             BorderRadius.circular(rWidth(10)),
-                                        color: Colors.grey,
+                                        image: DecorationImage(
+                                          fit: BoxFit.cover,
+                                          image: imageProvider,
+                                        ),
                                       ),
-                                      child: const Expanded(
-                                          child: Center(
-                                              child: Icon(Icons.error))));
-                                },
-                                imageBuilder: (context, imageProvider) =>
-                                    Container(
-                                  width: rWidth(110),
-                                  height: rWidth(120),
-                                  decoration: BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.circular(rWidth(10)),
-                                    image: DecorationImage(
-                                      fit: BoxFit.cover,
-                                      image: imageProvider,
                                     ),
                                   ),
                                 ),
