@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 ThemeData light = ThemeData(
+  chipTheme: ChipThemeData.fromDefaults(
+      brightness: Brightness.light,
+      secondaryColor: Color(0xFF103388),
+      labelStyle: TextStyle(fontFamily: 'Archivo-Regular')),
   secondaryHeaderColor: Colors.white,
   bottomNavigationBarTheme: const BottomNavigationBarThemeData(
     selectedItemColor: Color(0xFF6FFFE9),
@@ -13,6 +17,10 @@ ThemeData light = ThemeData(
 );
 
 ThemeData dark = ThemeData(
+  chipTheme: ChipThemeData.fromDefaults(
+      brightness: Brightness.dark,
+      secondaryColor: Color(0xFF6FFFE9),
+      labelStyle: TextStyle(fontFamily: 'Archivo-Regular')),
   secondaryHeaderColor: Color(0xFF393939),
   bottomNavigationBarTheme: const BottomNavigationBarThemeData(
     selectedItemColor: Color(0xFF6FFFE9),

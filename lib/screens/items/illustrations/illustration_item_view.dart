@@ -130,18 +130,20 @@ class IllustrationView extends StatelessWidget {
                     margin: EdgeInsets.only(right: rWidth(5)),
                     child: illustration.selected ==
                             illustration.illustration_prices[index]['id']
-                        ? ElevatedButton(
-                            child: Text(illustration.illustration_prices[index]
+                        ? ChoiceChip(
+                            selected: true,
+                            label: Text(illustration.illustration_prices[index]
                                 ['size']),
-                            onPressed: () {
+                            onSelected: (value) {
                               illustration.setSelected(illustration
                                   .illustration_prices[index]['id']);
                             },
                           )
-                        : OutlinedButton(
-                            child: Text(illustration.illustration_prices[index]
+                        : ChoiceChip(
+                            selected: false,
+                            label: Text(illustration.illustration_prices[index]
                                 ['size']),
-                            onPressed: () {
+                            onSelected: (value) {
                               illustration.setSelected(illustration
                                   .illustration_prices[index]['id']);
                             },

@@ -1,7 +1,6 @@
 import 'package:antdesign_icons/antdesign_icons.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:levelup_egoods/screens/items/music/music_player.dart';
 import 'package:levelup_egoods/utilities/auth.dart';
 import 'package:levelup_egoods/utilities/models/music.dart';
@@ -143,15 +142,17 @@ class MusicViewScreen extends StatelessWidget {
                   child: Row(
                     children: [
                       musicData.isSelected == 'digital'
-                          ? ElevatedButton(
-                              child: Text('Digital'),
-                              onPressed: () {
+                          ? ChoiceChip(
+                              selected: true,
+                              label: Text('Digital'),
+                              onSelected: (value) {
                                 musicData.setSelectedValue('digital');
                               },
                             )
-                          : OutlinedButton(
-                              child: Text('Digital'),
-                              onPressed: () {
+                          : ChoiceChip(
+                              selected: false,
+                              label: Text('Digital'),
+                              onSelected: (value) {
                                 musicData.setSelectedValue('digital');
                               },
                             ),
@@ -159,15 +160,17 @@ class MusicViewScreen extends StatelessWidget {
                         width: 10,
                       ),
                       musicData.isSelected == 'physical'
-                          ? ElevatedButton(
-                              child: Text('Physical'),
-                              onPressed: () {
+                          ? ChoiceChip(
+                              selected: true,
+                              label: Text('Physical'),
+                              onSelected: (value) {
                                 musicData.setSelectedValue('physical');
                               },
                             )
-                          : OutlinedButton(
-                              child: Text('Physical'),
-                              onPressed: () {
+                          : ChoiceChip(
+                              selected: false,
+                              label: Text('Physical'),
+                              onSelected: (value) {
                                 musicData.setSelectedValue('physical');
                               },
                             ),

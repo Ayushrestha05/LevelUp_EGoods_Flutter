@@ -67,18 +67,20 @@ class GiftCardView extends StatelessWidget {
                         margin: EdgeInsets.only(right: rWidth(5)),
                         child: giftCardData.isSelected ==
                                 giftCardData.cardDetails[index]['id']
-                            ? ElevatedButton(
-                                child: Text(giftCardData.cardDetails[index]
+                            ? ChoiceChip(
+                                label: Text(giftCardData.cardDetails[index]
                                     ['card_type']),
-                                onPressed: () {
+                                selected: true,
+                                onSelected: (value) {
                                   giftCardData.setSelected(
                                       giftCardData.cardDetails[index]['id']);
                                 },
                               )
-                            : OutlinedButton(
-                                child: Text(giftCardData.cardDetails[index]
+                            : ChoiceChip(
+                                label: Text(giftCardData.cardDetails[index]
                                     ['card_type']),
-                                onPressed: () {
+                                selected: false,
+                                onSelected: (value) {
                                   giftCardData.setSelected(
                                       giftCardData.cardDetails[index]['id']);
                                 },

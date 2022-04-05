@@ -163,7 +163,7 @@ class GameView extends StatelessWidget {
                         : Container(),
                     gameData.gamePrices.length != 0
                         ? SizedBox(
-                            height: rWidth(10),
+                            height: rWidth(5),
                           )
                         : Container(),
                     gameData.gamePrices.length != 0
@@ -177,50 +177,40 @@ class GameView extends StatelessWidget {
                                     margin: EdgeInsets.only(right: rWidth(5)),
                                     child: gameData.selected ==
                                             gameData.gamePrices[index]['id']
-                                        ? ElevatedButton(
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                SvgPicture.network(
-                                                  gameData.gamePrices[index]
-                                                      ['platform_logo'],
-                                                  height: rWidth(20),
-                                                  width: rWidth(20),
-                                                ),
-                                                SizedBox(
-                                                  width: rWidth(10),
-                                                ),
-                                                Text(gameData.gamePrices[index]
-                                                    ['platform_name']),
-                                              ],
+                                        ? ChoiceChip(
+                                            padding: EdgeInsets.only(
+                                                left: rWidth(5)),
+                                            avatar: SvgPicture.network(
+                                              gameData.gamePrices[index]
+                                                  ['platform_logo'],
+                                              height: rWidth(20),
+                                              width: rWidth(20),
                                             ),
-                                            onPressed: () {
+                                            selected: true,
+                                            label: Text(
+                                                gameData.gamePrices[index]
+                                                    ['platform_name']),
+                                            onSelected: (value) {
                                               gameData.setSelected(gameData
                                                   .gamePrices[index]['id']);
-                                            },
-                                          )
-                                        : OutlinedButton(
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                SvgPicture.network(
-                                                  gameData.gamePrices[index]
-                                                      ['platform_logo'],
-                                                  height: rWidth(20),
-                                                  width: rWidth(20),
-                                                ),
-                                                SizedBox(
-                                                  width: rWidth(10),
-                                                ),
-                                                Text(gameData.gamePrices[index]
-                                                    ['platform_name']),
-                                              ],
+                                            })
+                                        : ChoiceChip(
+                                            padding: EdgeInsets.only(
+                                                left: rWidth(5)),
+                                            avatar: SvgPicture.network(
+                                              gameData.gamePrices[index]
+                                                  ['platform_logo'],
+                                              height: rWidth(20),
+                                              width: rWidth(20),
                                             ),
-                                            onPressed: () {
+                                            selected: false,
+                                            label: Text(
+                                                gameData.gamePrices[index]
+                                                    ['platform_name']),
+                                            onSelected: (value) {
                                               gameData.setSelected(gameData
                                                   .gamePrices[index]['id']);
-                                            },
-                                          ),
+                                            }),
                                   );
                                 }),
                           )
