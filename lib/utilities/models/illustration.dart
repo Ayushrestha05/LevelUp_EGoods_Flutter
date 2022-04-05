@@ -41,7 +41,8 @@ class Illustration extends ChangeNotifier {
 
     var decode = jsonDecode(response.body);
     _name = decode['item_details']['item_name'];
-    _description = decode['illustration_details']['illustration_description'];
+    _description =
+        decode['illustration_details']['illustration_description'] ?? '';
     _userID = decode['illustration_details']['user_id'] ?? 0;
     _userName = decode['illustration_details']['user_name'] ?? '';
     _creator = decode['illustration_details']['creator'] ?? '';

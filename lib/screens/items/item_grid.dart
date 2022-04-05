@@ -1,12 +1,15 @@
 import 'dart:convert';
 
+import 'package:antdesign_icons/antdesign_icons.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:levelup_egoods/screens/items/item_screen_switch.dart';
+import 'package:levelup_egoods/screens/search/search_screen.dart';
 import 'package:levelup_egoods/utilities/constants.dart';
 import 'package:levelup_egoods/utilities/size_config.dart';
+import 'package:levelup_egoods/widgets/clickableSearchBar.dart';
 
 class ItemGrid extends StatefulWidget {
   final int categoryID;
@@ -59,7 +62,7 @@ class _ItemGridState extends State<ItemGrid> {
             Container(
               margin: EdgeInsets.only(
                 top: rWidth(20),
-                bottom: rWidth(20),
+                bottom: rWidth(5),
               ),
               height: 50,
               child: ListView(
@@ -98,15 +101,14 @@ class _ItemGridState extends State<ItemGrid> {
                                     });
                                   },
                                   child: Container(
-                                    alignment: Alignment.center,
-                                    margin: EdgeInsets.only(
-                                        right: rWidth(10), top: rWidth(5)),
-                                    child: Text(
-                                        categoryItems[index]['category_name'],
-                                        style: TextStyle(
-                                            fontFamily: 'Kamerik-Bold',
-                                            fontSize: rWidth(20),
-                                            color: Colors.grey)),
+                                    margin: EdgeInsets.only(right: rWidth(5)),
+                                    child: ChoiceChip(
+                                        selected: false,
+                                        label: Text(
+                                          categoryItems[index]['category_name'],
+                                          style: TextStyle(
+                                              fontFamily: 'Archivo-Regular'),
+                                        )),
                                   ),
                                 )
                               : Container();
@@ -114,6 +116,13 @@ class _ItemGridState extends State<ItemGrid> {
                   ),
                 ],
               ),
+            ),
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: rWidth(15)),
+              child: clickableSearchBar(context),
+            ),
+            SizedBox(
+              height: rWidth(10),
             ),
             Expanded(
               child: Container(
