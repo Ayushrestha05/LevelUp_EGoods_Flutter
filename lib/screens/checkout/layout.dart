@@ -126,8 +126,9 @@ class _CheckoutLayoutState extends State<CheckoutLayout> {
             },
             validator: RequiredValidator(errorText: 'Enter a name'),
             decoration: InputDecoration(
+                hintText: 'Full Name Here',
                 border: OutlineInputBorder(),
-                fillColor: Colors.white,
+                fillColor: Theme.of(context).scaffoldBackgroundColor,
                 filled: true,
                 contentPadding: EdgeInsets.symmetric(
                     vertical: rWidth(5), horizontal: rWidth(10))),
@@ -153,8 +154,9 @@ class _CheckoutLayoutState extends State<CheckoutLayout> {
                   errorText: 'Enter a phone which can be contacted'),
             ]),
             decoration: InputDecoration(
+                hintText: 'Phone Number Here',
                 border: OutlineInputBorder(),
-                fillColor: Colors.white,
+                fillColor: Theme.of(context).scaffoldBackgroundColor,
                 filled: true,
                 contentPadding: EdgeInsets.symmetric(
                     vertical: rWidth(5), horizontal: rWidth(10))),
@@ -176,7 +178,7 @@ class _CheckoutLayoutState extends State<CheckoutLayout> {
             validator: RequiredValidator(errorText: 'Enter a City'),
             decoration: InputDecoration(
                 border: OutlineInputBorder(),
-                fillColor: Colors.white,
+                fillColor: Theme.of(context).scaffoldBackgroundColor,
                 filled: true,
                 hintText: 'City',
                 contentPadding: EdgeInsets.symmetric(
@@ -192,7 +194,7 @@ class _CheckoutLayoutState extends State<CheckoutLayout> {
             validator: RequiredValidator(errorText: 'Enter an Address'),
             decoration: InputDecoration(
                 border: OutlineInputBorder(),
-                fillColor: Colors.white,
+                fillColor: Theme.of(context).scaffoldBackgroundColor,
                 filled: true,
                 hintText: 'Address',
                 contentPadding: EdgeInsets.symmetric(
@@ -254,9 +256,9 @@ class _CheckoutLayoutState extends State<CheckoutLayout> {
             },
             maxLines: null,
             maxLength: 255,
-            decoration: const InputDecoration(
+            decoration: InputDecoration(
               border: OutlineInputBorder(),
-              fillColor: Colors.white,
+              fillColor: Theme.of(context).scaffoldBackgroundColor,
               filled: true,
             ),
           ),
