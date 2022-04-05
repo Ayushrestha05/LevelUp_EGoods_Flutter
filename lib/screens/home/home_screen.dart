@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:levelup_egoods/utilities/constants.dart';
 import 'package:levelup_egoods/utilities/size_config.dart';
+import 'package:levelup_egoods/widgets/clickableSearchBar.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -40,6 +41,10 @@ class HomeScreen extends StatelessWidget {
                   const Icon(Icons.notifications_outlined),
                 ],
               ),
+              const SizedBox(
+                height: 20,
+              ),
+              clickableSearchBar(context),
               const SizedBox(
                 height: 20,
               ),
