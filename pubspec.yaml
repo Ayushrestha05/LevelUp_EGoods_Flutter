@@ -51,6 +51,9 @@ dependencies:
   expandable_page_view: ^1.0.13
   khalti_flutter: ^2.0.2
   webview_flutter: ^3.0.1
+  firebase_core: ^1.14.0
+  firebase_messaging: ^11.2.12
+  flutter_local_notifications: ^9.4.0
 
 dev_dependencies:
   flutter_test:

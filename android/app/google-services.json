@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "510709686336",
+    "project_id": "levelup-e-goods-store",
+    "storage_bucket": "levelup-e-goods-store.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:510709686336:android:0f7463a100e95796003fa5",
+        "android_client_info": {
+          "package_name": "com.brainoutofbounds.levelup_egoods"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "510709686336-rhlj8r28kiid78kb9ccdcnovn3kvlpcd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyChwAiO8qAgP46iSgEJ0fgaH8Ppg2tWgZ8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "510709686336-rhlj8r28kiid78kb9ccdcnovn3kvlpcd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

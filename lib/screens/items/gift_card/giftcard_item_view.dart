@@ -55,7 +55,7 @@ class GiftCardView extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: rWidth(20),
+                height: rWidth(10),
               ),
               Container(
                 height: rWidth(40),
