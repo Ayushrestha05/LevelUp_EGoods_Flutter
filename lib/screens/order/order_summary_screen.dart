@@ -13,6 +13,8 @@ import 'package:http/http.dart' as http;
 class OrderSummaryScreen extends StatelessWidget {
   final int orderID;
   const OrderSummaryScreen({Key? key, required this.orderID}) : super(key: key);
+  static const TextStyle summaryStyle =
+      TextStyle(fontFamily: 'Archivo-Regular');
 
   static var textStyle = TextStyle(
     fontFamily: 'Archivo-Regular',
@@ -82,7 +84,7 @@ class OrderSummaryScreen extends StatelessWidget {
                                         style: textStyle,
                                       ),
                                       Text(
-                                        'Amount Paid : ${order['amount']}',
+                                        'Amount Paid : ${order['total'].toString()}',
                                         style: textStyle,
                                       )
                                     ],
@@ -156,7 +158,7 @@ class OrderSummaryScreen extends StatelessWidget {
                               SizedBox(
                                 height: rWidth(10),
                               ),
-                              order['sender_message'] != ''
+                              order['sender_message'] ?? '' != ''
                                   ? Text(
                                       'Message Attached',
                                       style: TextStyle(
@@ -167,7 +169,7 @@ class OrderSummaryScreen extends StatelessWidget {
                               SizedBox(
                                 height: rWidth(10),
                               ),
-                              order['sender_message'] != ''
+                              order['sender_message'] ?? '' != ''
                                   ? Text(
                                       order['sender_message'],
                                       style: textStyle,
@@ -195,6 +197,87 @@ class OrderSummaryScreen extends StatelessWidget {
                                   }),
                               SizedBox(
                                 height: rWidth(10),
+                              ),
+                              Text(
+                                'Payment Summary',
+                                style: TextStyle(
+                                    fontFamily: 'Archivo',
+                                    fontSize: rWidth(20)),
+                              ),
+                              Container(
+                                margin: EdgeInsets.symmetric(
+                                    horizontal: rWidth(15),
+                                    vertical: rWidth(10)),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        const Text('Subtotal',
+                                            style: summaryStyle),
+                                        const Spacer(),
+                                        Text(
+                                          order['sub_total'].toString(),
+                                          style: const TextStyle(
+                                              fontFamily: 'Archivo'),
+                                        ),
+                                        SizedBox(
+                                          width: rWidth(3),
+                                        ),
+                                        const Text(
+                                          'NPR',
+                                          style:
+                                              TextStyle(fontFamily: 'Archivo'),
+                                        )
+                                      ],
+                                    ),
+                                    order['discount_percent'] != 0
+                                        ? Row(
+                                            children: [
+                                              Text(
+                                                  'Discount (${order['discount_percentage']}%)',
+                                                  style: summaryStyle),
+                                              const Spacer(),
+                                              Text(
+                                                order['discount_amount']
+                                                    .toString(),
+                                                style: const TextStyle(
+                                                    fontFamily: 'Archivo'),
+                                              ),
+                                              SizedBox(
+                                                width: rWidth(3),
+                                              ),
+                                              const Text(
+                                                'NPR',
+                                                style: TextStyle(
+                                                    fontFamily: 'Archivo'),
+                                              )
+                                            ],
+                                          )
+                                        : Container(),
+                                    Row(
+                                      children: [
+                                        Text('Total', style: summaryStyle),
+                                        const Spacer(),
+                                        Text(
+                                          order['total'].toString(),
+                                          style: const TextStyle(
+                                              fontFamily: 'Archivo'),
+                                        ),
+                                        SizedBox(
+                                          width: rWidth(3),
+                                        ),
+                                        const Text(
+                                          'NPR',
+                                          style:
+                                              TextStyle(fontFamily: 'Archivo'),
+                                        )
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: rWidth(5),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ],
                           );

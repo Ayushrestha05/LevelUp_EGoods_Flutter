@@ -208,7 +208,7 @@ class _OrderListScreenState extends State<OrderListScreen> {
                                                 fontSize: rWidth(12)),
                                           ),
                                           Text(
-                                            decode[index]['amount'].toString(),
+                                            decode[index]['total'].toString(),
                                             style: TextStyle(
                                                 fontFamily: 'Archivo'),
                                           )

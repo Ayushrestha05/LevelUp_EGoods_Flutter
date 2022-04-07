@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:alert/alert.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
@@ -18,90 +20,128 @@ class CheckoutLayout extends StatefulWidget {
 
 class _CheckoutLayoutState extends State<CheckoutLayout> {
   int currentStep = 0;
+  int discountPercent = 0;
+  double amount_required = 0;
   bool? hidden = false, wrapped = false, successPayment = false;
+  bool _isProcessing = false;
   String fullName = "", phone = "", city = "", address = "", message = "";
   final _shipmentFormKey = GlobalKey<FormState>();
+
+  void getCheckoutSale() async {
+    var response = await http.get(Uri.parse('$apiUrl/get-checkout-sale'));
+    if (response.statusCode == 200) {
+      var decode = jsonDecode(response.body);
+      if (decode.length > 0) {
+        discountPercent = decode['discount_percent'];
+        amount_required = decode['amount_required'].toDouble();
+      }
+    }
+  }
+
+  @override
+  void initState() {
+    getCheckoutSale();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: const Text(
-            'Checkout',
-            style: TextStyle(fontFamily: 'Archivo'),
+          appBar: AppBar(
+            centerTitle: true,
+            title: const Text(
+              'Checkout',
+              style: TextStyle(fontFamily: 'Archivo'),
+            ),
           ),
-        ),
-        body: Stepper(
-          type: StepperType.horizontal,
-          currentStep: currentStep,
-          steps: [
-            Step(
-                state: currentStep > 0 ? StepState.complete : StepState.indexed,
-                title: Text('Shipping'),
-                content: buildShipmentForm(),
-                isActive: currentStep >= 0),
-            Step(
-                state: currentStep > 1 ? StepState.complete : StepState.indexed,
-                title: Text('Summary'),
-                content: buildSummary(),
-                isActive: currentStep >= 1),
-            Step(
-                state: currentStep > 2 ? StepState.complete : StepState.indexed,
-                title: Text('Payment'),
-                content: buildPayment(),
-                isActive: currentStep >= 2),
-          ],
-          onStepContinue: () {
-            setState(() {
-              if (currentStep < 2) {
-                if (currentStep == 0) {
-                  if (_shipmentFormKey.currentState!.validate()) {
-                    _shipmentFormKey.currentState!.save();
-                    currentStep += 1;
-                  }
-                } else {
-                  currentStep += 1;
-                }
-              }
-            });
-          },
-          onStepCancel: () {
-            setState(() {
-              if (currentStep > 0) {
-                currentStep -= 1;
-              }
-            });
-          },
-          controlsBuilder: (context, controlDetails) {
-            if (currentStep == 2) {
-              return Container();
-            } else {
-              return Row(
-                children: [
-                  currentStep == 1
-                      ? Container()
-                      : Expanded(
-                          child: ElevatedButton(
-                            onPressed: controlDetails.onStepContinue,
-                            child: const Text('Next'),
-                          ),
-                        ),
-                  currentStep != 0
-                      ? Expanded(
-                          child: ElevatedButton(
-                            onPressed: controlDetails.onStepCancel,
-                            child: Text('Back'),
-                          ),
-                        )
-                      : Container(),
+          body: Stack(
+            children: [
+              Stepper(
+                type: StepperType.horizontal,
+                currentStep: currentStep,
+                steps: [
+                  Step(
+                      state: currentStep > 0
+                          ? StepState.complete
+                          : StepState.indexed,
+                      title: Text('Shipping'),
+                      content: buildShipmentForm(),
+                      isActive: currentStep >= 0),
+                  Step(
+                      state: currentStep > 1
+                          ? StepState.complete
+                          : StepState.indexed,
+                      title: Text('Summary'),
+                      content: buildSummary(),
+                      isActive: currentStep >= 1),
+                  Step(
+                      state: currentStep > 2
+                          ? StepState.complete
+                          : StepState.indexed,
+                      title: Text('Payment'),
+                      content: buildPayment(),
+                      isActive: currentStep >= 2),
                 ],
-              );
-            }
-          },
-        ),
-      ),
+                onStepContinue: () {
+                  setState(() {
+                    if (currentStep < 2) {
+                      if (currentStep == 0) {
+                        if (_shipmentFormKey.currentState!.validate()) {
+                          _shipmentFormKey.currentState!.save();
+                          currentStep += 1;
+                        }
+                      } else {
+                        currentStep += 1;
+                      }
+                    }
+                  });
+                },
+                onStepCancel: () {
+                  setState(() {
+                    if (currentStep > 0) {
+                      currentStep -= 1;
+                    }
+                  });
+                },
+                controlsBuilder: (context, controlDetails) {
+                  if (currentStep == 2) {
+                    return Container();
+                  } else {
+                    return Row(
+                      children: [
+                        currentStep == 1
+                            ? Container()
+                            : Expanded(
+                                child: ElevatedButton(
+                                  onPressed: controlDetails.onStepContinue,
+                                  child: const Text('Next'),
+                                ),
+                              ),
+                        currentStep != 0
+                            ? Expanded(
+                                child: ElevatedButton(
+                                  onPressed: controlDetails.onStepCancel,
+                                  child: Text('Back'),
+                                ),
+                              )
+                            : Container(),
+                      ],
+                    );
+                  }
+                },
+              ),
+              _isProcessing
+                  ? Expanded(
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          color: Color(0xFF6FFFE9).withOpacity(0.5),
+                        ),
+                      ),
+                    )
+                  : Container()
+            ],
+          )),
     );
   }
 
@@ -343,6 +383,52 @@ class _CheckoutLayoutState extends State<CheckoutLayout> {
                         )
                       ],
                     ),
+                    auth.totalPrice > amount_required && discountPercent != 0
+                        ? Row(
+                            children: [
+                              Text('Discount ($discountPercent%)',
+                                  style: summaryStyle),
+                              const Spacer(),
+                              Text(
+                                (auth.totalPrice * (discountPercent / 100))
+                                    .toString(),
+                                style: const TextStyle(fontFamily: 'Archivo'),
+                              ),
+                              SizedBox(
+                                width: rWidth(3),
+                              ),
+                              const Text(
+                                'NPR',
+                                style: TextStyle(fontFamily: 'Archivo'),
+                              )
+                            ],
+                          )
+                        : Container(),
+                    Row(
+                      children: [
+                        Text('Total', style: summaryStyle),
+                        const Spacer(),
+                        auth.totalPrice > amount_required
+                            ? Text(
+                                (auth.totalPrice -
+                                        (auth.totalPrice *
+                                            (discountPercent / 100)))
+                                    .toString(),
+                                style: const TextStyle(fontFamily: 'Archivo'),
+                              )
+                            : Text(
+                                auth.totalPrice.toString(),
+                                style: const TextStyle(fontFamily: 'Archivo'),
+                              ),
+                        SizedBox(
+                          width: rWidth(3),
+                        ),
+                        const Text(
+                          'NPR',
+                          style: TextStyle(fontFamily: 'Archivo'),
+                        )
+                      ],
+                    ),
                     SizedBox(
                       height: rWidth(5),
                     ),
@@ -367,15 +453,28 @@ class _CheckoutLayoutState extends State<CheckoutLayout> {
               backgroundColor:
                   MaterialStateProperty.all(const Color(0xFF4F276E))),
           onPressed: () {
+            setState(() {
+              _isProcessing = true;
+            });
             KhaltiScope.of(context).pay(
               config: config,
               preferences: [PaymentPreference.khalti],
               onSuccess: (successModel) {
                 // Perform Server Verification
                 paymentVerification(
-                    token: successModel.token,
-                    amount: successModel.amount.toString(),
-                    test_amount: auth.totalPrice.toString());
+                  token: successModel.token,
+                  amount: successModel.amount.toString(),
+                  test_amount: auth.totalPrice.toString(),
+                  discount_percentage: discountPercent.toString(),
+                  total_amount: discountPercent == 0
+                      ? auth.totalPrice.toString()
+                      : (auth.totalPrice -
+                              (auth.totalPrice * (discountPercent / 100)))
+                          .toString(),
+                  discount_amount: discountPercent == 0
+                      ? "0"
+                      : (auth.totalPrice * (discountPercent / 100)).toString(),
+                );
               },
               onFailure: (failureModel) {
                 // What to do on failure?
@@ -388,6 +487,9 @@ class _CheckoutLayoutState extends State<CheckoutLayout> {
                 Alert(message: 'User cancelled the Payment').show();
               },
             );
+            setState(() {
+              _isProcessing = false;
+            });
           },
           label: Text('Pay with Khalti'),
         )
@@ -418,11 +520,30 @@ class _CheckoutLayoutState extends State<CheckoutLayout> {
     );
   }
 
-  void paymentVerification(
-      {required String token,
-      required String amount,
-      required String test_amount}) async {
+  void paymentVerification({
+    required String token,
+    required String amount,
+    required String test_amount,
+    required String discount_amount,
+    required String discount_percentage,
+    required String total_amount,
+  }) async {
     final auth = Provider.of<Auth>(context, listen: false);
+    print({
+      'token': token,
+      'amount': amount,
+      'sub_total': test_amount,
+      'discount_percentage': discount_percentage,
+      'discount_amount': discount_amount,
+      'total': total_amount,
+      'recieverName': fullName,
+      'recieverPhone': phone,
+      'recieverCity': city,
+      'recieverAddress': address,
+      'senderMessage': message,
+      'nonTransparentBag': hidden! ? "1" : "0",
+      'giftWrap': wrapped! ? "1" : "0",
+    });
     var response =
         await http.post(Uri.parse("$apiUrl/payment-verification"), headers: {
       'Accept': 'application/json',
@@ -430,7 +551,10 @@ class _CheckoutLayoutState extends State<CheckoutLayout> {
     }, body: {
       'token': token,
       'amount': amount,
-      'test_amount': test_amount,
+      'sub_total': test_amount,
+      'discount_percentage': discount_percentage,
+      'discount_amount': discount_amount,
+      'total': total_amount,
       'recieverName': fullName,
       'recieverPhone': phone,
       'recieverCity': city,
