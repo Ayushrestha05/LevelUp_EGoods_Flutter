@@ -24,7 +24,12 @@ class _CheckoutLayoutState extends State<CheckoutLayout> {
   double amount_required = 0;
   bool? hidden = false, wrapped = false, successPayment = false;
   bool _isProcessing = false;
-  String fullName = "", phone = "", city = "", address = "", message = "";
+  String fullName = "",
+      phone = "",
+      city = "",
+      address = "",
+      message = "",
+      email = "";
   final _shipmentFormKey = GlobalKey<FormState>();
 
   void getCheckoutSale() async {
@@ -195,6 +200,30 @@ class _CheckoutLayoutState extends State<CheckoutLayout> {
             ]),
             decoration: InputDecoration(
                 hintText: 'Phone Number Here',
+                border: OutlineInputBorder(),
+                fillColor: Theme.of(context).scaffoldBackgroundColor,
+                filled: true,
+                contentPadding: EdgeInsets.symmetric(
+                    vertical: rWidth(5), horizontal: rWidth(10))),
+          ),
+          const Text(
+            'Email',
+            style: formHeading,
+          ),
+          SizedBox(
+            height: rWidth(7),
+          ),
+          TextFormField(
+            onSaved: (value) {
+              email = value!;
+            },
+            keyboardType: TextInputType.emailAddress,
+            validator: MultiValidator([
+              RequiredValidator(
+                  errorText: 'Enter an email to send digital codes to.'),
+            ]),
+            decoration: InputDecoration(
+                hintText: 'Email Address Here',
                 border: OutlineInputBorder(),
                 fillColor: Theme.of(context).scaffoldBackgroundColor,
                 filled: true,
@@ -529,21 +558,7 @@ class _CheckoutLayoutState extends State<CheckoutLayout> {
     required String total_amount,
   }) async {
     final auth = Provider.of<Auth>(context, listen: false);
-    print({
-      'token': token,
-      'amount': amount,
-      'sub_total': test_amount,
-      'discount_percentage': discount_percentage,
-      'discount_amount': discount_amount,
-      'total': total_amount,
-      'recieverName': fullName,
-      'recieverPhone': phone,
-      'recieverCity': city,
-      'recieverAddress': address,
-      'senderMessage': message,
-      'nonTransparentBag': hidden! ? "1" : "0",
-      'giftWrap': wrapped! ? "1" : "0",
-    });
+
     var response =
         await http.post(Uri.parse("$apiUrl/payment-verification"), headers: {
       'Accept': 'application/json',
@@ -557,6 +572,7 @@ class _CheckoutLayoutState extends State<CheckoutLayout> {
       'total': total_amount,
       'recieverName': fullName,
       'recieverPhone': phone,
+      'recieverEmail': email,
       'recieverCity': city,
       'recieverAddress': address,
       'senderMessage': message,

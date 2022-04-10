@@ -123,6 +123,10 @@ class OrderSummaryScreen extends StatelessWidget {
                                 order['reciever_phone'],
                                 style: textStyle,
                               ),
+                              Text(
+                                order['reciever_email'],
+                                style: textStyle,
+                              ),
                               SizedBox(
                                 height: rWidth(10),
                               ),

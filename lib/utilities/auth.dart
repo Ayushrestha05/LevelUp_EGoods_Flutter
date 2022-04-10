@@ -10,20 +10,24 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class Auth extends ChangeNotifier {
   bool _isAuthenticated = false;
+  bool _isArtist = false;
   String _userName = 'User Name';
   String _userEmail = 'User Email';
+  String _profileImage = '';
   var _cartItems = [];
   double _totalPrice = 0;
   String _userToken = '';
   int _userPoint = 0;
 
   bool get isAuthenticated => _isAuthenticated;
+  bool get isArtist => _isArtist;
   get userName => _userName;
   get userEmail => _userEmail;
   get cartItems => _cartItems;
   get totalPrice => _totalPrice;
   get userToken => _userToken;
   get userPoint => _userPoint;
+  get profileImage => _profileImage;
 
   Auth() {
     getUserDetails();
@@ -74,6 +78,8 @@ class Auth extends ChangeNotifier {
       _userEmail = jsonResponse['user']['email'];
       _userToken = jsonResponse['token'];
       _userPoint = jsonResponse['user']['points'] ?? 0;
+      _isArtist = (jsonResponse['user']['is_artist'] ?? 0) == 1 ? true : false;
+      _profileImage = jsonResponse['user']['profile_image'] ?? '';
       Alert(message: "You have been logged in").show();
       notifyListeners();
       getCart();

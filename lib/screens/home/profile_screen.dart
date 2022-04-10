@@ -12,6 +12,8 @@ import 'package:levelup_egoods/utilities/size_config.dart';
 import 'package:levelup_egoods/utilities/user_handler.dart';
 import 'package:provider/provider.dart';
 
+import '../artist_dashboard/artist_dashboard_screen.dart';
+
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
@@ -194,6 +196,42 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     ),
                   ),
+                  authUser.isArtist
+                      ? Container(
+                          margin: EdgeInsets.only(
+                              left: rWidth(10), bottom: rWidth(10)),
+                          child: Text(
+                            'ARTIST',
+                            style: TextStyle(
+                                fontFamily: 'Archivo',
+                                letterSpacing: rWidth(1)),
+                          ),
+                        )
+                      : Container(),
+                  authUser.isArtist
+                      ? Card(
+                          margin: EdgeInsets.only(bottom: rWidth(10)),
+                          color: Theme.of(context).secondaryHeaderColor,
+                          child: ListTile(
+                            leading: const Icon(
+                              Icons.palette_outlined,
+                            ),
+                            title: const Text(
+                              'Artist Dashboard',
+                              style: TextStyle(fontFamily: 'Archivo'),
+                            ),
+                            trailing:
+                                const Icon(Icons.keyboard_arrow_right_sharp),
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (_) =>
+                                          const ArtistDashboardScreen()));
+                            },
+                          ),
+                        )
+                      : Container(),
                   Container(
                     margin:
                         EdgeInsets.only(left: rWidth(10), bottom: rWidth(10)),
