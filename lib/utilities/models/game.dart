@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:intl/intl.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:levelup_egoods/utilities/constants.dart';
@@ -53,10 +53,11 @@ class Game with ChangeNotifier {
     _trailer = decode['game_description']['trailer_url'];
     _gameImages = decode['game_images'];
     _gamePrices = decode['game_prices'];
-    var date = decode['game_description']['release_date'].split('-');
-    _releaseDate =
-        DateTime(int.parse(date[0]), int.parse(date[1]), int.parse(date[2]));
-    print(_releaseDate);
+    var date = decode['game_description']['release_date'].split('T');
+    var dateSplit = date[0].split('-');
+    _releaseDate = DateTime(int.parse(dateSplit[0]), int.parse(dateSplit[1]),
+        int.parse(dateSplit[2]));
+
     if (_gamePrices.length != 0) {
       _selected = _gamePrices[0]['id'];
       _option = _gamePrices[0]['platform_name'];

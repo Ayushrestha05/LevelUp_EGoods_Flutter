@@ -12,13 +12,13 @@ import 'package:http/http.dart' as http;
 
 class OrderSummaryScreen extends StatelessWidget {
   final int orderID;
-  const OrderSummaryScreen({Key? key, required this.orderID}) : super(key: key);
+  OrderSummaryScreen({Key? key, required this.orderID}) : super(key: key);
   static const TextStyle summaryStyle =
       TextStyle(fontFamily: 'Archivo-Regular');
 
-  static var textStyle = TextStyle(
+  var textStyle = TextStyle(
     fontFamily: 'Archivo-Regular',
-    fontSize: rWidth(15),
+    fontSize: rWidth(14),
   );
 
   @override
@@ -26,273 +26,333 @@ class OrderSummaryScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                margin: EdgeInsets.only(
-                    left: rWidth(20),
-                    right: rWidth(15),
-                    top: rWidth(30),
-                    bottom: rWidth(10)),
-                child: Container(
-                  padding: EdgeInsets.symmetric(vertical: rWidth(10)),
-                  child: Text(
-                    'Order Summary',
-                    style: TextStyle(
-                        fontFamily: 'Kamerik-Bold', fontSize: rWidth(30)),
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  margin: EdgeInsets.only(
+                      left: rWidth(20),
+                      right: rWidth(15),
+                      top: rWidth(30),
+                      bottom: rWidth(10)),
+                  child: Container(
+                    padding: EdgeInsets.symmetric(vertical: rWidth(10)),
+                    child: Text(
+                      'Order Summary',
+                      style: TextStyle(
+                          fontFamily: 'Kamerik-Bold', fontSize: rWidth(30)),
+                    ),
                   ),
                 ),
-              ),
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: rWidth(20)),
-                child: FutureBuilder(
-                    future: getOrderSummary(context),
-                    builder:
-                        (BuildContext context, AsyncSnapshot<String> snapshot) {
-                      switch (snapshot.connectionState) {
-                        case ConnectionState.none:
-                          return const Text('No Connection');
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: rWidth(20)),
+                  child: FutureBuilder(
+                      future: getOrderSummary(context),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<String> snapshot) {
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.none:
+                            return const Text('No Connection');
 
-                        case ConnectionState.waiting:
-                          return const Center(
-                              child: CircularProgressIndicator());
+                          case ConnectionState.waiting:
+                            return const Center(
+                                child: CircularProgressIndicator());
 
-                        case ConnectionState.done:
-                          var decode = jsonDecode(snapshot.data ?? '');
-                          var order = decode[0]['order'] ?? '';
-                          var items = decode[0]['items'] ?? '';
-                          return Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Order ID : ${order['id'].toString()}',
-                                        style: textStyle,
-                                      ),
-                                      Text(
-                                        'Token ID : ${order['txn_id'].toString()}',
-                                        style: textStyle,
-                                      ),
-                                      Text(
-                                        'Placed On : ${order['created_at']}',
-                                        style: textStyle,
-                                      ),
-                                      Text(
-                                        'Amount Paid : ${order['total'].toString()}',
+                          case ConnectionState.done:
+                            var decode = jsonDecode(snapshot.data ?? '');
+                            var order = decode[0]['order'] ?? '';
+                            var items = decode[0]['items'] ?? '';
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Card(
+                                  child: Container(
+                                    width: MediaQuery.of(context).size.width,
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: rWidth(20),
+                                        vertical: rWidth(20)),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Order ID : ${order['id'].toString()}',
+                                          style: textStyle,
+                                        ),
+                                        SizedBox(
+                                          height: rWidth(5),
+                                        ),
+                                        Text(
+                                          'Token ID : ${order['txn_id'].toString()}',
+                                          style: textStyle,
+                                        ),
+                                        SizedBox(
+                                          height: rWidth(5),
+                                        ),
+                                        Text(
+                                          'Placed On : ${order['created_at']}',
+                                          style: textStyle,
+                                        ),
+                                        SizedBox(
+                                          height: rWidth(5),
+                                        ),
+                                        Text(
+                                          'Amount Paid : ${order['total'].toString()} NPR',
+                                          style: textStyle,
+                                        ),
+                                        SizedBox(
+                                          height: rWidth(5),
+                                        ),
+                                        Container(
+                                          alignment: Alignment.bottomRight,
+                                          child: order['status'] == 'pending'
+                                              ? Icon(Icons.hourglass_empty)
+                                              : Icon(Icons.check),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: rWidth(10),
+                                ),
+                                Text(
+                                  'Reciever Details',
+                                  style: TextStyle(
+                                      fontFamily: 'Archivo',
+                                      fontSize: rWidth(20)),
+                                ),
+                                SizedBox(
+                                  height: rWidth(10),
+                                ),
+                                Card(
+                                  child: Container(
+                                    width: MediaQuery.of(context).size.width,
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: rWidth(20),
+                                        vertical: rWidth(20)),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          order['reciever_name'],
+                                          style: textStyle,
+                                        ),
+                                        Text(
+                                          order['reciever_address'],
+                                          style: textStyle,
+                                        ),
+                                        Text(
+                                          order['reciever_city'],
+                                          style: textStyle,
+                                        ),
+                                        Text(
+                                          order['reciever_phone'],
+                                          style: textStyle,
+                                        ),
+                                        Text(
+                                          order['reciever_email'],
+                                          style: textStyle,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: rWidth(10),
+                                ),
+                                Text(
+                                  'Delivery Options',
+                                  style: TextStyle(
+                                      fontFamily: 'Archivo',
+                                      fontSize: rWidth(20)),
+                                ),
+                                SizedBox(
+                                  height: rWidth(10),
+                                ),
+                                Card(
+                                  child: Container(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: rWidth(20),
+                                        vertical: rWidth(10)),
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Text(
+                                              'Non-Transparent Bag',
+                                              style: textStyle,
+                                            ),
+                                            Checkbox(
+                                                value: order['hidden'] == 1
+                                                    ? true
+                                                    : false,
+                                                onChanged: null),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              'Gift Wrapped',
+                                              style: textStyle,
+                                            ),
+                                            Checkbox(
+                                                value: order['wrapped'] == 1
+                                                    ? true
+                                                    : false,
+                                                onChanged: null),
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: rWidth(10),
+                                ),
+                                order['sender_message'] ?? '' != ''
+                                    ? Text(
+                                        'Message Attached',
+                                        style: TextStyle(
+                                            fontFamily: 'Archivo',
+                                            fontSize: rWidth(20)),
+                                      )
+                                    : Container(),
+                                SizedBox(
+                                  height: rWidth(10),
+                                ),
+                                order['sender_message'] ?? '' != ''
+                                    ? Text(
+                                        order['sender_message'],
                                         style: textStyle,
                                       )
-                                    ],
-                                  ),
-                                  Spacer(),
-                                  order['status'] == 'pending'
-                                      ? Icon(Icons.hourglass_empty)
-                                      : Icon(Icons.check),
-                                ],
-                              ),
-                              SizedBox(
-                                height: rWidth(10),
-                              ),
-                              Text(
-                                'Reciever Details',
-                                style: TextStyle(
-                                    fontFamily: 'Archivo',
-                                    fontSize: rWidth(20)),
-                              ),
-                              SizedBox(
-                                height: rWidth(10),
-                              ),
-                              Text(
-                                order['reciever_name'],
-                                style: textStyle,
-                              ),
-                              Text(
-                                order['reciever_address'],
-                                style: textStyle,
-                              ),
-                              Text(
-                                order['reciever_city'],
-                                style: textStyle,
-                              ),
-                              Text(
-                                order['reciever_phone'],
-                                style: textStyle,
-                              ),
-                              Text(
-                                order['reciever_email'],
-                                style: textStyle,
-                              ),
-                              SizedBox(
-                                height: rWidth(10),
-                              ),
-                              Text(
-                                'Delivery Options',
-                                style: TextStyle(
-                                    fontFamily: 'Archivo',
-                                    fontSize: rWidth(20)),
-                              ),
-                              SizedBox(
-                                height: rWidth(10),
-                              ),
-                              Row(
-                                children: [
-                                  Text(
-                                    'Non-Transparent Bag',
-                                    style: textStyle,
-                                  ),
-                                  Checkbox(
-                                      value:
-                                          order['hidden'] == 1 ? true : false,
-                                      onChanged: null),
-                                  Text(
-                                    'Gift Wrapped',
-                                    style: textStyle,
-                                  ),
-                                  Checkbox(
-                                      value:
-                                          order['wrapped'] == 1 ? true : false,
-                                      onChanged: null),
-                                ],
-                              ),
-                              SizedBox(
-                                height: rWidth(10),
-                              ),
-                              order['sender_message'] ?? '' != ''
-                                  ? Text(
-                                      'Message Attached',
-                                      style: TextStyle(
-                                          fontFamily: 'Archivo',
-                                          fontSize: rWidth(20)),
-                                    )
-                                  : Container(),
-                              SizedBox(
-                                height: rWidth(10),
-                              ),
-                              order['sender_message'] ?? '' != ''
-                                  ? Text(
-                                      order['sender_message'],
-                                      style: textStyle,
-                                    )
-                                  : Container(),
-                              SizedBox(
-                                height: rWidth(10),
-                              ),
-                              Text(
-                                'Order Items',
-                                style: TextStyle(
-                                    fontFamily: 'Archivo',
-                                    fontSize: rWidth(20)),
-                              ),
-                              SizedBox(
-                                height: rWidth(10),
-                              ),
-                              ListView.builder(
-                                  physics: NeverScrollableScrollPhysics(),
-                                  shrinkWrap: true,
-                                  itemCount: items.length,
-                                  itemBuilder: (context, index) {
-                                    return buildCartContainer(
-                                        context, items, index);
-                                  }),
-                              SizedBox(
-                                height: rWidth(10),
-                              ),
-                              Text(
-                                'Payment Summary',
-                                style: TextStyle(
-                                    fontFamily: 'Archivo',
-                                    fontSize: rWidth(20)),
-                              ),
-                              Container(
-                                margin: EdgeInsets.symmetric(
-                                    horizontal: rWidth(15),
-                                    vertical: rWidth(10)),
-                                child: Column(
-                                  children: [
-                                    Row(
-                                      children: [
-                                        const Text('Subtotal',
-                                            style: summaryStyle),
-                                        const Spacer(),
-                                        Text(
-                                          order['sub_total'].toString(),
-                                          style: const TextStyle(
-                                              fontFamily: 'Archivo'),
-                                        ),
-                                        SizedBox(
-                                          width: rWidth(3),
-                                        ),
-                                        const Text(
-                                          'NPR',
-                                          style:
-                                              TextStyle(fontFamily: 'Archivo'),
-                                        )
-                                      ],
-                                    ),
-                                    order['discount_percent'] != 0
-                                        ? Row(
-                                            children: [
-                                              Text(
-                                                  'Discount (${order['discount_percentage']}%)',
-                                                  style: summaryStyle),
-                                              const Spacer(),
-                                              Text(
-                                                order['discount_amount']
-                                                    .toString(),
-                                                style: const TextStyle(
-                                                    fontFamily: 'Archivo'),
-                                              ),
-                                              SizedBox(
-                                                width: rWidth(3),
-                                              ),
-                                              const Text(
-                                                'NPR',
-                                                style: TextStyle(
-                                                    fontFamily: 'Archivo'),
-                                              )
-                                            ],
-                                          )
-                                        : Container(),
-                                    Row(
-                                      children: [
-                                        Text('Total', style: summaryStyle),
-                                        const Spacer(),
-                                        Text(
-                                          order['total'].toString(),
-                                          style: const TextStyle(
-                                              fontFamily: 'Archivo'),
-                                        ),
-                                        SizedBox(
-                                          width: rWidth(3),
-                                        ),
-                                        const Text(
-                                          'NPR',
-                                          style:
-                                              TextStyle(fontFamily: 'Archivo'),
-                                        )
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      height: rWidth(5),
-                                    ),
-                                  ],
+                                    : Container(),
+                                SizedBox(
+                                  height: rWidth(10),
                                 ),
-                              ),
-                            ],
-                          );
-                          break;
+                                Text(
+                                  'Order Items',
+                                  style: TextStyle(
+                                      fontFamily: 'Archivo',
+                                      fontSize: rWidth(20)),
+                                ),
+                                SizedBox(
+                                  height: rWidth(10),
+                                ),
+                                ListView.builder(
+                                    physics: NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    itemCount: items.length,
+                                    itemBuilder: (context, index) {
+                                      return buildCartContainer(
+                                          context, items, index);
+                                    }),
+                                SizedBox(
+                                  height: rWidth(10),
+                                ),
+                                Text(
+                                  'Payment Summary',
+                                  style: TextStyle(
+                                      fontFamily: 'Archivo',
+                                      fontSize: rWidth(20)),
+                                ),
+                                SizedBox(
+                                  height: rWidth(10),
+                                ),
+                                Card(
+                                  child: Container(
+                                    margin: EdgeInsets.symmetric(
+                                        horizontal: rWidth(15),
+                                        vertical: rWidth(10)),
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          children: [
+                                            const Text('Subtotal',
+                                                style: summaryStyle),
+                                            const Spacer(),
+                                            Text(
+                                              order['sub_total'].toString(),
+                                              style: const TextStyle(
+                                                  fontFamily: 'Archivo'),
+                                            ),
+                                            SizedBox(
+                                              width: rWidth(3),
+                                            ),
+                                            const Text(
+                                              'NPR',
+                                              style: TextStyle(
+                                                  fontFamily: 'Archivo'),
+                                            )
+                                          ],
+                                        ),
+                                        order['discount_percent'] != 0
+                                            ? Row(
+                                                children: [
+                                                  Text(
+                                                      'Discount (${order['discount_percentage']}%)',
+                                                      style: summaryStyle),
+                                                  const Spacer(),
+                                                  Text(
+                                                    order['discount_amount']
+                                                        .toString(),
+                                                    style: const TextStyle(
+                                                        fontFamily: 'Archivo'),
+                                                  ),
+                                                  SizedBox(
+                                                    width: rWidth(3),
+                                                  ),
+                                                  const Text(
+                                                    'NPR',
+                                                    style: TextStyle(
+                                                        fontFamily: 'Archivo'),
+                                                  )
+                                                ],
+                                              )
+                                            : Container(),
+                                        Row(
+                                          children: [
+                                            Text('Total', style: summaryStyle),
+                                            const Spacer(),
+                                            Text(
+                                              order['total'].toString(),
+                                              style: const TextStyle(
+                                                  fontFamily: 'Archivo'),
+                                            ),
+                                            SizedBox(
+                                              width: rWidth(3),
+                                            ),
+                                            const Text(
+                                              'NPR',
+                                              style: TextStyle(
+                                                  fontFamily: 'Archivo'),
+                                            )
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: rWidth(5),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: rWidth(10),
+                                ),
+                              ],
+                            );
+                            break;
 
-                        default:
-                          return Text('Error');
-                      }
-                    }),
-              ),
-            ],
+                          default:
+                            return Text('Error');
+                        }
+                      }),
+                ),
+              ],
+            ),
           ),
         ),
       ),

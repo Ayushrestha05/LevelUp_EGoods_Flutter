@@ -54,7 +54,6 @@ class GameView extends StatelessWidget {
                   autoplayDelay: 7000,
                   //viewportFraction: rWidth(0.5),
                   //scale: rWidth(0.5),
-                  index: -1,
                   itemCount: gameData.gameImages.length,
                   itemBuilder: (context, index) {
                     return CachedNetworkImage(

@@ -25,27 +25,28 @@ buildCustomerReviews({required var data, required BuildContext context}) {
                     scrollDirection: Axis.horizontal,
                     itemCount: data.length,
                     itemBuilder: (context, index) {
-                      return Container(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: rWidth(20), vertical: rWidth(15)),
-                        decoration: const BoxDecoration(color: Colors.white),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                Text(data[index]['user_name']),
-                                const Spacer(),
-                                buildRatingStars(
-                                    data[index]['rating'].toDouble())
-                              ],
-                            ),
-                            SizedBox(
-                              height: rWidth(15),
-                            ),
-                            Text(data[index]['review'])
-                          ],
+                      return Card(
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: rWidth(20), vertical: rWidth(15)),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  Text(data[index]['user_name']),
+                                  const Spacer(),
+                                  buildRatingStars(
+                                      data[index]['rating'].toDouble())
+                                ],
+                              ),
+                              SizedBox(
+                                height: rWidth(15),
+                              ),
+                              Text(data[index]['review'])
+                            ],
+                          ),
                         ),
                       );
                     }),

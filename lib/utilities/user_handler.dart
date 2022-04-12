@@ -1,11 +1,13 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserHandler {
-  void saveLogin(String userName, String userEmail, String userToken) async {
+  void saveLogin(String userName, String userEmail, String userToken,
+      bool isArtist) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('user_name', userName);
     await prefs.setString('user_email', userEmail);
     await prefs.setString('user_token', userToken);
+    await prefs.setBool('is_artist', isArtist);
   }
 
   Future<String?> getUserToken() async {

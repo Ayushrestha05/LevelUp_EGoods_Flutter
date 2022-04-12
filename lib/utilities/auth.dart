@@ -39,8 +39,10 @@ class Auth extends ChangeNotifier {
       final prefs = await SharedPreferences.getInstance();
       _userName = await prefs.getString('user_name') ?? 'User Name';
       _userEmail = await prefs.getString('user_email') ?? 'User Email';
+      _isArtist = await prefs.getBool('is_artist') ?? false;
       _userToken = token;
       _isAuthenticated = true;
+      getUser();
       getCart();
       getUserPoints();
       notifyListeners();
@@ -61,6 +63,25 @@ class Auth extends ChangeNotifier {
     }
   }
 
+  void getUser() async {
+    final response = await http.get(Uri.parse('$apiUrl/get-user-details'),
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $userToken'
+        });
+
+    if (response.statusCode == 200) {
+      var jsonResponse = jsonDecode(response.body);
+      _isAuthenticated = true;
+      _userName = jsonResponse['name'];
+      _userEmail = jsonResponse['email'];
+      _userPoint = jsonResponse['points'] ?? 0;
+      _isArtist = (jsonResponse['is_artist'] ?? 0) == 1 ? true : false;
+      _profileImage = jsonResponse['profile_image'] ?? '';
+      notifyListeners();
+    }
+  }
+
   Future<int> login(String? email, String? password) async {
     final response = await http.post(Uri.parse('$apiUrl/login'), body: {
       'email': email,
@@ -71,8 +92,11 @@ class Auth extends ChangeNotifier {
 
     if (response.statusCode == 200) {
       var jsonResponse = jsonDecode(response.body);
-      UserHandler().saveLogin(jsonResponse['user']['name'],
-          jsonResponse['user']['email'], jsonResponse['token']);
+      UserHandler().saveLogin(
+          jsonResponse['user']['name'],
+          jsonResponse['user']['email'],
+          jsonResponse['token'],
+          (jsonResponse['user']['is_artist'] ?? 0) == 1 ? true : false);
       _isAuthenticated = true;
       _userName = jsonResponse['user']['name'];
       _userEmail = jsonResponse['user']['email'];
@@ -100,8 +124,11 @@ class Auth extends ChangeNotifier {
 
     if (response.statusCode == 201) {
       var jsonResponse = jsonDecode(response.body);
-      UserHandler().saveLogin(jsonResponse['user']['name'],
-          jsonResponse['user']['email'], jsonResponse['token']);
+      UserHandler().saveLogin(
+          jsonResponse['user']['name'],
+          jsonResponse['user']['email'],
+          jsonResponse['token'],
+          (jsonResponse['user']['is_artist'] ?? 0) == 1 ? true : false);
       _isAuthenticated = true;
       _userName = jsonResponse['user']['name'];
       _userEmail = jsonResponse['user']['email'];
@@ -123,6 +150,13 @@ class Auth extends ChangeNotifier {
       _isAuthenticated = false;
       UserHandler().loggedOut();
       _cartItems = [];
+      _isArtist = false;
+      _userName = '';
+      _userEmail = '';
+      _profileImage = '';
+      _totalPrice = 0;
+      _userToken = '';
+      _userPoint = 0;
       Alert(message: 'You have been logged out').show();
       notifyListeners();
     } else {
