@@ -7,6 +7,7 @@ import 'package:levelup_egoods/screens/items/item_screen_switch.dart';
 import 'package:levelup_egoods/utilities/constants.dart';
 import 'package:levelup_egoods/utilities/size_config.dart';
 import 'package:http/http.dart' as http;
+import 'package:levelup_egoods/widgets/connection-issues.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -84,7 +85,7 @@ class _SearchScreenState extends State<SearchScreen> {
                         (BuildContext context, AsyncSnapshot<String> snapshot) {
                       switch (snapshot.connectionState) {
                         case ConnectionState.none:
-                          return const Text('No Connection');
+                          return buildNoConnectionError();
 
                         case ConnectionState.waiting:
                           return const Center(
@@ -148,18 +149,32 @@ class _SearchScreenState extends State<SearchScreen> {
                                                     placeholder:
                                                         (context, url) =>
                                                             Container(
-                                                      child: const Center(
-                                                        child:
-                                                            CircularProgressIndicator(),
-                                                      ),
+                                                      height: rWidth(145),
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                              .size
+                                                              .width,
+                                                      decoration: const BoxDecoration(
+                                                          image: DecorationImage(
+                                                              image: AssetImage(
+                                                                  'assets/images/placeholder/Image_placeholder.jpg'))),
                                                     ),
                                                     errorWidget:
                                                         (context, url, error) {
                                                       if (error != null) {
                                                         print(error);
                                                       }
-                                                      return const Icon(
-                                                          Icons.error);
+                                                      return Container(
+                                                        height: rWidth(145),
+                                                        width: MediaQuery.of(
+                                                                context)
+                                                            .size
+                                                            .width,
+                                                        decoration: const BoxDecoration(
+                                                            image: DecorationImage(
+                                                                image: AssetImage(
+                                                                    'assets/images/placeholder/Image_placeholder.jpg'))),
+                                                      );
                                                     },
                                                     imageBuilder: (context,
                                                             imageProvider) =>
@@ -201,11 +216,11 @@ class _SearchScreenState extends State<SearchScreen> {
                                   );
                                 });
                           } else {
-                            return Text('No Data Found');
+                            return buildNoDataError(text: 'No Results Found.');
                           }
 
                         default:
-                          return Text('Error');
+                          return buildDefaultError();
                       }
                     },
                   ),

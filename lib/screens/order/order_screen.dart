@@ -1,11 +1,13 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:levelup_egoods/screens/order/order_summary_screen.dart';
 import 'package:levelup_egoods/utilities/auth.dart';
 import 'package:levelup_egoods/utilities/constants.dart';
 import 'package:levelup_egoods/utilities/size_config.dart';
 import 'package:http/http.dart' as http;
+import 'package:levelup_egoods/widgets/connection-issues.dart';
 import 'package:provider/provider.dart';
 
 class OrderListScreen extends StatefulWidget {
@@ -148,7 +150,7 @@ class _OrderListScreenState extends State<OrderListScreen> {
                       (BuildContext context, AsyncSnapshot<String> snapshot) {
                     switch (snapshot.connectionState) {
                       case ConnectionState.none:
-                        return const Text('No Connection');
+                        return buildNoConnectionError();
 
                       case ConnectionState.waiting:
                         return const Center(child: CircularProgressIndicator());
@@ -156,76 +158,87 @@ class _OrderListScreenState extends State<OrderListScreen> {
                       case ConnectionState.done:
                         var decode = jsonDecode(snapshot.data ?? '');
 
-                        return Container(
-                          margin: EdgeInsets.symmetric(horizontal: rWidth(20)),
-                          child: ListView.builder(
-                              itemCount: decode.length,
-                              itemBuilder: (context, index) {
-                                return Card(
-                                  child: ListTile(
-                                    leading:
-                                        decode[index]['status'] == 'pending'
-                                            ? Icon(Icons.hourglass_empty)
-                                            : Icon(Icons.check),
-                                    trailing: Icon(Icons.chevron_right),
-                                    onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (_) =>
-                                                  OrderSummaryScreen(
-                                                    orderID: decode[index]
-                                                        ['id'],
-                                                  )));
-                                    },
-                                    title: Row(
-                                      children: [
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              decode[index]['txn_id'],
-                                              maxLines: 1,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: TextStyle(
-                                                  color: Colors.grey.shade400,
-                                                  fontFamily: 'Archivo-Regular',
-                                                  fontSize: rWidth(12)),
-                                            ),
-                                            Text(decode[index]['created_at'],
-                                                style: TextStyle(
-                                                    fontFamily:
-                                                        'Archivo-Regular'))
-                                          ],
+                        return decode.length > 0
+                            ? Container(
+                                margin: EdgeInsets.symmetric(
+                                    horizontal: rWidth(20)),
+                                child: ListView.builder(
+                                    itemCount: decode.length,
+                                    itemBuilder: (context, index) {
+                                      return Card(
+                                        child: ListTile(
+                                          leading: decode[index]['status'] ==
+                                                  'pending'
+                                              ? Icon(Icons.hourglass_empty)
+                                              : Icon(Icons.check),
+                                          trailing: Icon(Icons.chevron_right),
+                                          onTap: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (_) =>
+                                                        OrderSummaryScreen(
+                                                          orderID: decode[index]
+                                                              ['id'],
+                                                        )));
+                                          },
+                                          title: Row(
+                                            children: [
+                                              Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    decode[index]['txn_id'],
+                                                    maxLines: 1,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    style: TextStyle(
+                                                        color: Colors
+                                                            .grey.shade400,
+                                                        fontFamily:
+                                                            'Archivo-Regular',
+                                                        fontSize: rWidth(12)),
+                                                  ),
+                                                  Text(
+                                                      decode[index]
+                                                          ['created_at'],
+                                                      style: TextStyle(
+                                                          fontFamily:
+                                                              'Archivo-Regular'))
+                                                ],
+                                              ),
+                                              Spacer(),
+                                              Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.end,
+                                                children: [
+                                                  Text(
+                                                    'NPR',
+                                                    style: TextStyle(
+                                                        color: Colors
+                                                            .grey.shade400,
+                                                        fontFamily:
+                                                            'Archivo-Regular',
+                                                        fontSize: rWidth(12)),
+                                                  ),
+                                                  Text(
+                                                    decode[index]['total']
+                                                        .toString(),
+                                                    style: TextStyle(
+                                                        fontFamily: 'Archivo'),
+                                                  )
+                                                ],
+                                              )
+                                            ],
+                                          ),
                                         ),
-                                        Spacer(),
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.end,
-                                          children: [
-                                            Text(
-                                              'NPR',
-                                              style: TextStyle(
-                                                  color: Colors.grey.shade400,
-                                                  fontFamily: 'Archivo-Regular',
-                                                  fontSize: rWidth(12)),
-                                            ),
-                                            Text(
-                                              decode[index]['total'].toString(),
-                                              style: TextStyle(
-                                                  fontFamily: 'Archivo'),
-                                            )
-                                          ],
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                );
-                              }),
-                        );
+                                      );
+                                    }),
+                              )
+                            : buildNoDataError(text: 'No Orders were Found.');
                       default:
-                        return Text('Error');
+                        return buildDefaultError();
                     }
                   }),
             )

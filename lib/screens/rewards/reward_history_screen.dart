@@ -6,6 +6,7 @@ import 'package:levelup_egoods/utilities/auth.dart';
 import 'package:levelup_egoods/utilities/constants.dart';
 import 'package:levelup_egoods/utilities/size_config.dart';
 import 'package:http/http.dart' as http;
+import 'package:levelup_egoods/widgets/connection-issues.dart';
 import 'package:provider/provider.dart';
 
 class RewardHistoryScreen extends StatelessWidget {
@@ -29,149 +30,160 @@ class RewardHistoryScreen extends StatelessWidget {
               ),
             ),
           ),
-          FutureBuilder(
-              future: getRewardItems(context: context),
-              builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-                switch (snapshot.connectionState) {
-                  case ConnectionState.none:
-                    return const Expanded(
-                        child: Center(child: Text('No Connection')));
+          Expanded(
+            child: FutureBuilder(
+                future: getRewardItems(context: context),
+                builder:
+                    (BuildContext context, AsyncSnapshot<String> snapshot) {
+                  switch (snapshot.connectionState) {
+                    case ConnectionState.none:
+                      return buildNoConnectionError();
 
-                  case ConnectionState.waiting:
-                    return const Center(child: CircularProgressIndicator());
+                    case ConnectionState.waiting:
+                      return const Center(child: CircularProgressIndicator());
 
-                  case ConnectionState.done:
-                    var decode = jsonDecode(snapshot.data ?? '');
-                    return Expanded(
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: decode.length,
-                        itemBuilder: (context, index) {
-                          return Container(
-                            margin: EdgeInsets.only(top: rWidth(10)),
-                            child: Column(
-                              children: [
-                                Container(
-                                  margin: EdgeInsets.symmetric(
-                                      horizontal: rWidth(10)),
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                    case ConnectionState.done:
+                      var decode = jsonDecode(snapshot.data ?? '');
+                      return decode.length > 0
+                          ? ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: decode.length,
+                              itemBuilder: (context, index) {
+                                return Container(
+                                  margin: EdgeInsets.only(top: rWidth(10)),
+                                  child: Column(
                                     children: [
-                                      CachedNetworkImage(
-                                        httpHeaders: const {
-                                          'Connection': 'Keep-Alive',
-                                          'Keep-Alive': 'timeout=10,max=1000'
-                                        },
-                                        imageUrl: decode[index]['reward_image'],
-                                        placeholder: (context, url) =>
-                                            Container(
-                                                width: rWidth(84),
+                                      Container(
+                                        margin: EdgeInsets.symmetric(
+                                            horizontal: rWidth(10)),
+                                        child: Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            CachedNetworkImage(
+                                              httpHeaders: const {
+                                                'Connection': 'Keep-Alive',
+                                                'Keep-Alive':
+                                                    'timeout=10,max=1000'
+                                              },
+                                              imageUrl: decode[index]
+                                                  ['reward_image'],
+                                              placeholder: (context, url) =>
+                                                  Container(
+                                                      width: rWidth(84),
+                                                      height: rWidth(120),
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(
+                                                                    rWidth(5)),
+                                                        color: Colors.grey,
+                                                      ),
+                                                      child: const Expanded(
+                                                          child: Center(
+                                                              child:
+                                                                  CircularProgressIndicator()))),
+                                              errorWidget:
+                                                  (context, url, error) {
+                                                if (error != null) {
+                                                  print(error);
+                                                }
+                                                return Container(
+                                                    width: rWidth(110),
+                                                    height: rWidth(120),
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              rWidth(10)),
+                                                      color: Colors.grey,
+                                                    ),
+                                                    child: const Expanded(
+                                                        child: Center(
+                                                            child: Icon(
+                                                                Icons.error))));
+                                              },
+                                              imageBuilder:
+                                                  (context, imageProvider) =>
+                                                      Container(
+                                                width: rWidth(110),
                                                 height: rWidth(120),
                                                 decoration: BoxDecoration(
                                                   borderRadius:
                                                       BorderRadius.circular(
-                                                          rWidth(5)),
-                                                  color: Colors.grey,
+                                                          rWidth(10)),
+                                                  image: DecorationImage(
+                                                    fit: BoxFit.cover,
+                                                    image: imageProvider,
+                                                  ),
                                                 ),
-                                                child: const Expanded(
-                                                    child: Center(
-                                                        child:
-                                                            CircularProgressIndicator()))),
-                                        errorWidget: (context, url, error) {
-                                          if (error != null) {
-                                            print(error);
-                                          }
-                                          return Container(
-                                              width: rWidth(110),
-                                              height: rWidth(120),
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(
-                                                        rWidth(10)),
-                                                color: Colors.grey,
                                               ),
-                                              child: const Expanded(
-                                                  child: Center(
-                                                      child:
-                                                          Icon(Icons.error))));
-                                        },
-                                        imageBuilder:
-                                            (context, imageProvider) =>
-                                                Container(
-                                          width: rWidth(110),
-                                          height: rWidth(120),
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(
-                                                rWidth(10)),
-                                            image: DecorationImage(
-                                              fit: BoxFit.cover,
-                                              image: imageProvider,
                                             ),
-                                          ),
+                                            Expanded(
+                                              child: Container(
+                                                margin: EdgeInsets.only(
+                                                    left: rWidth(10),
+                                                    right: rWidth(10)),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  children: [
+                                                    SizedBox(
+                                                      child: Text(
+                                                        decode[index]
+                                                            ['reward_item'],
+                                                        style: TextStyle(
+                                                            fontFamily:
+                                                                'Outfit',
+                                                            fontSize:
+                                                                rWidth(15)),
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      height: rWidth(5),
+                                                    ),
+                                                    Text(
+                                                      'Redeemed on ${decode[index]['created_at']}',
+                                                      style: TextStyle(
+                                                          fontFamily:
+                                                              'Archivo-Regular'),
+                                                    ),
+                                                    SizedBox(
+                                                      height: rWidth(5),
+                                                    ),
+                                                    Text(
+                                                      'Status : ${decode[index]['status']}',
+                                                      style: TextStyle(
+                                                          fontFamily:
+                                                              'Archivo-Regular'),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ),
-                                      Expanded(
-                                        child: Container(
-                                          margin: EdgeInsets.only(
-                                              left: rWidth(10),
-                                              right: rWidth(10)),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            children: [
-                                              SizedBox(
-                                                child: Text(
-                                                  decode[index]['reward_item'],
-                                                  style: TextStyle(
-                                                      fontFamily: 'Outfit',
-                                                      fontSize: rWidth(15)),
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                height: rWidth(5),
-                                              ),
-                                              Text(
-                                                'Redeemed on ${decode[index]['created_at']}',
-                                                style: TextStyle(
-                                                    fontFamily:
-                                                        'Archivo-Regular'),
-                                              ),
-                                              SizedBox(
-                                                height: rWidth(5),
-                                              ),
-                                              Text(
-                                                'Status : ${decode[index]['status']}',
-                                                style: TextStyle(
-                                                    fontFamily:
-                                                        'Archivo-Regular'),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
+                                      SizedBox(
+                                        height: rWidth(10),
+                                      ),
+                                      Divider(
+                                        thickness: 2,
                                       ),
                                     ],
                                   ),
-                                ),
-                                SizedBox(
-                                  height: rWidth(10),
-                                ),
-                                Divider(
-                                  thickness: 2,
-                                ),
-                              ],
-                            ),
-                          );
-                        },
-                      ),
-                    );
+                                );
+                              },
+                            )
+                          : buildNoDataError(
+                              text: 'No Reward History was Found.');
 
-                  default:
-                    return Text('Error');
-                }
-              }),
+                    default:
+                      return Text('Error');
+                  }
+                }),
+          ),
         ],
       ),
     ));

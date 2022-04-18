@@ -4,12 +4,14 @@ import 'package:antdesign_icons/antdesign_icons.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:http/http.dart' as http;
 import 'package:levelup_egoods/screens/items/item_screen_switch.dart';
 import 'package:levelup_egoods/screens/search/search_screen.dart';
 import 'package:levelup_egoods/utilities/constants.dart';
 import 'package:levelup_egoods/utilities/size_config.dart';
 import 'package:levelup_egoods/widgets/clickableSearchBar.dart';
+import 'package:levelup_egoods/widgets/connection-issues.dart';
 
 class ItemGrid extends StatefulWidget {
   final int categoryID;
@@ -135,7 +137,7 @@ class _ItemGridState extends State<ItemGrid> {
                       (BuildContext context, AsyncSnapshot<String> snapshot) {
                     switch (snapshot.connectionState) {
                       case ConnectionState.none:
-                        return const Text('No Connection');
+                        return buildNoConnectionError();
 
                       case ConnectionState.waiting:
                         return const Center(child: CircularProgressIndicator());
@@ -261,11 +263,11 @@ class _ItemGridState extends State<ItemGrid> {
                                 );
                               });
                         } else {
-                          return Text('No Data Found');
+                          return buildNoDataError(text: 'No Items Found.');
                         }
 
                       default:
-                        return Text('Error');
+                        return buildDefaultError();
                     }
                   },
                 ),
