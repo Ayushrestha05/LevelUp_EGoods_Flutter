@@ -161,60 +161,65 @@ class _OrderListScreenState extends State<OrderListScreen> {
                           child: ListView.builder(
                               itemCount: decode.length,
                               itemBuilder: (context, index) {
-                                return ListTile(
-                                  leading: decode[index]['status'] == 'pending'
-                                      ? Icon(Icons.hourglass_empty)
-                                      : Icon(Icons.check),
-                                  trailing: Icon(Icons.chevron_right),
-                                  onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (_) => OrderSummaryScreen(
-                                                  orderID: decode[index]['id'],
-                                                )));
-                                  },
-                                  title: Row(
-                                    children: [
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            decode[index]['txn_id'],
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: TextStyle(
-                                                color: Colors.grey.shade400,
-                                                fontFamily: 'Archivo-Regular',
-                                                fontSize: rWidth(12)),
-                                          ),
-                                          Text(decode[index]['created_at'],
+                                return Card(
+                                  child: ListTile(
+                                    leading:
+                                        decode[index]['status'] == 'pending'
+                                            ? Icon(Icons.hourglass_empty)
+                                            : Icon(Icons.check),
+                                    trailing: Icon(Icons.chevron_right),
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (_) =>
+                                                  OrderSummaryScreen(
+                                                    orderID: decode[index]
+                                                        ['id'],
+                                                  )));
+                                    },
+                                    title: Row(
+                                      children: [
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              decode[index]['txn_id'],
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
                                               style: TextStyle(
-                                                  fontFamily:
-                                                      'Archivo-Regular'))
-                                        ],
-                                      ),
-                                      Spacer(),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.end,
-                                        children: [
-                                          Text(
-                                            'NPR',
-                                            style: TextStyle(
-                                                color: Colors.grey.shade400,
-                                                fontFamily: 'Archivo-Regular',
-                                                fontSize: rWidth(12)),
-                                          ),
-                                          Text(
-                                            decode[index]['total'].toString(),
-                                            style: TextStyle(
-                                                fontFamily: 'Archivo'),
-                                          )
-                                        ],
-                                      )
-                                    ],
+                                                  color: Colors.grey.shade400,
+                                                  fontFamily: 'Archivo-Regular',
+                                                  fontSize: rWidth(12)),
+                                            ),
+                                            Text(decode[index]['created_at'],
+                                                style: TextStyle(
+                                                    fontFamily:
+                                                        'Archivo-Regular'))
+                                          ],
+                                        ),
+                                        Spacer(),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.end,
+                                          children: [
+                                            Text(
+                                              'NPR',
+                                              style: TextStyle(
+                                                  color: Colors.grey.shade400,
+                                                  fontFamily: 'Archivo-Regular',
+                                                  fontSize: rWidth(12)),
+                                            ),
+                                            Text(
+                                              decode[index]['total'].toString(),
+                                              style: TextStyle(
+                                                  fontFamily: 'Archivo'),
+                                            )
+                                          ],
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 );
                               }),

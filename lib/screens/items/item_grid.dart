@@ -194,18 +194,32 @@ class _ItemGridState extends State<ItemGrid> {
                                                       ['item_image'],
                                                   placeholder: (context, url) =>
                                                       Container(
-                                                    child: const Center(
-                                                      child:
-                                                          CircularProgressIndicator(),
-                                                    ),
+                                                    height: rWidth(145),
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                            .size
+                                                            .width,
+                                                    decoration: const BoxDecoration(
+                                                        image: DecorationImage(
+                                                            image: AssetImage(
+                                                                'assets/images/placeholder/Image_placeholder.jpg'))),
                                                   ),
                                                   errorWidget:
                                                       (context, url, error) {
                                                     if (error != null) {
                                                       print(error);
                                                     }
-                                                    return const Icon(
-                                                        Icons.error);
+                                                    return Container(
+                                                      height: rWidth(145),
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                              .size
+                                                              .width,
+                                                      decoration: const BoxDecoration(
+                                                          image: DecorationImage(
+                                                              image: AssetImage(
+                                                                  'assets/images/placeholder/Image_placeholder.jpg'))),
+                                                    );
                                                   },
                                                   imageBuilder: (context,
                                                           imageProvider) =>

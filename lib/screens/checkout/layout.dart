@@ -2,8 +2,10 @@ import 'dart:convert';
 
 import 'package:alert/alert.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:khalti_flutter/khalti_flutter.dart';
+import 'package:levelup_egoods/utilities/ClipShadowPath.dart';
 import 'package:levelup_egoods/utilities/auth.dart';
 import 'package:levelup_egoods/utilities/constants.dart';
 import 'package:levelup_egoods/utilities/size_config.dart';
@@ -18,7 +20,8 @@ class CheckoutLayout extends StatefulWidget {
   State<CheckoutLayout> createState() => _CheckoutLayoutState();
 }
 
-class _CheckoutLayoutState extends State<CheckoutLayout> {
+class _CheckoutLayoutState extends State<CheckoutLayout>
+    with SingleTickerProviderStateMixin {
   int currentStep = 0;
   int discountPercent = 0;
   double amount_required = 0;
@@ -31,6 +34,7 @@ class _CheckoutLayoutState extends State<CheckoutLayout> {
       message = "",
       email = "";
   final _shipmentFormKey = GlobalKey<FormState>();
+  late AnimationController _controller;
 
   void getCheckoutSale() async {
     var response = await http.get(Uri.parse('$apiUrl/get-checkout-sale'));
@@ -46,7 +50,17 @@ class _CheckoutLayoutState extends State<CheckoutLayout> {
   @override
   void initState() {
     getCheckoutSale();
+    _controller = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 500),
+    );
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -63,6 +77,11 @@ class _CheckoutLayoutState extends State<CheckoutLayout> {
           body: Stack(
             children: [
               Stepper(
+                onStepTapped: (value) {
+                  setState(() {
+                    currentStep = value;
+                  });
+                },
                 type: StepperType.horizontal,
                 currentStep: currentStep,
                 steps: [
@@ -527,24 +546,176 @@ class _CheckoutLayoutState extends State<CheckoutLayout> {
   }
 
   buildPayment() {
-    return Container(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          successPayment! ? Text('Success') : Text('Failure'),
-          ElevatedButton(
-            onPressed: () {
-              if (successPayment!) {
-                Navigator.pop(context);
-              } else {
-                setState(() {
-                  currentStep -= 1;
-                });
-              }
-            },
-            child: successPayment! ? Text('Continue') : Text('Back'),
-          )
-        ],
+    const TextStyle summaryStyle = TextStyle(fontFamily: 'Archivo-Regular');
+    final auth = Provider.of<Auth>(context, listen: false);
+
+    return SizeTransition(
+      sizeFactor: _controller,
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ClipShadowPath(
+              shadow: Shadow(
+                blurRadius: 1,
+              ),
+              clipper: MultipleRoundedCurveClipper(),
+              child: Container(
+                decoration: BoxDecoration(
+                    color: Colors.white, boxShadow: [BoxShadow()]),
+                padding: EdgeInsets.symmetric(
+                    vertical: rWidth(30), horizontal: rWidth(15)),
+                //height: 100,
+                //width: 200,
+
+                child: Column(
+                  children: [
+                    CircleAvatar(
+                      foregroundColor: Colors.white,
+                      backgroundColor: successPayment!
+                          ? Color(0xFF63C0DF)
+                          : Color(0xFFCF000F),
+                      radius: 20,
+                      child: successPayment!
+                          ? Icon(Icons.check)
+                          : Icon(Icons.close),
+                    ),
+                    SizedBox(
+                      height: rWidth(10),
+                    ),
+                    successPayment!
+                        ? const Text(
+                            'Your Purchase was successful!',
+                            style: TextStyle(fontFamily: 'Archivo'),
+                          )
+                        : const Text(
+                            'Your Purchase failed!',
+                            style: TextStyle(fontFamily: 'Archivo'),
+                          ),
+                    SizedBox(
+                      height: rWidth(20),
+                    ),
+                    successPayment!
+                        ? Container(
+                            alignment: Alignment.centerLeft,
+                            child: const Text(
+                              'Summary',
+                              style: TextStyle(fontFamily: 'Archivo'),
+                            ),
+                          )
+                        : Container(),
+                    successPayment!
+                        ? const Divider(
+                            thickness: 2,
+                          )
+                        : Container(),
+                    successPayment!
+                        ? Column(
+                            children: [
+                              Row(
+                                children: [
+                                  const Text('Subtotal', style: summaryStyle),
+                                  const Spacer(),
+                                  Text(
+                                    auth.totalPrice.toString(),
+                                    style:
+                                        const TextStyle(fontFamily: 'Archivo'),
+                                  ),
+                                  SizedBox(
+                                    width: rWidth(3),
+                                  ),
+                                  const Text(
+                                    'NPR',
+                                    style: TextStyle(fontFamily: 'Archivo'),
+                                  )
+                                ],
+                              ),
+                              auth.totalPrice > amount_required &&
+                                      discountPercent != 0
+                                  ? Row(
+                                      children: [
+                                        Text('Discount ($discountPercent%)',
+                                            style: summaryStyle),
+                                        const Spacer(),
+                                        Text(
+                                          (auth.totalPrice *
+                                                  (discountPercent / 100))
+                                              .toString(),
+                                          style: const TextStyle(
+                                              fontFamily: 'Archivo'),
+                                        ),
+                                        SizedBox(
+                                          width: rWidth(3),
+                                        ),
+                                        const Text(
+                                          'NPR',
+                                          style:
+                                              TextStyle(fontFamily: 'Archivo'),
+                                        )
+                                      ],
+                                    )
+                                  : Container(),
+                              Row(
+                                children: [
+                                  Text('Total', style: summaryStyle),
+                                  const Spacer(),
+                                  auth.totalPrice > amount_required
+                                      ? Text(
+                                          (auth.totalPrice -
+                                                  (auth.totalPrice *
+                                                      (discountPercent / 100)))
+                                              .toString(),
+                                          style: const TextStyle(
+                                              fontFamily: 'Archivo'),
+                                        )
+                                      : Text(
+                                          auth.totalPrice.toString(),
+                                          style: const TextStyle(
+                                              fontFamily: 'Archivo'),
+                                        ),
+                                  SizedBox(
+                                    width: rWidth(3),
+                                  ),
+                                  const Text(
+                                    'NPR',
+                                    style: TextStyle(fontFamily: 'Archivo'),
+                                  )
+                                ],
+                              ),
+                              SizedBox(
+                                height: rWidth(5),
+                              ),
+                            ],
+                          )
+                        : Container(),
+                    SizedBox(
+                      height: rWidth(20),
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          if (successPayment!) {
+                            Navigator.pop(context);
+                          } else {
+                            setState(() {
+                              currentStep -= 1;
+                            });
+                          }
+                        },
+                        child:
+                            successPayment! ? Text('Continue') : Text('Back'),
+                      ),
+                    ),
+                    SizedBox(
+                      height: rWidth(20),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -584,8 +755,12 @@ class _CheckoutLayoutState extends State<CheckoutLayout> {
       setState(() {
         successPayment = true;
         currentStep += 1;
+        auth.getUserPoints();
         auth.getCart();
       });
+
+      _controller.reset();
+      _controller.forward();
     } else {
       setState(() {
         successPayment = false;

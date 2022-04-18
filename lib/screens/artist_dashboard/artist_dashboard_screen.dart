@@ -33,16 +33,35 @@ class ArtistDashboardScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Container(
-                        clipBehavior: Clip.antiAlias,
-                        margin: EdgeInsets.only(
-                            bottom: rWidth(12), top: rWidth(12)),
-                        height: 100,
-                        decoration: const BoxDecoration(shape: BoxShape.circle),
-                        child: FadeInImage.assetNetwork(
-                            placeholder:
-                                'assets/images/placeholder/Portrait_Placeholder.png',
-                            image: authUser.profileImage),
+                      CachedNetworkImage(
+                        httpHeaders: const {
+                          'Connection': 'Keep-Alive',
+                          'Keep-Alive': 'timeout=10,max=1000'
+                        },
+                        imageUrl: authUser.profileImage,
+                        placeholder: (context, url) => CircleAvatar(
+                          radius: rWidth(50),
+                          foregroundImage: const AssetImage(
+                              'assets/images/placeholder/Portrait_Placeholder.png'),
+                        ),
+                        errorWidget: (context, url, error) {
+                          if (error != null) {
+                            print(error);
+                          }
+                          return CircleAvatar(
+                            radius: rWidth(50),
+                            foregroundImage: const AssetImage(
+                                'assets/images/placeholder/Portrait_Placeholder.png'),
+                          );
+                        },
+                        imageBuilder: (context, imageProvider) => CircleAvatar(
+                          backgroundColor: Colors.transparent,
+                          radius: rWidth(50),
+                          foregroundImage: imageProvider,
+                        ),
+                      ),
+                      SizedBox(
+                        height: rWidth(20),
                       ),
                       Container(
                         margin: const EdgeInsets.only(bottom: 12),

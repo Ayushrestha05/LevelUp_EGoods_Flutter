@@ -30,7 +30,9 @@ class GameView extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         bottomNavigationBar: gameData.gamePrices.length != 0
-            ? buildBottomNavigationBarItem(gameData.getSelectedPrice(), () {})
+            ? buildBottomNavigationBarItem(gameData.getSelectedPrice(), () {
+                auth.addToCart(context, gameData.id, gameData.option);
+              })
             : Container(
                 color: const Color(0xFF112149),
                 padding: EdgeInsets.symmetric(

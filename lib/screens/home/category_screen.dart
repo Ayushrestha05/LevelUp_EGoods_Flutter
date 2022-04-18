@@ -117,6 +117,12 @@ class _buildCategoryCardsState extends State<buildCategoryCards> {
               height: rWidth(150),
               width: rWidth(411),
               decoration: BoxDecoration(
+                image: const DecorationImage(
+                    opacity: 0.4,
+                    fit: BoxFit.cover,
+                    image: AssetImage(
+                      'assets/images/placeholder/Image_Placeholder.jpg',
+                    )),
                 borderRadius: BorderRadius.circular(rWidth(10)),
                 color: Color(
                         int.parse(widget.categoryColor.replaceAll('#', '0xff')))
@@ -134,6 +140,12 @@ class _buildCategoryCardsState extends State<buildCategoryCards> {
                 height: rWidth(150),
                 width: rWidth(411),
                 decoration: BoxDecoration(
+                  image: const DecorationImage(
+                      opacity: 0.4,
+                      fit: BoxFit.cover,
+                      image: AssetImage(
+                        'assets/images/placeholder/Image_Placeholder.jpg',
+                      )),
                   borderRadius: BorderRadius.circular(rWidth(10)),
                   color: Color(
                       int.parse(widget.categoryColor.replaceAll('#', '0xff'))),
@@ -144,7 +156,7 @@ class _buildCategoryCardsState extends State<buildCategoryCards> {
                     Expanded(
                       child: Padding(
                         padding: EdgeInsets.only(top: rWidth(40)),
-                        child: const Icon(Icons.error),
+                        child: Container(),
                       ),
                     ),
                     Container(

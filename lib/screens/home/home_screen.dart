@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:levelup_egoods/screens/notification_history/notification_history_screen.dart';
 import 'package:levelup_egoods/utilities/size_config.dart';
+import 'package:levelup_egoods/widgets/buttons.dart';
 import 'package:levelup_egoods/widgets/clickableSearchBar.dart';
 import 'package:http/http.dart' as http;
 
@@ -29,10 +30,8 @@ class HomeScreen extends StatelessWidget {
                     height: 50,
                     width: 50,
                     decoration: const BoxDecoration(
-                        color: Colors.grey,
                         image: DecorationImage(
-                            image: NetworkImage(
-                                'https://icons-for-free.com/iconfiles/png/512/buy+ecommerce+logo+price+sale+shop+shopping+icon-1320183862496435117.png'))),
+                            image: AssetImage('assets/images/logo.png'))),
                   ),
                   const SizedBox(
                     width: 10,
@@ -145,7 +144,7 @@ class HomeScreen extends StatelessWidget {
                                             image: const DecorationImage(
                                                 fit: BoxFit.cover,
                                                 image: AssetImage(
-                                                    'assets/images/placeholder/Portrait_Placeholder.png')),
+                                                    'assets/images/placeholder/Image_Placeholder.jpg')),
                                             borderRadius:
                                                 BorderRadius.circular(10)),
                                       ),
@@ -391,18 +390,23 @@ class HomeScreen extends StatelessWidget {
                                         );
                                       },
                                       placeholder: (context, url) => Container(
-                                            height: 100,
-                                            width: 100,
-                                            child: const Center(
-                                              child:
-                                                  CircularProgressIndicator(),
-                                            ),
+                                            height: rWidth(100),
+                                            decoration: const BoxDecoration(
+                                                image: DecorationImage(
+                                                    image: AssetImage(
+                                                        'assets/images/placeholder/Image_placeholder.jpg'))),
                                           ),
                                       errorWidget: (context, url, error) {
                                         if (error != null) {
                                           print(error);
                                         }
-                                        return const Icon(Icons.error);
+                                        return Container(
+                                          height: rWidth(100),
+                                          decoration: const BoxDecoration(
+                                              image: DecorationImage(
+                                                  image: AssetImage(
+                                                      'assets/images/placeholder/Image_placeholder.jpg'))),
+                                        );
                                       }),
                                 ),
                               );
@@ -446,9 +450,14 @@ class HomeScreen extends StatelessWidget {
                                 context: context,
                                 builder: (BuildContext context) {
                                   return AlertDialog(
-                                    title: Text(
-                                      decode[index]['title'],
-                                      style: TextStyle(fontFamily: 'Archivo'),
+                                    title: Column(
+                                      children: [
+                                        Text(
+                                          decode[index]['title'],
+                                          style:
+                                              TextStyle(fontFamily: 'Archivo'),
+                                        ),
+                                      ],
                                     ),
                                     content: SingleChildScrollView(
                                       child: Text(
@@ -458,18 +467,9 @@ class HomeScreen extends StatelessWidget {
                                       ),
                                     ),
                                     actions: <Widget>[
-                                      TextButton(
-                                        child: const Text('Cancel'),
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                      ),
-                                      TextButton(
-                                        child: const Text('Approve'),
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                      ),
+                                      DefaultButton('OK', () {
+                                        Navigator.pop(context);
+                                      })
                                     ],
                                   );
                                 },
@@ -503,17 +503,23 @@ class HomeScreen extends StatelessWidget {
                                   );
                                 },
                                 placeholder: (context, url) => Container(
-                                      height: 100,
-                                      width: 100,
-                                      child: const Center(
-                                        child: CircularProgressIndicator(),
-                                      ),
+                                      height: rWidth(100),
+                                      decoration: const BoxDecoration(
+                                          image: DecorationImage(
+                                              image: AssetImage(
+                                                  'assets/images/placeholder/Image_placeholder.jpg'))),
                                     ),
                                 errorWidget: (context, url, error) {
                                   if (error != null) {
                                     print(error);
                                   }
-                                  return const Icon(Icons.error);
+                                  return Container(
+                                    height: rWidth(100),
+                                    decoration: const BoxDecoration(
+                                        image: DecorationImage(
+                                            image: AssetImage(
+                                                'assets/images/placeholder/Image_placeholder.jpg'))),
+                                  );
                                 }),
                           );
                         },
@@ -606,23 +612,33 @@ class HomeScreen extends StatelessWidget {
                                                     ['item_image'],
                                                 placeholder: (context, url) =>
                                                     Container(
-                                                  child: const Center(
-                                                    child:
-                                                        CircularProgressIndicator(),
-                                                  ),
+                                                  height: rWidth(145),
+                                                  decoration: const BoxDecoration(
+                                                      image: DecorationImage(
+                                                          image: AssetImage(
+                                                              'assets/images/placeholder/Image_placeholder.jpg'))),
                                                 ),
                                                 errorWidget:
                                                     (context, url, error) {
                                                   if (error != null) {
                                                     print(error);
                                                   }
-                                                  return const Icon(
-                                                      Icons.error);
+                                                  return Container(
+                                                    height: rWidth(145),
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                            .size
+                                                            .width,
+                                                    decoration: const BoxDecoration(
+                                                        image: DecorationImage(
+                                                            image: AssetImage(
+                                                                'assets/images/placeholder/Image_placeholder.jpg'))),
+                                                  );
                                                 },
                                                 imageBuilder:
                                                     (context, imageProvider) =>
                                                         Container(
-                                                  height: 170,
+                                                  height: rWidth(145),
                                                   // width: 100,
                                                   decoration: BoxDecoration(
                                                       borderRadius:
