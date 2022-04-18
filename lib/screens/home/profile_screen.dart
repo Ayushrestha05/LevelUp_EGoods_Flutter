@@ -1,6 +1,7 @@
 import 'package:antdesign_icons/antdesign_icons.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:levelup_egoods/screens/edit_profile/edit_profile_screen.dart';
 import 'package:levelup_egoods/screens/item_review/user_reviews_screen.dart';
 import 'package:levelup_egoods/screens/order/order_screen.dart';
 import 'package:levelup_egoods/screens/policies/policies_screen.dart';
@@ -48,33 +49,62 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           horizontal: rWidth(20), vertical: rWidth(20)),
                       child: Column(
                         children: [
-                          CachedNetworkImage(
-                            httpHeaders: const {
-                              'Connection': 'Keep-Alive',
-                              'Keep-Alive': 'timeout=10,max=1000'
-                            },
-                            imageUrl: authUser.profileImage,
-                            placeholder: (context, url) => CircleAvatar(
-                              radius: rWidth(50),
-                              foregroundImage: const AssetImage(
-                                  'assets/images/placeholder/Portrait_Placeholder.png'),
-                            ),
-                            errorWidget: (context, url, error) {
-                              if (error != null) {
-                                print(error);
-                              }
-                              return CircleAvatar(
-                                radius: rWidth(50),
-                                foregroundImage: const AssetImage(
-                                    'assets/images/placeholder/Portrait_Placeholder.png'),
-                              );
-                            },
-                            imageBuilder: (context, imageProvider) =>
-                                CircleAvatar(
-                              backgroundColor: Colors.transparent,
-                              radius: rWidth(50),
-                              foregroundImage: imageProvider,
-                            ),
+                          Stack(
+                            clipBehavior: Clip.none,
+                            children: [
+                              CachedNetworkImage(
+                                httpHeaders: const {
+                                  'Connection': 'Keep-Alive',
+                                  'Keep-Alive': 'timeout=10,max=1000'
+                                },
+                                imageUrl: authUser.profileImage,
+                                placeholder: (context, url) => CircleAvatar(
+                                  radius: rWidth(50),
+                                  foregroundImage: const AssetImage(
+                                      'assets/images/placeholder/Portrait_Placeholder.png'),
+                                ),
+                                errorWidget: (context, url, error) {
+                                  if (error != null) {
+                                    print(error);
+                                  }
+                                  return CircleAvatar(
+                                    radius: rWidth(50),
+                                    foregroundImage: const AssetImage(
+                                        'assets/images/placeholder/Portrait_Placeholder.png'),
+                                  );
+                                },
+                                imageBuilder: (context, imageProvider) =>
+                                    CircleAvatar(
+                                  backgroundColor: Colors.transparent,
+                                  radius: rWidth(50),
+                                  foregroundImage: imageProvider,
+                                ),
+                              ),
+                              Positioned(
+                                right: -rWidth(20),
+                                bottom: -rWidth(10),
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (_) =>
+                                                EditProfileScreen()));
+                                  },
+                                  child: Container(
+                                    margin: EdgeInsets.only(bottom: rWidth(3)),
+                                    child: Icon(
+                                      Icons.edit,
+                                      size: rWidth(18),
+                                    ),
+                                  ),
+                                  style: ElevatedButton.styleFrom(
+                                    shape: CircleBorder(),
+                                    padding: EdgeInsets.all(5),
+                                  ),
+                                ),
+                              )
+                            ],
                           ),
                           SizedBox(
                             height: rWidth(20),
