@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:levelup_egoods/utilities/constants.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class PoliciesScreen extends StatelessWidget {
@@ -30,7 +31,7 @@ class PoliciesScreen extends StatelessWidget {
             children: [
               WebView(
                 javascriptMode: JavascriptMode.unrestricted,
-                initialUrl: 'https://www.privacypolicytemplate.net/',
+                initialUrl: '$webUrl/privacy-policy',
               ),
               WebView(
                 javascriptMode: JavascriptMode.unrestricted,

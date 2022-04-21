@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-const String apiUrl = "http://192.168.1.73:8000/api";
+const String apiUrl = "http://192.168.1.76:8000/api";
+const String webUrl = "http://192.168.1.76:8000";
 
 getBoxShadow(BuildContext context) {
   return Theme.of(context).scaffoldBackgroundColor.value == 4292929004

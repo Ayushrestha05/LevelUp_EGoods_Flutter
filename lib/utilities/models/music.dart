@@ -40,8 +40,9 @@ class Music with ChangeNotifier {
     _albumArtist = decode['item_details']['item_description'];
     _albumImage = decode['item_details']['item_image'];
     _albumType = decode['album_details']['album_type'];
-    _digitalPrice = decode['album_details']['digital_price'].toDouble();
-    _physicalPrice = decode['album_details']['physical_price'].toDouble();
+    _digitalPrice = (decode['album_details']['digital_price'] ?? 0).toDouble();
+    _physicalPrice =
+        (decode['album_details']['physical_price'] ?? 0).toDouble();
     _albumTracks = decode['album_tracks'];
 
     if (_digitalPrice == 0) {

@@ -78,7 +78,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 child: Container(
                   clipBehavior: Clip.antiAlias,
                   decoration: BoxDecoration(),
-                  margin: EdgeInsets.symmetric(horizontal: rWidth(15)),
+                  margin: EdgeInsets.symmetric(horizontal: rWidth(5)),
                   child: FutureBuilder(
                     future: search(),
                     builder:
@@ -98,8 +98,8 @@ class _SearchScreenState extends State<SearchScreen> {
                                 clipBehavior: Clip.none,
                                 itemCount: decode.length,
                                 gridDelegate:
-                                    const SliverGridDelegateWithFixedCrossAxisCount(
-                                  childAspectRatio: 0.7,
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                  childAspectRatio: rWidth(0.6),
                                   crossAxisCount: 2,
                                   mainAxisSpacing: 5,
                                   crossAxisSpacing: 5,
@@ -157,7 +157,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                                       decoration: const BoxDecoration(
                                                           image: DecorationImage(
                                                               image: AssetImage(
-                                                                  'assets/images/placeholder/Image_placeholder.jpg'))),
+                                                                  'assets/images/placeholder/Image_Placeholder.jpg'))),
                                                     ),
                                                     errorWidget:
                                                         (context, url, error) {
@@ -173,13 +173,13 @@ class _SearchScreenState extends State<SearchScreen> {
                                                         decoration: const BoxDecoration(
                                                             image: DecorationImage(
                                                                 image: AssetImage(
-                                                                    'assets/images/placeholder/Image_placeholder.jpg'))),
+                                                                    'assets/images/placeholder/Image_Placeholder.jpg'))),
                                                       );
                                                     },
                                                     imageBuilder: (context,
                                                             imageProvider) =>
                                                         Container(
-                                                      height: 170,
+                                                      height: rWidth(170),
                                                       // width: 100,
                                                       decoration: BoxDecoration(
                                                           borderRadius:

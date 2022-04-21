@@ -161,7 +161,7 @@ class IllustrationView extends StatelessWidget {
               style: TextStyle(
                   fontFamily: 'Archivo-Regular',
                   color: const Color(0xFF686868),
-                  fontSize: rWidth(12)),
+                  fontSize: rWidth(14)),
             ),
             SizedBox(
               height: rWidth(20),

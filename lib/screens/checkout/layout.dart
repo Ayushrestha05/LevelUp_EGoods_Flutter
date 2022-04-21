@@ -96,15 +96,15 @@ class _CheckoutLayoutState extends State<CheckoutLayout>
                       state: currentStep > 1
                           ? StepState.complete
                           : StepState.indexed,
-                      title: Text('Summary'),
-                      content: buildSummary(),
+                      title: Text('Payment'),
+                      content: buildPayment(),
                       isActive: currentStep >= 1),
                   Step(
                       state: currentStep > 2
                           ? StepState.complete
                           : StepState.indexed,
-                      title: Text('Payment'),
-                      content: buildPayment(),
+                      title: Text('Summary'),
+                      content: buildSummary(),
                       isActive: currentStep >= 2),
                 ],
                 onStepContinue: () {
@@ -355,7 +355,7 @@ class _CheckoutLayoutState extends State<CheckoutLayout>
     );
   }
 
-  buildSummary() {
+  buildPayment() {
     const TextStyle summaryStyle = TextStyle(fontFamily: 'Archivo-Regular');
     final auth = Provider.of<Auth>(context, listen: false);
     final String orderIdentity =
@@ -539,16 +539,19 @@ class _CheckoutLayoutState extends State<CheckoutLayout>
               _isProcessing = false;
             });
           },
-          label: Text('Pay with Khalti'),
+          label: const Text(
+            'Pay with Khalti',
+            style: TextStyle(color: Colors.white),
+          ),
         )
       ],
     );
   }
 
-  buildPayment() {
+  buildSummary() {
     const TextStyle summaryStyle = TextStyle(fontFamily: 'Archivo-Regular');
     final auth = Provider.of<Auth>(context, listen: false);
-
+    setState(() {});
     return SizeTransition(
       sizeFactor: _controller,
       child: SingleChildScrollView(
@@ -562,7 +565,8 @@ class _CheckoutLayoutState extends State<CheckoutLayout>
               clipper: MultipleRoundedCurveClipper(),
               child: Container(
                 decoration: BoxDecoration(
-                    color: Colors.white, boxShadow: [BoxShadow()]),
+                    color: Theme.of(context).secondaryHeaderColor,
+                    boxShadow: [BoxShadow()]),
                 padding: EdgeInsets.symmetric(
                     vertical: rWidth(30), horizontal: rWidth(15)),
                 //height: 100,

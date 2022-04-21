@@ -168,7 +168,7 @@ class FigurineView extends StatelessWidget {
                       textAlign: TextAlign.justify,
                       style: TextStyle(
                         fontFamily: 'Archivo-Regular',
-                        fontSize: rWidth(12),
+                        fontSize: rWidth(14),
                         color: const Color(0xFF686868),
                       ),
                     ),

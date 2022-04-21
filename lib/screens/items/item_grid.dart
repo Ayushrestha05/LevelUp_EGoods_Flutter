@@ -149,8 +149,8 @@ class _ItemGridState extends State<ItemGrid> {
                               clipBehavior: Clip.none,
                               itemCount: decode.length,
                               gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                childAspectRatio: 0.8,
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                childAspectRatio: rWidth(0.6),
                                 crossAxisCount: 2,
                                 mainAxisSpacing: 5,
                                 crossAxisSpacing: 5,
@@ -204,7 +204,7 @@ class _ItemGridState extends State<ItemGrid> {
                                                     decoration: const BoxDecoration(
                                                         image: DecorationImage(
                                                             image: AssetImage(
-                                                                'assets/images/placeholder/Image_placeholder.jpg'))),
+                                                                'assets/images/placeholder/Image_Placeholder.jpg'))),
                                                   ),
                                                   errorWidget:
                                                       (context, url, error) {
@@ -220,13 +220,13 @@ class _ItemGridState extends State<ItemGrid> {
                                                       decoration: const BoxDecoration(
                                                           image: DecorationImage(
                                                               image: AssetImage(
-                                                                  'assets/images/placeholder/Image_placeholder.jpg'))),
+                                                                  'assets/images/placeholder/Image_Placeholder.jpg'))),
                                                     );
                                                   },
                                                   imageBuilder: (context,
                                                           imageProvider) =>
                                                       Container(
-                                                    height: 170,
+                                                    height: rWidth(170),
                                                     // width: 100,
                                                     decoration: BoxDecoration(
                                                         borderRadius:

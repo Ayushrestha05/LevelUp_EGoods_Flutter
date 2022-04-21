@@ -224,7 +224,7 @@ class GameView extends StatelessWidget {
                       textAlign: TextAlign.justify,
                       style: TextStyle(
                         fontFamily: 'Archivo-Regular',
-                        fontSize: rWidth(12),
+                        fontSize: rWidth(14),
                         color: const Color(0xFF686868),
                       ),
                     ),
@@ -241,11 +241,17 @@ class GameView extends StatelessWidget {
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          const Icon(AntIcons.youtubeFilled),
+                          const Icon(
+                            AntIcons.youtubeFilled,
+                            color: Colors.white,
+                          ),
                           SizedBox(
                             width: rWidth(10),
                           ),
-                          const Text('Watch Trailer')
+                          const Text(
+                            'Watch Trailer',
+                            style: TextStyle(color: Colors.white),
+                          )
                         ],
                       ),
                     ),

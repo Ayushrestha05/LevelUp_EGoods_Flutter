@@ -213,7 +213,7 @@ class OrderSummaryScreen extends StatelessWidget {
                                 SizedBox(
                                   height: rWidth(10),
                                 ),
-                                order['sender_message'] ?? '' != ''
+                                order['sender_message'] != null
                                     ? Text(
                                         'Message Attached',
                                         style: TextStyle(
@@ -224,9 +224,10 @@ class OrderSummaryScreen extends StatelessWidget {
                                 SizedBox(
                                   height: rWidth(10),
                                 ),
-                                order['sender_message'] ?? '' != ''
+                                order['sender_message'] != null ||
+                                        order['sender_message'] != ''
                                     ? Text(
-                                        order['sender_message'],
+                                        order['sender_message'] ?? '',
                                         style: textStyle,
                                       )
                                     : Container(),

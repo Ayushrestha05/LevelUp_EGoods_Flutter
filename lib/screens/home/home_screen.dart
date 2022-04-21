@@ -8,6 +8,7 @@ import 'package:levelup_egoods/utilities/size_config.dart';
 import 'package:levelup_egoods/widgets/buttons.dart';
 import 'package:levelup_egoods/widgets/clickableSearchBar.dart';
 import 'package:http/http.dart' as http;
+import 'package:levelup_egoods/widgets/connection-issues.dart';
 
 import '../../utilities/constants.dart';
 import '../items/item_screen_switch.dart';
@@ -87,7 +88,7 @@ class HomeScreen extends StatelessWidget {
         builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.none:
-              return const Text('No Connection');
+              return buildNoConnectionError();
 
             case ConnectionState.waiting:
               return const Center(child: CircularProgressIndicator());
@@ -107,13 +108,13 @@ class HomeScreen extends StatelessWidget {
                                 fontSize: rWidth(20)),
                           ),
                         ),
-                        const SizedBox(
-                          height: 20,
+                        SizedBox(
+                          height: rWidth(10),
                         ),
                         SizedBox(
                           height: 250,
                           child: Swiper(
-                            autoplay: decode['illustrations'].length == 1
+                            autoplay: (decode['illustrations'].length ?? 1) == 1
                                 ? false
                                 : true,
                             autoplayDelay: 5000,
@@ -286,7 +287,7 @@ class HomeScreen extends StatelessWidget {
         builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.none:
-              return const Text('No Connection');
+              return buildNoConnectionError();
 
             case ConnectionState.waiting:
               return const Center(child: CircularProgressIndicator());
@@ -394,7 +395,7 @@ class HomeScreen extends StatelessWidget {
                                             decoration: const BoxDecoration(
                                                 image: DecorationImage(
                                                     image: AssetImage(
-                                                        'assets/images/placeholder/Image_placeholder.jpg'))),
+                                                        'assets/images/placeholder/Image_Placeholder.jpg'))),
                                           ),
                                       errorWidget: (context, url, error) {
                                         if (error != null) {
@@ -405,7 +406,7 @@ class HomeScreen extends StatelessWidget {
                                           decoration: const BoxDecoration(
                                               image: DecorationImage(
                                                   image: AssetImage(
-                                                      'assets/images/placeholder/Image_placeholder.jpg'))),
+                                                      'assets/images/placeholder/Image_Placeholder.jpg'))),
                                         );
                                       }),
                                 ),
@@ -428,7 +429,7 @@ class HomeScreen extends StatelessWidget {
         builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.none:
-              return const Text('No Connection');
+              return buildNoConnectionError();
 
             case ConnectionState.waiting:
               return const Center(child: CircularProgressIndicator());
@@ -507,7 +508,7 @@ class HomeScreen extends StatelessWidget {
                                       decoration: const BoxDecoration(
                                           image: DecorationImage(
                                               image: AssetImage(
-                                                  'assets/images/placeholder/Image_placeholder.jpg'))),
+                                                  'assets/images/placeholder/Image_Placeholder.jpg'))),
                                     ),
                                 errorWidget: (context, url, error) {
                                   if (error != null) {
@@ -518,7 +519,7 @@ class HomeScreen extends StatelessWidget {
                                     decoration: const BoxDecoration(
                                         image: DecorationImage(
                                             image: AssetImage(
-                                                'assets/images/placeholder/Image_placeholder.jpg'))),
+                                                'assets/images/placeholder/Image_Placeholder.jpg'))),
                                   );
                                 }),
                           );
@@ -567,8 +568,8 @@ class HomeScreen extends StatelessWidget {
                             itemCount: decode.length,
                             physics: NeverScrollableScrollPhysics(),
                             gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                              childAspectRatio: 0.8,
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                              childAspectRatio: rWidth(0.6),
                               crossAxisCount: 2,
                               mainAxisSpacing: 5,
                               crossAxisSpacing: 5,
@@ -616,7 +617,7 @@ class HomeScreen extends StatelessWidget {
                                                   decoration: const BoxDecoration(
                                                       image: DecorationImage(
                                                           image: AssetImage(
-                                                              'assets/images/placeholder/Image_placeholder.jpg'))),
+                                                              'assets/images/placeholder/Image_Placeholder.jpg'))),
                                                 ),
                                                 errorWidget:
                                                     (context, url, error) {
@@ -632,13 +633,13 @@ class HomeScreen extends StatelessWidget {
                                                     decoration: const BoxDecoration(
                                                         image: DecorationImage(
                                                             image: AssetImage(
-                                                                'assets/images/placeholder/Image_placeholder.jpg'))),
+                                                                'assets/images/placeholder/Image_Placeholder.jpg'))),
                                                   );
                                                 },
                                                 imageBuilder:
                                                     (context, imageProvider) =>
                                                         Container(
-                                                  height: rWidth(145),
+                                                  height: rWidth(170),
                                                   // width: 100,
                                                   decoration: BoxDecoration(
                                                       borderRadius:

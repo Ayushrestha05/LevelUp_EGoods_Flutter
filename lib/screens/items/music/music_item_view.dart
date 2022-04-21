@@ -141,39 +141,43 @@ class MusicViewScreen extends StatelessWidget {
                   margin: EdgeInsets.only(bottom: rWidth(10)),
                   child: Row(
                     children: [
-                      musicData.isSelected == 'digital'
-                          ? ChoiceChip(
-                              selected: true,
-                              label: Text('Digital'),
-                              onSelected: (value) {
-                                musicData.setSelectedValue('digital');
-                              },
-                            )
-                          : ChoiceChip(
-                              selected: false,
-                              label: Text('Digital'),
-                              onSelected: (value) {
-                                musicData.setSelectedValue('digital');
-                              },
-                            ),
+                      musicData.digitalPrice != 0
+                          ? musicData.isSelected == 'digital'
+                              ? ChoiceChip(
+                                  selected: true,
+                                  label: Text('Digital'),
+                                  onSelected: (value) {
+                                    musicData.setSelectedValue('digital');
+                                  },
+                                )
+                              : ChoiceChip(
+                                  selected: false,
+                                  label: Text('Digital'),
+                                  onSelected: (value) {
+                                    musicData.setSelectedValue('digital');
+                                  },
+                                )
+                          : Container(),
                       SizedBox(
                         width: 10,
                       ),
-                      musicData.isSelected == 'physical'
-                          ? ChoiceChip(
-                              selected: true,
-                              label: Text('Physical'),
-                              onSelected: (value) {
-                                musicData.setSelectedValue('physical');
-                              },
-                            )
-                          : ChoiceChip(
-                              selected: false,
-                              label: Text('Physical'),
-                              onSelected: (value) {
-                                musicData.setSelectedValue('physical');
-                              },
-                            ),
+                      musicData.physicalPrice != 0
+                          ? musicData.isSelected == 'physical'
+                              ? ChoiceChip(
+                                  selected: true,
+                                  label: Text('Physical'),
+                                  onSelected: (value) {
+                                    musicData.setSelectedValue('physical');
+                                  },
+                                )
+                              : ChoiceChip(
+                                  selected: false,
+                                  label: Text('Physical'),
+                                  onSelected: (value) {
+                                    musicData.setSelectedValue('physical');
+                                  },
+                                )
+                          : Container(),
                     ],
                   ),
                 ),

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:levelup_egoods/utilities/constants.dart';
 import 'package:levelup_egoods/utilities/size_config.dart';
 import 'package:http/http.dart' as http;
+import 'package:levelup_egoods/widgets/connection-issues.dart';
 
 class NotificationHistoryScreen extends StatelessWidget {
   const NotificationHistoryScreen({Key? key}) : super(key: key);
@@ -27,72 +28,75 @@ class NotificationHistoryScreen extends StatelessWidget {
                   TextStyle(fontFamily: 'Kamerik-Bold', fontSize: rWidth(30)),
             ),
           ),
-          Container(
-              margin: EdgeInsets.symmetric(horizontal: rWidth(15)),
-              child: FutureBuilder(
-                future: getNotificationHistory(),
-                builder:
-                    (BuildContext context, AsyncSnapshot<String> snapshot) {
-                  switch (snapshot.connectionState) {
-                    case ConnectionState.none:
-                      return const Text('No Connection');
+          Expanded(
+            child: Container(
+                margin: EdgeInsets.symmetric(horizontal: rWidth(15)),
+                child: FutureBuilder(
+                  future: getNotificationHistory(),
+                  builder:
+                      (BuildContext context, AsyncSnapshot<String> snapshot) {
+                    switch (snapshot.connectionState) {
+                      case ConnectionState.none:
+                        return buildNoConnectionError();
 
-                    case ConnectionState.waiting:
-                      return const Center(child: CircularProgressIndicator());
+                      case ConnectionState.waiting:
+                        return const Center(child: CircularProgressIndicator());
 
-                    case ConnectionState.done:
-                      var decode = jsonDecode(snapshot.data ?? '');
+                      case ConnectionState.done:
+                        var decode = jsonDecode(snapshot.data ?? '');
 
-                      return decode.length == 0
-                          ? Text('No Data Sir')
-                          : ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: decode.length,
-                              itemBuilder: (context, index) {
-                                return Card(
-                                  child: Container(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: rWidth(20),
-                                        vertical: rWidth(10)),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          decode['notifications'][index]
-                                              ['title'],
-                                          style:
-                                              TextStyle(fontFamily: 'Archivo'),
-                                        ),
-                                        SizedBox(
-                                          height: rWidth(5),
-                                        ),
-                                        Text(
-                                          decode['notifications'][index]
-                                              ['body'],
-                                          style: TextStyle(
-                                              fontFamily: 'Archivo-Regular'),
-                                        ),
-                                        Container(
-                                          alignment: Alignment.centerRight,
-                                          child: Text(
-                                            'Sent at ${DateFormat('yyyy-MM-dd').format(DateTime.parse(decode['notifications'][index]['created_at']))}',
+                        return decode.length == 0
+                            ? buildNoDataError(
+                                text: 'No Notifications were Found.')
+                            : ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: decode.length,
+                                itemBuilder: (context, index) {
+                                  return Card(
+                                    child: Container(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: rWidth(20),
+                                          vertical: rWidth(10)),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            decode['notifications'][index]
+                                                ['title'],
                                             style: TextStyle(
-                                                fontFamily: 'Archivo-Regular',
-                                                color: Colors.grey.shade500),
+                                                fontFamily: 'Archivo'),
                                           ),
-                                        ),
-                                      ],
+                                          SizedBox(
+                                            height: rWidth(5),
+                                          ),
+                                          Text(
+                                            decode['notifications'][index]
+                                                ['body'],
+                                            style: TextStyle(
+                                                fontFamily: 'Archivo-Regular'),
+                                          ),
+                                          Container(
+                                            alignment: Alignment.centerRight,
+                                            child: Text(
+                                              'Sent at ${DateFormat('yyyy-MM-dd').format(DateTime.parse(decode['notifications'][index]['created_at']))}',
+                                              style: TextStyle(
+                                                  fontFamily: 'Archivo-Regular',
+                                                  color: Colors.grey.shade500),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                );
-                              });
+                                  );
+                                });
 
-                    default:
-                      return Text('Error');
-                  }
-                },
-              )),
+                      default:
+                        return buildDefaultError();
+                    }
+                  },
+                )),
+          ),
         ],
       ),
     ));
