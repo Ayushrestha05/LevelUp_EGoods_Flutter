@@ -24,7 +24,10 @@ class CustomTextFormField extends StatelessWidget {
         hintText: hintText,
         hintStyle: const TextStyle(fontFamily: 'Outfit'),
         contentPadding: EdgeInsets.only(
-            top: rWidth(10), left: rWidth(16), bottom: rWidth(10)),
+            top: rWidth(10),
+            left: rWidth(16),
+            bottom: rWidth(10),
+            right: rWidth(16)),
         border: OutlineInputBorder(
           borderSide: const BorderSide(),
           borderRadius: BorderRadius.all(Radius.circular(rWidth(10))),

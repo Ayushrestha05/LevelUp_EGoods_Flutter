@@ -32,8 +32,7 @@ class _LoginScreenState extends State<LoginScreen> {
         body: Stack(
           children: [
             SingleChildScrollView(
-              child: SizedBox(
-                height: MediaQuery.of(context).size.height - 45,
+              child: Container(
                 child: _buildLoginScreen(context),
               ),
             ),
@@ -154,7 +153,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       ]),
                     ),
                   ),
-                )
+                ),
+                SizedBox(
+                  height: rWidth(15),
+                ),
               ],
             ),
           )

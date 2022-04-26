@@ -551,7 +551,6 @@ class _CheckoutLayoutState extends State<CheckoutLayout>
   buildSummary() {
     const TextStyle summaryStyle = TextStyle(fontFamily: 'Archivo-Regular');
     final auth = Provider.of<Auth>(context, listen: false);
-    setState(() {});
     return SizeTransition(
       sizeFactor: _controller,
       child: SingleChildScrollView(

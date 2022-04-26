@@ -19,8 +19,15 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final TextEditingController _searchTextField = TextEditingController();
+  var _categoryData = [];
   int _filterCategory = 8;
   bool _sortAsc = false;
+  @override
+  void initState() {
+    getCategories();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -46,7 +53,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           controller: _searchTextField,
                           enabled: true,
                           onEditingComplete: () {
-                            FocusScope.of(context).unfocus();
+                            FocusScope.of(context).requestFocus(FocusNode());
                             setState(() {});
                           },
                           decoration: const InputDecoration(
@@ -93,6 +100,9 @@ class _SearchScreenState extends State<SearchScreen> {
 
                         case ConnectionState.done:
                           var decode = jsonDecode(snapshot.data ?? '');
+                          if (snapshot.hasError) {
+                            return buildDefaultError();
+                          }
                           if (snapshot.hasData && decode.length > 0) {
                             return GridView.builder(
                                 clipBehavior: Clip.none,
@@ -241,11 +251,13 @@ class _SearchScreenState extends State<SearchScreen> {
       'filter': '$_filterCategory',
       'sort_name': _sortAsc ? 'ASC' : 'DESC',
     });
-    print(response.body);
+
     return response.body;
   }
 
   Widget? buildEndDrawer() {
+    getCategories();
+    setState(() {});
     return Container(
       margin:
           EdgeInsets.symmetric(horizontal: rWidth(10), vertical: rWidth(20)),
@@ -259,37 +271,24 @@ class _SearchScreenState extends State<SearchScreen> {
           SizedBox(
             height: rWidth(20),
           ),
-          FutureBuilder(
-              future: getCategories(),
-              builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-                switch (snapshot.connectionState) {
-                  case ConnectionState.none:
-                    return const Text('No Connection');
-
-                  case ConnectionState.waiting:
-                    return const Center(child: CircularProgressIndicator());
-
-                  case ConnectionState.done:
-                    var decode = jsonDecode(snapshot.data ?? '');
-                    return DropdownButtonFormField(
-                        decoration:
-                            InputDecoration(border: OutlineInputBorder()),
-                        value: _filterCategory,
-                        items: List.generate(
-                            decode.length,
-                            (index) => DropdownMenuItem(
-                                  child: Text(decode[index]['category_name']),
-                                  value: decode[index]['id'],
-                                )),
-                        onChanged: (value) {
-                          var test = '$value';
-                          _filterCategory = int.parse(test);
-                          setState(() {});
-                        });
-                  default:
-                    return Text('Error');
-                }
-              }),
+          StatefulBuilder(builder: (ctx, innerSetState) {
+            innerSetState(() {});
+            return DropdownButtonFormField(
+                decoration: InputDecoration(border: OutlineInputBorder()),
+                value: _filterCategory,
+                items: List.generate(
+                    _categoryData.length,
+                    (index) => DropdownMenuItem(
+                          child: Text(_categoryData[index]['category_name']),
+                          value: _categoryData[index]['id'],
+                        )),
+                onChanged: (value) {
+                  var test = '$value';
+                  _filterCategory = int.parse(test);
+                  FocusScope.of(context).requestFocus(FocusNode());
+                  setState(() {});
+                });
+          }),
           SizedBox(
             height: rWidth(20),
           ),
@@ -320,8 +319,12 @@ class _SearchScreenState extends State<SearchScreen> {
     );
   }
 
-  Future<String>? getCategories() async {
+  void getCategories() async {
     final response = await http.get(Uri.parse('$apiUrl/categories'));
-    return response.body;
+    if (response.statusCode == 200) {
+      _categoryData = jsonDecode(response.body);
+    } else {
+      _categoryData = [];
+    }
   }
 }

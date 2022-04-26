@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:alert/alert.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
@@ -43,9 +42,6 @@ class ReportScreen extends StatelessWidget {
   void reportValidation(BuildContext context) async {
     if (_reportFormKey.currentState?.validate() ?? false) {
       _reportFormKey.currentState?.save();
-      print(questionType);
-      print(questionTitle);
-      print(questionDescription);
       final auth = Provider.of<Auth>(context, listen: false);
 
       var response =

@@ -70,8 +70,8 @@ class RewardItemScreen extends StatelessWidget {
                                     horizontal: rWidth(10)),
                                 child: GridView.builder(
                                     gridDelegate:
-                                        const SliverGridDelegateWithFixedCrossAxisCount(
-                                      childAspectRatio: 0.6,
+                                        SliverGridDelegateWithFixedCrossAxisCount(
+                                      childAspectRatio: rWidth(0.5),
                                       crossAxisCount: 2,
                                       mainAxisSpacing: 1,
                                       crossAxisSpacing: 5,

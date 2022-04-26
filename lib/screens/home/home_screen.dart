@@ -96,184 +96,203 @@ class HomeScreen extends StatelessWidget {
             case ConnectionState.done:
               var decode = jsonDecode(snapshot.data ?? '');
               return decode.length > 0
-                  ? Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          margin: const EdgeInsets.only(right: 15),
-                          child: Text(
-                            'Artist Specials',
-                            style: TextStyle(
-                                fontFamily: 'Kamerik-Bold',
-                                fontSize: rWidth(20)),
-                          ),
-                        ),
-                        SizedBox(
-                          height: rWidth(10),
-                        ),
-                        SizedBox(
-                          height: 250,
-                          child: Swiper(
-                            autoplay: (decode['illustrations'].length ?? 1) == 1
-                                ? false
-                                : true,
-                            autoplayDelay: 5000,
-                            index: 1,
-                            itemCount: decode['illustrations'].length,
-                            itemBuilder: (context, index) {
-                              return Card(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10)),
-                                child: Column(
-                                  children: [
-                                    const SizedBox(
-                                      height: 12,
-                                    ),
-                                    CachedNetworkImage(
-                                      httpHeaders: const {
-                                        'Connection': 'Keep-Alive',
-                                        'Keep-Alive': 'timeout=10,max=1000'
-                                      },
-                                      imageUrl: decode['illustrations'][index]
-                                          ['item_image'],
-                                      placeholder: (context, url) => Container(
-                                        margin: const EdgeInsets.symmetric(
-                                            horizontal: 7),
-                                        height: 170,
-                                        decoration: BoxDecoration(
-                                            color: Colors.redAccent,
-                                            image: const DecorationImage(
-                                                fit: BoxFit.cover,
-                                                image: AssetImage(
-                                                    'assets/images/placeholder/Image_Placeholder.jpg')),
-                                            borderRadius:
-                                                BorderRadius.circular(10)),
-                                      ),
-                                      errorWidget: (context, url, error) {
-                                        if (error != null) {
-                                          print(error);
-                                        }
-                                        return Container(
-                                          margin: const EdgeInsets.symmetric(
-                                              horizontal: 7),
-                                          height: 170,
-                                          decoration: BoxDecoration(
-                                              color: Colors.redAccent,
-                                              image: const DecorationImage(
-                                                  fit: BoxFit.cover,
-                                                  image: AssetImage(
-                                                      'assets/images/placeholder/Portrait_Placeholder.png')),
-                                              borderRadius:
-                                                  BorderRadius.circular(10)),
-                                        );
-                                      },
-                                      imageBuilder: (context, imageProvider) =>
-                                          GestureDetector(
-                                        onTap: () {
-                                          itemScreen(
-                                              context: context,
-                                              categoryID:
-                                                  decode['illustrations'][index]
-                                                      ['category_id'],
-                                              itemID: decode['illustrations']
-                                                  [index]['id'],
-                                              imageURL: decode['illustrations']
-                                                  [index]['item_image'],
-                                              heroTag: decode['illustrations']
-                                                      [index]['id']
-                                                  .toString());
-                                        },
-                                        child: Hero(
-                                          tag: decode['illustrations'][index]
-                                                  ['id']
-                                              .toString(),
-                                          child: Container(
+                  ? decode['illustrations'].length > 0
+                      ? Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.only(right: 15),
+                              child: Text(
+                                'Artist Specials',
+                                style: TextStyle(
+                                    fontFamily: 'Kamerik-Bold',
+                                    fontSize: rWidth(20)),
+                              ),
+                            ),
+                            SizedBox(
+                              height: rWidth(10),
+                            ),
+                            SizedBox(
+                              height: 250,
+                              child: Swiper(
+                                autoplay:
+                                    (decode['illustrations'].length ?? 1) == 1
+                                        ? false
+                                        : true,
+                                autoplayDelay: 5000,
+                                index: 1,
+                                itemCount: decode['illustrations'].length,
+                                itemBuilder: (context, index) {
+                                  return Card(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    child: Column(
+                                      children: [
+                                        const SizedBox(
+                                          height: 12,
+                                        ),
+                                        CachedNetworkImage(
+                                          httpHeaders: const {
+                                            'Connection': 'Keep-Alive',
+                                            'Keep-Alive': 'timeout=10,max=1000'
+                                          },
+                                          imageUrl: decode['illustrations']
+                                              [index]['item_image'],
+                                          placeholder: (context, url) =>
+                                              Container(
                                             margin: const EdgeInsets.symmetric(
                                                 horizontal: 7),
                                             height: 170,
                                             decoration: BoxDecoration(
                                                 color: Colors.redAccent,
-                                                image: DecorationImage(
+                                                image: const DecorationImage(
                                                     fit: BoxFit.cover,
-                                                    image: imageProvider),
+                                                    image: AssetImage(
+                                                        'assets/images/placeholder/Image_Placeholder.jpg')),
                                                 borderRadius:
                                                     BorderRadius.circular(10)),
                                           ),
-                                        ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: Center(
-                                        child: Container(
-                                          margin: const EdgeInsets.symmetric(
-                                              vertical: 10, horizontal: 10),
-                                          child: Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Spacer(),
-                                              CachedNetworkImage(
-                                                httpHeaders: const {
-                                                  'Connection': 'Keep-Alive',
-                                                  'Keep-Alive':
-                                                      'timeout=10,max=1000'
-                                                },
-                                                imageUrl: decode['artist']
-                                                    ['profile_image'],
-                                                placeholder: (context, url) =>
-                                                    CircleAvatar(
-                                                  radius: rWidth(10),
-                                                  foregroundImage: const AssetImage(
-                                                      'assets/images/placeholder/Portrait_Placeholder.png'),
-                                                ),
-                                                errorWidget:
-                                                    (context, url, error) {
-                                                  if (error != null) {
-                                                    print(error);
-                                                  }
-                                                  return CircleAvatar(
-                                                    radius: rWidth(10),
-                                                    foregroundImage:
-                                                        const AssetImage(
-                                                            'assets/images/placeholder/Portrait_Placeholder.png'),
-                                                  );
-                                                },
-                                                imageBuilder:
-                                                    (context, imageProvider) =>
-                                                        CircleAvatar(
-                                                  backgroundColor:
-                                                      Colors.transparent,
-                                                  radius: rWidth(20),
-                                                  foregroundImage:
-                                                      imageProvider,
-                                                ),
-                                              ),
-                                              Container(
+                                          errorWidget: (context, url, error) {
+                                            if (error != null) {
+                                              print(error);
+                                            }
+                                            return Container(
+                                              margin:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 7),
+                                              height: 170,
+                                              decoration: BoxDecoration(
+                                                  color: Colors.redAccent,
+                                                  image: const DecorationImage(
+                                                      fit: BoxFit.cover,
+                                                      image: AssetImage(
+                                                          'assets/images/placeholder/Portrait_Placeholder.png')),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10)),
+                                            );
+                                          },
+                                          imageBuilder:
+                                              (context, imageProvider) =>
+                                                  GestureDetector(
+                                            onTap: () {
+                                              itemScreen(
+                                                  context: context,
+                                                  categoryID:
+                                                      decode['illustrations']
+                                                              [index]
+                                                          ['category_id'],
+                                                  itemID:
+                                                      decode['illustrations']
+                                                          [index]['id'],
+                                                  imageURL:
+                                                      decode['illustrations']
+                                                          [index]['item_image'],
+                                                  heroTag:
+                                                      decode['illustrations']
+                                                              [index]['id']
+                                                          .toString());
+                                            },
+                                            child: Hero(
+                                              tag: decode['illustrations']
+                                                      [index]['id']
+                                                  .toString(),
+                                              child: Container(
                                                 margin:
                                                     const EdgeInsets.symmetric(
-                                                        horizontal: 10),
-                                                child: Text(
-                                                  decode['artist']['name'],
-                                                  style: TextStyle(
-                                                      fontFamily: 'Outfit',
-                                                      fontSize: 20),
-                                                ),
-                                              )
-                                            ],
+                                                        horizontal: 7),
+                                                height: 170,
+                                                decoration: BoxDecoration(
+                                                    color: Colors.redAccent,
+                                                    image: DecorationImage(
+                                                        fit: BoxFit.cover,
+                                                        image: imageProvider),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10)),
+                                              ),
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                      ],
-                    )
+                                        Expanded(
+                                          child: Center(
+                                            child: Container(
+                                              margin:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 10,
+                                                      horizontal: 10),
+                                              child: Row(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Spacer(),
+                                                  CachedNetworkImage(
+                                                    httpHeaders: const {
+                                                      'Connection':
+                                                          'Keep-Alive',
+                                                      'Keep-Alive':
+                                                          'timeout=10,max=1000'
+                                                    },
+                                                    imageUrl: decode['artist']
+                                                        ['profile_image'],
+                                                    placeholder:
+                                                        (context, url) =>
+                                                            CircleAvatar(
+                                                      radius: rWidth(10),
+                                                      foregroundImage:
+                                                          const AssetImage(
+                                                              'assets/images/placeholder/Portrait_Placeholder.png'),
+                                                    ),
+                                                    errorWidget:
+                                                        (context, url, error) {
+                                                      if (error != null) {
+                                                        print(error);
+                                                      }
+                                                      return CircleAvatar(
+                                                        radius: rWidth(10),
+                                                        foregroundImage:
+                                                            const AssetImage(
+                                                                'assets/images/placeholder/Portrait_Placeholder.png'),
+                                                      );
+                                                    },
+                                                    imageBuilder: (context,
+                                                            imageProvider) =>
+                                                        CircleAvatar(
+                                                      backgroundColor:
+                                                          Colors.transparent,
+                                                      radius: rWidth(20),
+                                                      foregroundImage:
+                                                          imageProvider,
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    margin: const EdgeInsets
+                                                            .symmetric(
+                                                        horizontal: 10),
+                                                    child: Text(
+                                                      decode['artist']['name'],
+                                                      style: TextStyle(
+                                                          fontFamily: 'Outfit',
+                                                          fontSize: 20),
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
+                        )
+                      : Container()
                   : Container();
             default:
               return Text('Error');

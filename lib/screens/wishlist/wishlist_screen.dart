@@ -177,7 +177,10 @@ class WishlistScreen extends StatelessWidget {
                       },
                     ),
                   )
-                : Expanded(child: buildNoDataError(text: 'No Items Found.'))
+                //: Expanded(child: buildNoDataError(text: 'No Items Found.'))\
+                : Expanded(
+                    child: buildDefaultError(),
+                  )
           ],
         ),
       ),

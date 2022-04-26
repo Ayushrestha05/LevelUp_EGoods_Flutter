@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:alert/alert.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:levelup_egoods/screens/login_screen.dart';
@@ -107,7 +108,6 @@ class Auth extends ChangeNotifier {
       Alert(message: "You have been logged in").show();
       notifyListeners();
       getCart();
-      print(jsonResponse['token']);
     }
 
     return response.statusCode;
@@ -135,6 +135,10 @@ class Auth extends ChangeNotifier {
       _userToken = jsonResponse['token'];
       notifyListeners();
       getCart();
+    } else {
+      if (kDebugMode) {
+        print(response.body);
+      }
     }
 
     return response.statusCode;
