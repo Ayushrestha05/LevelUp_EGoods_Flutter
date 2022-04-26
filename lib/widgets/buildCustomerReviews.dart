@@ -1,9 +1,7 @@
-import 'package:card_swiper/card_swiper.dart';
 import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:flutter/material.dart';
 import 'package:levelup_egoods/screens/item_review/collective_item_reviews_screen.dart';
 import 'package:levelup_egoods/utilities/size_config.dart';
-import 'package:levelup_egoods/widgets/buttons.dart';
 
 import 'bulidRatingStars.dart';
 

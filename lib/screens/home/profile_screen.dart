@@ -196,7 +196,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                               ),
                                               Expanded(
                                                 child: Text(
-                                                  'You earn 10\% of Reward Points from Total Amount when you place an Order.',
+                                                  'You earn 10% of Reward Points from Total Amount when you place an Order.',
                                                   style: TextStyle(
                                                       fontFamily:
                                                           'Archivo-Regular'),

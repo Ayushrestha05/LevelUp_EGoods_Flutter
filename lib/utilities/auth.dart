@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:alert/alert.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -164,7 +163,18 @@ class Auth extends ChangeNotifier {
       Alert(message: 'You have been logged out').show();
       notifyListeners();
     } else {
-      Alert(message: 'Some Error Occurred. Please try again later.').show();
+      _isAuthenticated = false;
+      UserHandler().loggedOut();
+      _cartItems = [];
+      _isArtist = false;
+      _userName = '';
+      _userEmail = '';
+      _profileImage = '';
+      _totalPrice = 0;
+      _userToken = '';
+      _userPoint = 0;
+      Alert(message: 'Some Error Occurred.').show();
+      notifyListeners();
     }
   }
 

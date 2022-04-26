@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:card_swiper/card_swiper.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:levelup_egoods/screens/notification_history/notification_history_screen.dart';
 import 'package:levelup_egoods/utilities/size_config.dart';

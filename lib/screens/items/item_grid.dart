@@ -1,13 +1,8 @@
 import 'dart:convert';
-
-import 'package:antdesign_icons/antdesign_icons.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:http/http.dart' as http;
 import 'package:levelup_egoods/screens/items/item_screen_switch.dart';
-import 'package:levelup_egoods/screens/search/search_screen.dart';
 import 'package:levelup_egoods/utilities/constants.dart';
 import 'package:levelup_egoods/utilities/size_config.dart';
 import 'package:levelup_egoods/widgets/clickableSearchBar.dart';

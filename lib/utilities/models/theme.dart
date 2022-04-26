@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:levelup_egoods/utilities/theme_data.dart';
 import 'package:levelup_egoods/utilities/user_handler.dart';
 
 class AppTheme extends ChangeNotifier {

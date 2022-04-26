@@ -4,7 +4,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:levelup_egoods/screens/checkout/layout.dart';
 import 'package:levelup_egoods/screens/items/item_screen_switch.dart';
 import 'package:levelup_egoods/utilities/auth.dart';
-import 'package:levelup_egoods/utilities/constants.dart';
 import 'package:levelup_egoods/utilities/size_config.dart';
 import 'package:levelup_egoods/widgets/bottomNavigationItemBar.dart';
 import 'package:levelup_egoods/widgets/titleContainer.dart';
